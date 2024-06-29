@@ -1,4 +1,7 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { UserAuthService } from 'src/app/services/user-auth.service';
 
 @Component({
   selector: 'app-register',
@@ -8,7 +11,8 @@ import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 export class RegisterComponent implements AfterViewInit {
   @ViewChild('register-container') formContainer!: ElementRef;
 
-  constructor(private elementRef: ElementRef) {}
+  constructor(private elementRef: ElementRef, private userAuthService: UserAuthService, 
+              private router: Router) {}
 
   ngAfterViewInit(): void {
     const inputs = this.elementRef.nativeElement.querySelectorAll('.input-group input')  as NodeListOf<HTMLInputElement>;
@@ -115,5 +119,17 @@ export class RegisterComponent implements AfterViewInit {
         }
       });
     });
+  }
+
+  register(registerForm: NgForm){
+    console.log(registerForm.value);
+    this.userAuthService.register(registerForm.value).subscribe(
+      (response) => {
+        this.router.navigate(['/login']);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 }

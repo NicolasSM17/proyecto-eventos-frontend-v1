@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserAuthService } from 'src/app/services/user-auth.service';
 
 @Component({
   selector: 'app-login',
@@ -10,6 +12,8 @@ export class LoginComponent {
   password: string = '';
   showEmailValidation: boolean = false;
   showPasswordValidation: boolean = false;
+
+  constructor(private userAuthService: UserAuthService, private router: Router){}
 
   onSubmit(event: Event): void {
     event.preventDefault();
