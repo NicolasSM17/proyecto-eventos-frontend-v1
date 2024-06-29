@@ -1,1 +1,64 @@
-<p>event-detail works!</p>
+<div class="evento-container">
+    <div class="evento-info">
+        <a routerLink="/eventList" class="btn-volver">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <h2>2DO ANIVERSARIO VALLENATO FEST</h2>
+    </div>
+    <div class="evento-contenido">
+        <div class="evento-descripcion">
+            <h2><strong>Información general</strong></h2><br>
+            <p>El evento de Vallenato más grande nunca visto en Perú, en su 2da edición. ¡Imperdible!</p><br>
+            <p>Este sábado 4 de mayo se bajará el telón de la edición número 57 del Festival de la Leyenda Vallenata
+                en Valledupar. Dentro de la lista de estrellas que se presentarán en el concierto de cierre, se
+                encuentra Iván Villazón, el homenajeado de honor de esta edición.</p><br>
+            <p>Este evento será uno de los únicos conciertos que no será gratuito dentro de la programación del
+                festival 2024, hasta el momento, la boletería se encuentra vendida en su totalidad. Además, es un
+                evento únicamente para mayores de 18 años.</p>
+        </div>
+        <div class="evento-adicionales">
+            <div class="evento-datos">
+                <p><strong>Fecha:</strong> {{ fechaEvento }}</p>
+                <p><strong>Hora:</strong> {{ horaEvento }}</p>
+                <p><strong>Lugar:</strong> {{ lugarEvento }}</p>
+                <p><strong>Organizador:</strong> {{ organizadorEvento }}</p>
+            </div>
+            <div id="evento-mapa-container">
+                <div class="evento-mapa">
+                    <h3>Ubicación</h3>
+                    <div class="card-body py-2">
+                        <h5 class="mb-1 text-capitalize"><b>{{ ubicacion }}</b></h5>
+                        <h6>{{ direccion }}</h6>
+                        <p class="small mb-0"><strong></strong></p>
+                    </div>
+                    <a href="{{ mapaLink }}" target="_blank" rel="noopener noreferrer" class="maps-preview">
+                        <img src="https://cdn.joinnus.com/img/maps-preview.png" alt="map" class="img-fluid">
+                        <span class="btn btn-primary btn-sm">Ver mapa</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="eventos-similares">
+        <h3>Eventos Similares</h3>
+        <a *ngFor="let evento of eventosSimilares" [href]="evento.url" class="evento-similar-link">
+            <div class="evento-similar">
+                <div class="card">
+                    <img [src]="evento.imagen" class="card-img-top" alt="Evento Similar">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ evento.nombre }}</h5>
+                        <p class="card-text"><i class="fas fa-calendar-alt"></i> {{ evento.fecha }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <button class="btn btn-success btn-comprar">Comprar</button>
+                            <p class="card-text">Desde S/ {{ evento.precio }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="barra-fija">
+        <span><b>2DO ANIVERSARIO VALLENATO FEST</b></span>
+        <button class="btn-comprar"><b>Comprar ahora</b></button>
+    </div>
+</div>
