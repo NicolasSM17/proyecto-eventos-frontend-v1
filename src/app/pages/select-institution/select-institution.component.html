@@ -1,0 +1,29 @@
+<div class="own-container">
+    <h1>¿Cual es tu Point?</h1>
+
+    <div class="institutions-wrapper">
+        <button class="nav-button" id="prev-button" (click)="prev()">&#8249;</button>
+        <ul class="institutions">
+            <li *ngFor="let institution of institutions; let i = index" 
+                class="institution" 
+                [ngClass]="{'visible': i >= currentPosition && i < currentPosition + itemsToShow, 'hidden': !(i >= currentPosition && i < currentPosition + itemsToShow)}">
+                <a href="/">
+                    <img [src]="institution.img" [alt]="institution.name">
+                    <p>{{ institution.name }}</p>
+                </a>
+            </li>
+        </ul>
+        <button class="nav-button" id="next-button" (click)="next()">&#8250;</button>
+    </div>
+
+    <!-- Botones de administrador -->
+    <div class="admin-buttons">
+        <div class="config-button">
+            <button id="admin-config">Administrar Points</button>
+        </div>
+        <div class="add-button">
+            <button id="add-point"><i class="fas fa-plus"></i></button>
+            <p>Añadir Point</p>
+        </div>
+    </div>
+</div>

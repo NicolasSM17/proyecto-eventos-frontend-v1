@@ -1,1 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+    font-family: 'Plus Jakarta Sans', Arial, sans-serif; 
+    background-color: #221f1f; 
+    color: white;
+    text-align: center;
+    overflow-x: hidden; /* Evita el desplazamiento horizontal */
+}
