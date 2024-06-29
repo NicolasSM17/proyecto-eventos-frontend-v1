@@ -7,7 +7,7 @@
             <li *ngFor="let institution of institutions; let i = index" 
                 class="institution" 
                 [ngClass]="{'visible': i >= currentPosition && i < currentPosition + itemsToShow, 'hidden': !(i >= currentPosition && i < currentPosition + itemsToShow)}">
-                <a href="/">
+                <a routerLink="/eventList">
                     <img [src]="institution.img" [alt]="institution.name">
                     <p>{{ institution.name }}</p>
                 </a>

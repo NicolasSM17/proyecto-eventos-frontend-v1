@@ -1,1 +1,37 @@
-<p>navbar works!</p>
+<header>
+    <div class="container-fluid">
+        <div class="logo">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/012/986/755/small/abstract-circle-logo-icon-free-png.png" alt="Logo">
+        </div>
+        <div class="search-container expanded-search">
+            <div class="search-bar">
+                <input type="text" placeholder="Busca eventos,convenciones y más...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+        </div>
+        <div class="buttons">
+            <div class="dropdown col-md-3">
+                <button id="filterButton" class="btn filter-button-categories" aria-label="Filtrar por categorías" (click)="toggleDropdown()">
+                    <i class="fas fa-tags"></i>
+                    <span>Categorías</span>
+                </button>
+                <div id="dropdownMenu" class="dropdown-menu" [ngClass]="{'show': isDropdownVisible}">
+                    <div class="p-3 dropdown-custom-body">
+                        <div>
+                            <button *ngFor="let categoria of categorias" class="btn btn-outline-white btn-sm btn-round mb-2 mr-2" type="button">{{ categoria }}</button>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <div>
+                                <a href="#" class="text-danger">Eliminar filtro</a>
+                            </div>
+                            <div>
+                                <button class="btn btn-primary btn-round" type="button">Aplicar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="btn"><i class="fas fa-sign-in-alt"></i></a>
+        </div>
+    </div>
+</header>
