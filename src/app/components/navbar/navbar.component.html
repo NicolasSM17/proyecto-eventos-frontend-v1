@@ -31,7 +31,9 @@
                     </div>
                 </div>
             </div>
-            <a href="#" class="btn"><i class="fas fa-sign-in-alt"></i></a>
+            <a *ngIf="isLoggedIn()" (click)="logout()" class="btn"><i class="fas fa-sign-in-alt"></i></a>
+            <button *ngIf="!isLoggedIn()" type="button" class="btn btn-outline-primary" routerLink="/login">Iniciar Sesion</button>
+            <button *ngIf="!isLoggedIn()" type="button" class="btn btn-outline-success" routerLink="/register">Registrarse</button>
         </div>
     </div>
 </header>

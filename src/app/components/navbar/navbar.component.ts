@@ -1,4 +1,6 @@
 import { Component, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserAuthService } from 'src/app/services/user-auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -15,6 +17,8 @@ export class NavbarComponent {
     'Comidas & Bebidas', 'Festivales', 'Tecnología', 'Niños', 'Ayuda Social',
     'Cine'
   ];
+
+  constructor(private userAuthService: UserAuthService, private router: Router){}
 
   // Alterna el estado del dropdown
   toggleDropdown() {
@@ -37,5 +41,14 @@ export class NavbarComponent {
         this.isDropdownVisible = false;
       }
     }
+  }
+
+  public isLoggedIn(){
+    return this.userAuthService.isLoggedIn();
+  }
+
+  public logout(){
+    this.userAuthService.clear();
+    this.router.navigate(['/'])
   }
 }

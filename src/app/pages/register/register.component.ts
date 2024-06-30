@@ -8,12 +8,13 @@ import { UserAuthService } from 'src/app/services/user-auth.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements AfterViewInit {
+export class RegisterComponent{
   @ViewChild('register-container') formContainer!: ElementRef;
 
   constructor(private elementRef: ElementRef, private userAuthService: UserAuthService, 
               private router: Router) {}
 
+  
   ngAfterViewInit(): void {
     const inputs = this.elementRef.nativeElement.querySelectorAll('.input-group input')  as NodeListOf<HTMLInputElement>;
     const validationMessages = this.elementRef.nativeElement.querySelectorAll('.validation-message');

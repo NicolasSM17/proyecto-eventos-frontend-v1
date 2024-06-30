@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserAuthService } from 'src/app/services/user-auth.service';
 
@@ -14,6 +15,21 @@ export class LoginComponent {
   showPasswordValidation: boolean = false;
 
   constructor(private userAuthService: UserAuthService, private router: Router){}
+
+  login(loginForm: NgForm){
+    
+    this.userAuthService.login(loginForm.value).subscribe(
+      (response: any) => {
+        //console.log('Datos del formulario:', loginForm.value);
+        console.log(response);
+        this.userAuthService.setToken(response.token);
+        this.router.navigate(['/selectInstitution'])
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 
   onSubmit(event: Event): void {
     event.preventDefault();
