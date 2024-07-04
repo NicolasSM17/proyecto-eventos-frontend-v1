@@ -1,13 +1,3 @@
-@keyframes onAutoFillStart {
-    from {}
-    to {}
-}
-
-@keyframes onAutoFillCancel {
-    from {}
-    to {}
-}
-
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -15,10 +5,6 @@
     to {
         opacity: 1;
     }
-}
-
-.fade-in {
-    animation: fadeIn 0.3s ease-in-out;
 }
 
 :host {
@@ -60,7 +46,7 @@
     z-index: 1;
 }
 
-.login-container {
+.general-container {
     position: relative;
     z-index: 2;
     background-color: rgba(0, 0, 0, 0.7);
@@ -73,6 +59,7 @@
     height: 85%;
     flex-direction: column;
     margin-top: 70px;
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 .login-form {
@@ -93,64 +80,42 @@
     margin-bottom: 20px;
 }
 
-.input-group input {
-    width: 100%;
-    padding: 20px 10px 10px 15px;
-    border: 1px solid rgba(107, 105, 105, 0.5);
-    border-radius: 5px;
-    background: rgba(22, 25, 31, 0.4);
-    color: white;
-    font-size: 16px;
-    transition: border-color 0.3s ease, background-color 0.3s ease;
-}
+
 
 .input-group input:focus {
     border-color: rgb(219, 221, 223);
     outline: none;
 }
 
-@supports (-webkit-appearance: none) and (not (-moz-appearance: none)) and (text-size-adjust: none) {
-    .login-container input:-webkit-autofill,
-    .login-container input:-webkit-autofill:hover, 
-    .login-container input:-webkit-autofill:focus, 
-    .login-container input:-webkit-autofill:active {
-        
-        -webkit-box-shadow: 0 0 0px 1000px rgba(40, 57, 90, 0.4) inset !important;
-        -webkit-text-fill-color: rgb(255, 255, 255) !important;
-        caret-color: rgb(255, 255, 255);
-    }
-
-    .login-container input:-webkit-autofill::first-line {
-        font-family: 'Open Sans', sans-serif !important;
-        font-size: 16px !important;
-        color: rgb(255, 255, 255) !important;
-    }
-}
-
 .input-group input:focus + label,
-.input-group input:valid + label {
-    transform: translateY(-50%) scale(0.8);
-    top: -5px;
-    left: 15px;
-    color: rgba(219, 221, 223, 0.6);
+.input-group input.filled + label,
+.input-group input:not(:placeholder-shown) + label {
+    top: 5px;
+    font-size: 12px;
+    color: #ada9aa;
 }
 
 .input-group label {
     position: absolute;
-    top: 50%;
-    left: 15px;
-    transform: translateY(-50%);
-    color: rgba(107, 105, 105, 0.5);
+    top: 15px;
+    left: 14.5px;
+    color: rgba(226, 218, 218, 0.5);
+    font-size: 15px;
     pointer-events: none;
-    transition: transform 0.3s ease, color 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.input-group input::placeholder {
+    opacity: 0;
 }
 
 .validation-message {
+    display: none;
     color: rgba(255, 0, 0, 0.8);
     display: flex;
     align-items: center;
     margin-top: 10px;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .validation-message svg {
@@ -158,7 +123,7 @@
 }
 
 .login-btn {
-    background-color: rgb(183, 28, 28);
+    background-color: #e50914;
     color: white;
     padding: 15px;
     border: none;
@@ -171,7 +136,15 @@
 }
 
 .login-btn:hover {
-    background-color: rgb(219, 50, 54);
+    background-color: rgba(255, 0, 0, 0.7);
+}
+
+.login-btn:active,
+.login-btn:focus {
+    background-color: rgba(255, 0, 0, 0.5);
+    transition: background-color 0.3s ease;
+    outline: none;
+    box-shadow: none;
 }
 
 .new-to-site {

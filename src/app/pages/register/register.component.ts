@@ -8,21 +8,25 @@ import { UserAuthService } from 'src/app/services/user-auth.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent{
+export class RegisterComponent implements AfterViewInit {
   @ViewChild('register-container') formContainer!: ElementRef;
 
   constructor(private elementRef: ElementRef, private userAuthService: UserAuthService, 
               private router: Router) {}
 
   
+
+
   ngAfterViewInit(): void {
     const inputs = this.elementRef.nativeElement.querySelectorAll('.input-group input')  as NodeListOf<HTMLInputElement>;
     const validationMessages = this.elementRef.nativeElement.querySelectorAll('.validation-message');
-
+    const registerBtn = this.elementRef.nativeElement.querySelector('#register-btn');
     // Ocultar todos los mensajes de validación al cargar la página
     validationMessages.forEach((msg: HTMLElement) => {
       msg.style.display = 'none';
     });
+
+
 
     inputs.forEach((input: HTMLInputElement) => {
       input.addEventListener('focus', () => {
@@ -65,7 +69,9 @@ export class RegisterComponent{
       });
     });
 
-    const registerBtn = this.elementRef.nativeElement.querySelector('#register-btn');
+
+
+    
     if (registerBtn) {
       registerBtn.addEventListener('click', (event: Event) => {
         // Mostrar mensajes de validación para inputs vacíos al intentar registrar
@@ -90,37 +96,47 @@ export class RegisterComponent{
       });
     }
 
+
+
+
     // Escuchar eventos de input para manejar el autofill
-    inputs.forEach((input: HTMLInputElement) => {
-      // Verifica si el input tiene un valor (por autofill o por manual)
-      if (input.value) {
-        input.classList.add('filled');
-      }
-
-      // Añade un evento para cuando se complete el autofill
-      input.addEventListener('animationstart', (e: AnimationEvent) => {
-        if (e.animationName === 'onAutoFillStart') {
-          input.classList.add('filled');
-        }
-      });
-
-      // Añade un evento para cuando el autofill se retire
-      input.addEventListener('animationend', (e: AnimationEvent) => {
-        if (e.animationName === 'onAutoFillCancel') {
-          input.classList.remove('filled');
-        }
-      });
-
-      // Añade o remueve la clase 'filled' en eventos de input
-      input.addEventListener('input', () => {
-        if (input.value) {
-          input.classList.add('filled');
-        } else {
-          input.classList.remove('filled');
-        }
-      });
-    });
+  inputs.forEach((input: HTMLInputElement) => {
+  // Verifica si el input tiene un valor (por autofill o por manual)
+  if (input.value) {
+    input.classList.add('filled');
   }
+
+  // Añade un evento para cuando se complete el autofill
+  input.addEventListener('animationstart', (e: AnimationEvent) => {
+    console.log('animationstart:', e.animationName);  // Log para verificar si el evento se activa
+    if (e.animationName === 'onAutoFillStart') {
+      input.classList.add('filled');
+    }
+  });
+
+  // Añade un evento para cuando el autofill se retire
+  input.addEventListener('animationend', (e: AnimationEvent) => {
+    console.log('animationend:', e.animationName);  // Log para verificar si el evento se activa
+    if (e.animationName === 'onAutoFillCancel') {
+      input.classList.remove('filled');
+    }
+  });
+
+  // Añade o remueve la clase 'filled' en eventos de input
+  input.addEventListener('input', () => {
+    if (input.value) {
+      input.classList.add('filled');
+    } else {
+      input.classList.remove('filled');
+    }
+  });
+});
+
+  
+}
+
+
+
 
   register(registerForm: NgForm){
     console.log(registerForm.value);

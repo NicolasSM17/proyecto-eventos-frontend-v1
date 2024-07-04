@@ -1,5 +1,5 @@
 <div class="overlay"></div>
-<div class="register-container">
+<div class="general-container">
     <form class="register-form" #registerForm="ngForm" (ngSubmit)="register(registerForm)">
         <div class="logo-container">
             <img src="https://static.vecteezy.com/system/resources/thumbnails/012/986/755/small/abstract-circle-logo-icon-free-png.png"
@@ -21,6 +21,7 @@
                 </svg> Ingresa sus nombres completos.
             </div>
         </div>
+        
         <div class="input-group">
             <input ngModel name="apellido" type="text" id="last-name" placeholder="Nombre de usuario">
             <label for="last-name">Apellidos completos</label>
