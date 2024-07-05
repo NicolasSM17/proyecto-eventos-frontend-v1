@@ -49,6 +49,6 @@ export class NavbarComponent {
 
   public logout(){
     this.userAuthService.clear();
-    this.router.navigate(['/'])
+    this.router.navigate(['/selectInstitution'])
   }
 }
