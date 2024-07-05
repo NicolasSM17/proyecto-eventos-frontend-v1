@@ -1,4 +1,5 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserAuthService } from 'src/app/services/user-auth.service';
 
@@ -8,7 +9,14 @@ import { UserAuthService } from 'src/app/services/user-auth.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+  @ViewChild('loginForm') loginForm!: NgForm;
+  @ViewChild('formContainer') formContainer!: ElementRef;
+
   isDropdownVisible = false;
+  email: string = '';
+  password: string = '';
+  showEmailValidation: boolean = false;
+  showPasswordValidation: boolean = false;
 
   categorias = [
     'Stand up', 'Donación', 'Salud y bienestar', 'Tiendas', 'Conciertos',
@@ -51,4 +59,39 @@ export class NavbarComponent {
     this.userAuthService.clear();
     this.router.navigate(['/selectInstitution'])
   }
+
+  /* MODAL LOGIN */
+  login(loginForm: NgForm) {
+    this.userAuthService.login(loginForm.value).subscribe(
+      (response: any) => {
+        console.log(response);
+        this.userAuthService.setToken(response.token);
+        this.router.navigate(['/selectInstitution']);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  onSubmit(event: Event): void {
+    event.preventDefault();
+    this.showEmailValidation = !this.isValidEmail(this.email);
+    this.showPasswordValidation = !this.isValidPassword(this.password);
+
+    if (!this.showEmailValidation && !this.showPasswordValidation) {
+      console.log('Email:', this.email);
+      console.log('Password:', this.password);
+    }
+  }
+
+  isValidEmail(email: string): boolean {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  }
+
+  isValidPassword(password: string): boolean {
+    return password.length >= 8 && password.length <= 40;
+  }
+  
 }
