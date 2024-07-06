@@ -5,6 +5,7 @@ import { EventListComponent } from './pages/event-list/event-list.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { EventDetailComponent } from './pages/event-detail/event-detail.component';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
 
 const routes: Routes = [
   {path: "", redirectTo: "selectInstitution", pathMatch: 'full'},
@@ -12,7 +13,8 @@ const routes: Routes = [
   {path: "eventList", component: EventListComponent},
   {path: "login", component: LoginComponent},
   {path: "register", component: RegisterComponent},
-  {path: "eventDetail", component: EventDetailComponent}
+  {path: "eventDetail", component: EventDetailComponent},
+  {path: "forbidden", component: ForbiddenComponent}
 ];
 
 @NgModule({

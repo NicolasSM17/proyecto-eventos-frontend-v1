@@ -42,4 +42,19 @@ export class UserAuthService {
     //return this.getRoles() && this.getToken();
     return this.getToken();
   }
+
+  public isAdmin(){
+    const roles: any[] = this.getRoles();
+    return roles[0].roleName == 'ADMIN';
+  }
+
+  public isUser(){
+    const roles: any[] = this.getRoles();
+    return roles[0].roleName == 'USER';
+  }
+
+  public isOrganizador(){
+    const roles: any[] = this.getRoles();
+    return roles[0].roleName == 'ORGANIZADOR'
+  }
 }

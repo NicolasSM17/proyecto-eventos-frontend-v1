@@ -11,6 +11,11 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FormsModule } from '@angular/forms';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { AddInstitutionComponent } from './admin/add-institution/add-institution.component';
+import { ViewInstitutionsComponent } from './admin/view-institutions/view-institutions.component';
+import { ViewCategoriesComponent } from './admin/view-categories/view-categories.component';
+import { AddCategoriesComponent } from './admin/add-categories/add-categories.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +25,12 @@ import { FormsModule } from '@angular/forms';
     EventDetailComponent,
     LoginComponent,
     RegisterComponent,
-    NavbarComponent
+    NavbarComponent,
+    ForbiddenComponent,
+    AddInstitutionComponent,
+    ViewInstitutionsComponent,
+    ViewCategoriesComponent,
+    AddCategoriesComponent
   ],
   imports: [
     BrowserModule,
