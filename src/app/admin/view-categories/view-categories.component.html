@@ -1,1 +1,23 @@
-<p>view-categories works!</p>
+<app-navbar></app-navbar>
+<div class="container">
+    <h1>Mantenimiento de Categorias</h1>
+
+    <a class="btn btn-primary">Agregar</a>
+    <table class="table-dark table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>NOMBRE</th>
+                <th>ACCIONES</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let categoria of categorias">
+                <th>{{ categoria.id }}</th>
+                <td>{{ categoria.nombre }}</td>
+                <td><a class="btn btn-success">Editar</a></td>
+                <td><a class="btn btn-danger">Eliminar</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
