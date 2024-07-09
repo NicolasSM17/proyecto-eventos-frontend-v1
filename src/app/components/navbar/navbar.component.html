@@ -12,21 +12,26 @@
         </div>
         <div class="buttons">
             <div class="dropdown col-md-3">
-                <button id="filterButton" class="btn filter-button-categories" aria-label="Filtrar por categorías" (click)="toggleDropdown()">
+                <button id="filterButton" class="btn filter-button-categories" aria-label="Filtrar por categorías" (click)="toggleDropdown()" [ngClass]="{'active': isDropdownVisible}">
                     <i class="fas fa-tags"></i>
                     <span>Categorías</span>
                 </button>
-                <div id="dropdownMenu" class="dropdown-menu" [ngClass]="{'show': isDropdownVisible}">
+                <div id="dropdownMenu" class="dropdown-menu custom-dropdown" [ngClass]="{'show': isDropdownVisible}">
                     <div class="p-3 dropdown-custom-body">
-                        <div>
-                            <button *ngFor="let categoria of categorias" class="btn btn-outline-white btn-sm btn-round mb-2 mr-2" type="button">{{ categoria }}</button>
-                        </div>
                         <div class="d-flex justify-content-between align-items-center mt-3">
                             <div>
-                                <a href="#" class="text-danger">Eliminar filtro</a>
+                                <a href="javascript:void(0);" class="custom-delete-filter" (click)="clearFilters()">
+                                    <i class="fa fa-trash"></i> Limpiar filtros
+                                </a>
                             </div>
+                        </div>
+                        <div>
+                            <button *ngFor="let categoria of categorias" class="btn btn-outline-white btn-sm btn-round mb-2 mr-2" type="button" [class.selected]="isCategoriaSelected(categoria)"
+                            (click)="toggleCategoria(categoria)">{{ categoria }}</button>
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center mt-3">
                             <div>
-                                <button class="btn btn-primary btn-round" type="button">Aplicar</button>
+                                <button class="btn btn-primary btn-round custom-apply-btn" type="button">Aplicar</button>
                             </div>
                         </div>
                     </div>

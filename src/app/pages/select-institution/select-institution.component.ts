@@ -19,7 +19,7 @@ export class SelectInstitutionComponent implements OnInit{
   ];
 
   currentPosition = 0;
-  itemsToShow = 5;
+  itemsToShow = 4;
 
   constructor() {}
 
