@@ -34,12 +34,16 @@
             </div>
             <div class="dropdown drop-dos" *ngIf="isLoggedIn()">
                 <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fa-solid fa-user"></i>
+                    <i class="fa-solid fa-user" *ngIf="isUser()"></i>
+                    <i class="fa-solid fa-user-tie" *ngIf="isOrganizador()"></i>
+                    <i class="fa-solid fa-user-secret" *ngIf="isAdmin()"></i>
                 </button>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="#">Administrar cuenta</a></li>
+                    
+                    <!--
                     <li><a class="dropdown-item" routerLink="/viewInstitutions">Mantenimiento Instituciones</a></li>
-                    <li><a class="dropdown-item" routerLink="/viewCategories">Mantenimiento Categorias</a></li>
+                    <li><a class="dropdown-item" >Mantenimiento Categorias</a></li>-->
                     <li><a class="dropdown-item" href="#">Agregar metodo de pago</a></li>
                     <li><a class="dropdown-item" href="#">Modo Organizador</a></li>
                     <li><a class="dropdown-item logout" data-bs-toggle="modal" data-bs-target="#exampleModal">Cerrar Sesion</a></li>
@@ -51,7 +55,7 @@
     </div>
 </header>
 
-<!-- Modal Cerrar Sesion -->
+<!----------------------------------------- Modal Cerrar Sesion ---------------------------------------------->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content" style="background-color: #221f1f; max-width: 380px;">
@@ -67,7 +71,7 @@
     </div>
 </div>
 
-<!-- Modal Iniciar Sesion -->
+<!------------------------------------------------ Modal Iniciar Sesion ------------------------------------>
 <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

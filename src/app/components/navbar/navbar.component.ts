@@ -59,6 +59,14 @@ export class NavbarComponent {
     return this.userAuthService.isAdmin();
   }
 
+  public isUser(){
+    return this.userAuthService.isUser();
+  }
+
+  public isOrganizador(){
+    return this.userAuthService.isOrganizador();
+  }
+
   public logout(){
     this.userAuthService.clear();
     this.router.navigate(['/selectInstitution'])

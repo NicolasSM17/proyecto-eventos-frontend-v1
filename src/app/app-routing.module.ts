@@ -8,6 +8,7 @@ import { EventDetailComponent } from './pages/event-detail/event-detail.componen
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { ViewInstitutionsComponent } from './admin/view-institutions/view-institutions.component';
 import { ViewCategoriesComponent } from './admin/view-categories/view-categories.component';
+import { PanelComponent } from './admin/panel/panel.component';
 
 const routes: Routes = [
   {path: "", redirectTo: "selectInstitution", pathMatch: 'full'},
@@ -18,7 +19,8 @@ const routes: Routes = [
   {path: "eventDetail", component: EventDetailComponent},
   {path: "forbidden", component: ForbiddenComponent},
   {path: "viewInstitutions", component: ViewInstitutionsComponent},
-  {path: "viewCategories", component: ViewCategoriesComponent}
+  {path: "viewCategories", component: ViewCategoriesComponent},
+  {path: "adminPanel", component: PanelComponent}
 ];
 
 @NgModule({

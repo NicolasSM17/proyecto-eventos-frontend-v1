@@ -16,6 +16,7 @@ import { AddInstitutionComponent } from './admin/add-institution/add-institution
 import { ViewInstitutionsComponent } from './admin/view-institutions/view-institutions.component';
 import { ViewCategoriesComponent } from './admin/view-categories/view-categories.component';
 import { AddCategoriesComponent } from './admin/add-categories/add-categories.component';
+import { PanelComponent } from './admin/panel/panel.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { AddCategoriesComponent } from './admin/add-categories/add-categories.co
     AddInstitutionComponent,
     ViewInstitutionsComponent,
     ViewCategoriesComponent,
-    AddCategoriesComponent
+    AddCategoriesComponent,
+    PanelComponent
   ],
   imports: [
     BrowserModule,

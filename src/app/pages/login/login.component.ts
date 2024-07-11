@@ -134,9 +134,17 @@ export class LoginComponent implements AfterViewInit {
   login(loginForm: NgForm) {
     this.userAuthService.login(loginForm.value).subscribe(
       (response: any) => {
-        console.log(response);
+        console.log(response.usuario.roles);
+        this.userAuthService.setRoles(response.usuario.roles);
         this.userAuthService.setToken(response.token);
-        this.router.navigate(['/selectInstitution']);
+
+        const role = response.usuario.roles[0].nombre;
+
+        if(role === 'ADMIN'){
+          this.router.navigate(['/adminPanel'])
+        } else{
+          this.router.navigate(['/selectInstitution'])
+        }
       },
       (error) => {
         console.log(error);
