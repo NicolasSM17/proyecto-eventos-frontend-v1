@@ -4,7 +4,7 @@
     <div class="main-content"></div>
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
-            <li *ngFor="let slide of slides; let i = index" [attr.data-slide-to]="i" [ngClass]="{'active': i === 0}"></li>
+            <li *ngFor="let slide of slides; let i = index" data-target="#carouselExampleIndicators" [attr.data-slide-to]="i" [ngClass]="{'active': i === 0}"></li>
         </ol>
         <div class="carousel-inner">
             <div *ngFor="let slide of slides; let i = index" class="carousel-item" [ngClass]="{'active': i === 0}">

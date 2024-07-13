@@ -21,16 +21,15 @@ body {
 
 
 header .buttons .btn {
-    margin-left: 10px;
     font-family: 'Kanit', Arial, sans-serif;
     background-color: #221f1f;
     color: rgb(255, 253, 253);
-   
     padding: 5px 10px;
     border-radius: 5px;
     text-decoration: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
 }
 
 header .btn:hover {
@@ -49,7 +48,7 @@ header .buttons .filter-button-categories {
     cursor: pointer;
     transition: background-color 0.3s;
     position: relative;
-    left: -110px;
+    left: -100px;
 }
 
 header .filter-button-categories:hover {
@@ -76,15 +75,57 @@ header .filter-button-categories span {
     pointer-events: none;
 }
 
+header .buttons .dropdown-menu {
+    right: 0; /* Alinea el menú desplegable a la derecha */
+}
+
+header .dropdown .dropdown-toggle {
+    background-color: #221f1f;
+    color: rgb(255, 253, 253);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+header .dropdown .dropdown-toggle:hover {
+    background-color: #555;
+}
+
+header .btn-outline-primary,
+header .btn-outline-success {
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+}
+
+header .btn-outline-primary:hover
+ {
+    background-color: #3553da;
+    color: white;
+}
+
+header .btn-outline-success:hover {
+
+    background-color: #44b457;
+    color: white;
+}
+
+header .btn-outline-primary:focus,
+header .btn-outline-success:focus {
+    box-shadow: none;
+}
 
 .dropdown-menu.custom-dropdown {
     width: 350px !important;
     background-color: rgba(53, 50, 50, 0.8) !important;
     border: 1px solid #ddd !important;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
-    position: fixed !important;
-    top: 80px !important; /* Ajusta según la altura de tu header */
-    right: -320px !important; /* Oculto fuera de la pantalla por defecto */
+    position: absolute !important; /* Cambiar a 'absolute' para anclar al contenedor */
+    top: 60px !important; /* Colocar justo debajo del botón */
+    left: -180% !important; /* Alinear a la izquierda del contenedor */
     z-index: 1000 !important;
     display: block !important;
     margin: 0 !important;
@@ -92,34 +133,36 @@ header .filter-button-categories span {
     border-radius: 5px !important;
     backdrop-filter: blur(10px) !important;
     opacity: 0 !important;
+    pointer-events: none; /* Evita que los elementos sean interactuables */
     transition: right 0.5s ease, opacity 0.4s ease !important;
 }
 
 .dropdown-menu.custom-dropdown.show {
-    right: 320px !important;
+    
     opacity: 1 !important;
+    pointer-events: auto; /* Permite que los elementos sean interactuables cuando está visible */
 }
 
 .dropdown-menu{
     width: 350px !important;
     background-color: rgba(128, 107, 107, 0.8) !important;
     border: 1px solid #ddd !important;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
-    
-    top: 0 !important; /* Ajusta según la altura de tu header */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;   
+      top: 0 !important; /* Ajusta según la altura de tu header */
     z-index: 1000 !important;
-   
     margin: 0 !important;
     padding: 10px 0 !important;
     border-radius: 5px !important;
     backdrop-filter: blur(10px) !important;
     opacity: 0 !important;
+    pointer-events: none; /* Evita que los elementos sean interactuables */
     transition: right 0.5s ease, opacity 0.4s ease !important;
 }
 
 .dropdown-menu.show {
     
     opacity: 1 !important;
+    pointer-events: auto; /* Permite que los elementos sean interactuables cuando está visible */
 }
 
 

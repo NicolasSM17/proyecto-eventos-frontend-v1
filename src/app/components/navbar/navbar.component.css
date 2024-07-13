@@ -10,37 +10,46 @@ header {
     z-index: 1000;
     background-color: #0a0a0a;
     width: 100%;
-    padding: 10px 0; /* Espacio superior e inferior */
+    padding: 0; /* Espacio superior e inferior */
 }
 
 header .container-fluid {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     width: 100%;
     max-width: 1200px; /* Limitar el ancho del contenedor principal */
-    padding: 0 20px; /* Espacio a los lados */
+    padding: 0; /* Espacio a los lados */
 }
 
 header .logo {
-    flex: 1;
+    flex-shrink: 0; /* Evitar que el logo se encoja */
+    margin-right: 20px; /* Espacio entre el logo y el siguiente elemento */
 }
 
 header .logo img {
     height: 60px; /* Ajustar según tu logo */
 }
 
+
+/*BARRA DE BUSQUEDA*/
+
+
+
 header .search-container.expanded-search {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    flex: 2;
+    align-items: flex-start; /* Alinear la barra de búsqueda a la izquierda */
+    flex: 0 1 auto; /* Permitir que el contenedor se ajuste a su contenido */
+    margin-right: 220px; /* Espacio entre la barra de búsqueda y el botón "Points" */
     margin-top: 20px;
+   
 }
 
 header .search-container.expanded-search .search-bar {
     position: relative;
-    width: 80%; 
+    width: 180%; 
+    max-width: 600px; /* Limitar el ancho máximo */
     margin: 0 auto; /* Centra la barra de búsqueda */
     margin-bottom: 20px;
     display: flex;
@@ -88,11 +97,26 @@ header .search-bar .search-icon {
     pointer-events: none; /* Hacer el ícono no clicable */
 }
 
+
+
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////// */
+
+
+
 header .buttons {
-    flex: 1;
     display: flex;
-    justify-content: flex-end;
-    align-items: center; /* Alinea los elementos verticalmente al centro */
+    align-items: center;
+    gap: 10px; /* Espacio entre botones */
+    margin-left: auto; /* Alinea los botones a la derecha */
+    margin-right: -90px; /* Ajusta este valor según sea necesario para más espacio a la derecha */
+}
+
+header a.btn.points {
+    color: white; /* Asegurarse de que el ícono sea visible */
+    font-size: 28px; /* Ajustar tamaño del ícono */
+    margin-right: 20px; /* Espacio entre elementos */
+    
 }
 
 
@@ -208,8 +232,6 @@ div.dropdown ul.dropdown-menu li a.logout {
 .btn.dropdown-toggle:focus {
     box-shadow: none !important;
 }
-
-
 
 .btn.selected{
     background-color: #bb5d22;
@@ -333,4 +355,36 @@ div.dropdown ul.dropdown-menu li a.logout {
     transition: background-color 0.3s ease;
     outline: none;
     box-shadow: none;
+}
+
+/* Estilos para el modal de cerrar sesión */
+.custom-modal-content {
+    background-color: #221f1f;
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.custom-modal-content .modal-header {
+    justify-content: center;
+    text-align: center;
+}
+
+.custom-modal-content .modal-title {
+    text-align: center;
+    width: 100%;
+}
+
+.custom-modal-content .modal-footer {
+    justify-content: center;
+}
+
+/* Para centrar el modal verticalmente */
+.modal-dialog-centered {
+    display: flex;
+    align-items: center;
+    min-height: calc(100% - 1rem);
+}
+
+.modal-dialog {
+    top: -90px; /* Ajusta este valor según sea necesario para subir el modal */
 }
