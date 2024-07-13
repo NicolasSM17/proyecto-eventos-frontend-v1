@@ -1,0 +1,165 @@
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);   /* Movimiento ligeramente menos pronunciado */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.compra-evento-container {
+    
+    background-color: #221f1f;
+    color: white;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.evento-info {
+    padding: 20px;
+    display: flex;
+    justify-content: center; /* Cambiado para centrar el contenido horizontalmente */
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative; /* Añadido para posicionar el botón de "Atrás" */
+}
+.evento-info h1 {
+    font-size: 2em;
+    text-align: center; /* Asegura que el texto dentro del h1 esté centrado */
+}
+
+.btn-atras {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 1em;
+    position: absolute; /* Posiciona el botón de "Atrás" absolutamente */
+    left: 0; /* Alinea el botón de "Atrás" a la izquierda */
+}
+
+.contenedor-general {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex-grow: 1;
+}
+
+.lugar-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    width: 250px; /* Ajusta el ancho según sea necesario */
+    flex-shrink: 0;
+    padding: 10px 20px 10px 10px; /* Ajusta el espacio superior */
+    
+    background-color: #413933;
+}
+
+.lugar-info img {
+    border-radius: 50%;
+    margin-bottom: 30px;
+    width: 150px; /* Aumenta el tamaño de la imagen */
+    height: 150px; /* Aumenta el tamaño de la imagen */
+}
+
+.lugar-info p {
+    font-size: 1.5em;
+    margin: 0;
+    text-align: center;
+    color: #f77d31;
+}
+
+.contenedor-principal {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Toma el espacio restante */
+    margin-left: 20px; /* Espacio entre lugar-info y contenedor-principal */
+    padding: 20px;
+}
+
+.categoria-compra {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.categoria {
+    background: none;
+    border: none;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.categoria.active, .categoria:hover {
+    color: #f77d31;
+}
+
+.compra-options {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.opcion {
+    background-color: #2c2929;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    text-align: center;
+    width: 30%;
+}
+
+.opcion img {
+    max-width: 100%;
+    border-radius: 5px;
+}
+
+.opcion h3 {
+    margin: 10px 0;
+}
+
+.cantidad {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cantidad button {
+    background: none;
+    border: 1px solid white;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.cantidad span {
+    margin: 0 10px;
+    font-size: 1.2em;
+}
+
+.btn-compra {
+    background-color: #f77d31;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-compra:hover {
+    background-color: #bb5d22;
+  }
+  

@@ -1,12 +1,28 @@
-import { Component, OnInit, AfterViewInit  } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 
-declare var bootstrap: any;
+declare var Hammer: any;
+
+export class MyHammerConfig extends HammerGestureConfig {
+  override overrides = <any>{
+    'swipe': { direction: Hammer.DIRECTION_HORIZONTAL }
+  };
+}
+
 @Component({
   selector: 'app-event-list',
   templateUrl: './event-list.component.html',
-  styleUrls: ['./event-list.component.css']
+  styleUrls: ['./event-list.component.css'],
+  providers: [
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: MyHammerConfig
+    }
+  ]
 })
-export class EventListComponent implements OnInit{
+export class EventListComponent implements OnInit, AfterViewInit {
+  @ViewChild('carousel') carousel!: ElementRef;
+
   slides = [
     { image: 'https://cdn.joinnus.com/files/2024/06/LfBSShMvDGCvLLd.png' },
     { image: 'https://cdn.joinnus.com/files/2024/06/p0B3pUzwtDumLcQ.png' },
@@ -22,12 +38,28 @@ export class EventListComponent implements OnInit{
   ngOnInit(): void {
     this.addLoadedClassToMain();
     this.addPressEffectToButtons();
-    
   }
 
-  
+  ngAfterViewInit() {
+    this.initializeHammer();
+    this.preventImageDrag();
+  }
 
-  // Agrega la clase 'loaded' a <main> cuando el componente se inicializa
+  initializeHammer() {
+    const hammer = new Hammer(this.carousel.nativeElement);
+    hammer.get('swipe').set({ direction: Hammer.DIRECTION_HORIZONTAL });
+    hammer.on('swipeleft', () => this.nextSlide());
+    hammer.on('swiperight', () => this.prevSlide());
+  }
+
+  nextSlide() {
+    (document.querySelector('#carouselExampleIndicators') as any).carousel('next');
+  }
+
+  prevSlide() {
+    (document.querySelector('#carouselExampleIndicators') as any).carousel('prev');
+  }
+
   addLoadedClassToMain() {
     const main = document.querySelector('main');
     if (main) {
@@ -35,7 +67,6 @@ export class EventListComponent implements OnInit{
     }
   }
 
-  // Agrega el efecto de 'pressed' a los botones de compra
   addPressEffectToButtons() {
     const buyButtons = document.querySelectorAll('.btn-comprar');
 
@@ -51,6 +82,13 @@ export class EventListComponent implements OnInit{
       button.addEventListener('mouseleave', () => {
         button.classList.remove('pressed');
       });
+    });
+  }
+
+  preventImageDrag() {
+    const images = this.carousel.nativeElement.querySelectorAll('img');
+    images.forEach((img: HTMLImageElement) => {
+      img.addEventListener('dragstart', (e) => e.preventDefault());
     });
   }
 }

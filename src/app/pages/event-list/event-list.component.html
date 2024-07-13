@@ -2,24 +2,26 @@
 
 <main>
     <div class="main-content"></div>
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-            <li *ngFor="let slide of slides; let i = index" data-target="#carouselExampleIndicators" [attr.data-slide-to]="i" [ngClass]="{'active': i === 0}"></li>
-        </ol>
-        <div class="carousel-inner">
-            <div *ngFor="let slide of slides; let i = index" class="carousel-item" [ngClass]="{'active': i === 0}">
-                <img [src]="slide.image" class="d-block w-100" [alt]="'Banner ' + (i + 1)">
-            </div>
-        </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
+
+
+    <div #carousel id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li *ngFor="let slide of slides; let i = index" data-target="#carouselExampleIndicators" [attr.data-slide-to]="i" [ngClass]="{'active': i === 0}"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div *ngFor="let slide of slides; let i = index" class="carousel-item" [ngClass]="{'active': i === 0}">
+      <img [src]="slide.image" class="d-block w-100" [alt]="'Banner ' + (i + 1)">
     </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
 
     <section class="events my-5">
         <div class="container container-wide">
@@ -29,6 +31,7 @@
                     <i class="fa fa-star-half-alt text-yellow"></i>
                 </div>
                 <div class="row events-container">
+
                     <div class="col-10 col-md-6 col-lg-3 mb-4" *ngFor="let event of events">
                         <a routerLink="/eventDetail" class="card-link">
                             <div class="card">
@@ -44,6 +47,7 @@
                             </div>
                         </a>
                     </div>
+
                     <div class="col-10 col-md-6 col-lg-3 mb-4" v-for="event in events">
                         <a href="#" class="card-link">
                             <div class="card">
@@ -102,3 +106,5 @@
         </div>
     </section>
 </main>
+
+<app-footer></app-footer>

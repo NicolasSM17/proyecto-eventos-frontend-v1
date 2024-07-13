@@ -39,6 +39,12 @@ h1 {
     line-height: 1.5; /* Ajuste del espacio entre líneas del encabezado */
 }
 
+img,
+a {
+    -webkit-user-drag: none;
+    -user-drag: none;
+  }
+
 
 
 .container-wide {

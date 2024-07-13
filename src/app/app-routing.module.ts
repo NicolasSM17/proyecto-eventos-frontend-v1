@@ -9,6 +9,9 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { ViewInstitutionsComponent } from './admin/view-institutions/view-institutions.component';
 import { ViewCategoriesComponent } from './admin/view-categories/view-categories.component';
 
+import { EventBuysComponent } from './pages/event-buys/event-buys.component';
+
+
 const routes: Routes = [
   {path: "", redirectTo: "selectInstitution", pathMatch: 'full'},
   {path: "selectInstitution", component: SelectInstitutionComponent},
@@ -18,7 +21,8 @@ const routes: Routes = [
   {path: "eventDetail", component: EventDetailComponent},
   {path: "forbidden", component: ForbiddenComponent},
   {path: "viewInstitutions", component: ViewInstitutionsComponent},
-  {path: "viewCategories", component: ViewCategoriesComponent}
+  {path: "viewCategories", component: ViewCategoriesComponent},
+  { path: 'eventBuys', component: EventBuysComponent }
 ];
 
 @NgModule({
