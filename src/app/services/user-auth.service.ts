@@ -39,22 +39,21 @@ export class UserAuthService {
   }
 
   public isLoggedIn(){
-    //return this.getRoles() && this.getToken();
-    return this.getToken();
+    return this.getRoles() && this.getToken();
   }
 
   public isAdmin(){
     const roles: any[] = this.getRoles();
-    return roles[0].roleName == 'ADMIN';
+    return roles[0].nombre == 'ADMIN';
   }
 
   public isUser(){
     const roles: any[] = this.getRoles();
-    return roles[0].roleName == 'USER';
+    return roles[0].nombre == 'USER';
   }
 
   public isOrganizador(){
     const roles: any[] = this.getRoles();
-    return roles[0].roleName == 'ORGANIZADOR'
+    return roles[0].nombre == 'ORGANIZADOR'
   }
 }

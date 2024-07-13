@@ -24,8 +24,8 @@ export class InstitutionService {
     return this.httpClient.post<Institution>(this.PATH_OF_API, institution);
   }
 
-  update(institution: Institution): Observable<Institution>{
-    return this.httpClient.put<Institution>(this.PATH_OF_API + "/" + institution.id, institution);
+  update(id:number, institution: Institution): Observable<Institution>{
+    return this.httpClient.put<Institution>(this.PATH_OF_API + "/" + id, institution);
   }
 
   delete(id: number): Observable<void>{

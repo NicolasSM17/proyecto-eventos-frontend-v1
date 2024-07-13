@@ -1,6 +1,9 @@
-import { Component, AfterViewInit, ElementRef, ViewChild, ViewEncapsulation, HostListener } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, AfterViewInit, ElementRef, ViewChild, ViewEncapsulation, HostListener, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Category } from 'src/app/model/category.model';
+import { CategoryService } from 'src/app/services/category.service';
 import { UserAuthService } from 'src/app/services/user-auth.service';
 
 declare var bootstrap: any;
@@ -11,7 +14,7 @@ declare var bootstrap: any;
   styleUrls: ['./navbar.component.css'],
   encapsulation: ViewEncapsulation.Emulated
 })
-export class NavbarComponent implements AfterViewInit {
+export class NavbarComponent implements AfterViewInit, OnInit {
   @ViewChild('loginForm') loginForm!: NgForm;
   @ViewChild('formContainer') formContainer!: ElementRef;
   @ViewChild('exampleModal1') modalElement!: ElementRef;
@@ -24,17 +27,16 @@ export class NavbarComponent implements AfterViewInit {
   showPasswordValidation: boolean = false;
   isOpen = false;
 
-  categorias = [
-    'Stand up', 'Donación', 'Salud y bienestar', 'Tiendas', 'Conciertos',
-    'Entretenimiento', 'Fiestas', 'Seminarios y conferencias', 'Teatro',
-    'Viajes & Aventuras', 'Arte & Cultura', 'Cursos y talleres', 'Deportes',
-    'Comidas & Bebidas', 'Festivales', 'Tecnología', 'Niños', 'Ayuda Social',
-    'Cine'
-  ];
+  categorias: Category[];
 
   selectedCategorias: string[] = [];
 
-  constructor(private elementRef: ElementRef, private userAuthService: UserAuthService, private router: Router) {}
+  constructor(private elementRef: ElementRef, private userAuthService: UserAuthService, 
+              private router: Router, private categoryService: CategoryService) {}
+
+  ngOnInit(): void {
+    this.getCategory();
+  }
 
   ngAfterViewInit(): void {
     this.initializeFormValidation();
@@ -190,7 +192,7 @@ export class NavbarComponent implements AfterViewInit {
 
   // Escucha los clics fuera del dropdown para cerrarlo
   @HostListener('document:click', ['$event'])
-closeDropdown(event: Event) {
+  closeDropdown(event: Event) {
   const dropdownMenu = document.getElementById("dropdownMenu");
   const filterButton = document.getElementById("filterButton");
 
@@ -214,6 +216,14 @@ closeDropdown(event: Event) {
     return this.userAuthService.isAdmin();
   }
 
+  public isUser(){
+    return this.userAuthService.isUser();
+  }
+
+  public isOrganizador(){
+    return this.userAuthService.isOrganizador();
+  }
+
   public logout() {
     this.userAuthService.clear();
     this.router.navigate(['/selectInstitution']);
@@ -226,13 +236,33 @@ closeDropdown(event: Event) {
     }
   }
 
+  getCategory(){
+    this.categoryService.getCategory().subscribe(
+      (response: Category[]) => {
+        this.categorias = response;
+        console.log(response);
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+      }
+    );
+  }
+
   /* MODAL LOGIN */
   login(loginForm: NgForm) {
     this.userAuthService.login(loginForm.value).subscribe(
       (response: any) => {
         console.log(response);
+        this.userAuthService.setRoles(response.usuario.roles)
         this.userAuthService.setToken(response.token);
-        this.router.navigate(['/selectInstitution']);
+
+        const role = response.usuario.roles[0].nombre;
+
+        if(role === 'ADMIN'){
+          this.router.navigate(['/adminPanel'])
+        } else{
+          this.router.navigate(['/selectInstitution'])
+        }
       },
       (error) => {
         console.log(error);

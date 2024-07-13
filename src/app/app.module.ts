@@ -12,14 +12,13 @@ import { RegisterComponent } from './pages/register/register.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FormsModule } from '@angular/forms';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
-import { AddInstitutionComponent } from './admin/add-institution/add-institution.component';
 import { ViewInstitutionsComponent } from './admin/view-institutions/view-institutions.component';
 import { ViewCategoriesComponent } from './admin/view-categories/view-categories.component';
-import { AddCategoriesComponent } from './admin/add-categories/add-categories.component';
-import 'hammerjs';
 
+import 'hammerjs';
 import { EventBuysComponent } from './pages/event-buys/event-buys.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { PanelComponent } from './admin/panel/panel.component';
 
 
 
@@ -43,13 +42,13 @@ export class MyHammerConfig extends HammerGestureConfig {
     RegisterComponent,
     NavbarComponent,
     ForbiddenComponent,
-    AddInstitutionComponent,
     ViewInstitutionsComponent,
     ViewCategoriesComponent,
-    AddCategoriesComponent,
-    
     EventBuysComponent,
-          FooterComponent
+    FooterComponent,
+
+    PanelComponent
+
   ],
   imports: [
     BrowserModule,

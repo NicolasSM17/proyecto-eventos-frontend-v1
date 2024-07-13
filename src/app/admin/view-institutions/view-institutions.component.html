@@ -1,2 +1,122 @@
 <app-navbar></app-navbar>
-<p>view-institutions works!</p>
+<div class="container my-4" id="main-container">
+    <h1>Mantenimiento de Instituciones</h1>
+
+    <a class="btn btn-primary my-4" (click)="onOpenModal(null, 'add')">Agregar</a>
+
+    <div class="row">
+        <div class="col-xl-3 col-sm-6 col-xs-12" *ngFor="let institucion of instituciones">
+            <div class="card my-2" style="width: 16rem;  background-color: rgb(51, 51, 51);">
+                <div class="card-header">
+                    <img [src]="institucion.imagenUrl" class="card-img-top" [alt]="institucion.nombre" style="max-width: 212px; max-height: 136px;">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-text">{{institucion.nombre}}</h5>
+                </div>
+                <div class="card-footer">
+                    <a class="btn btn-success mx-3" (click)="onOpenModal(institucion, 'edit')" data-original-title="Edit">Editar</a>
+                    <a class="btn btn-danger" (click)="onOpenModal(institucion, 'delete')" data-original-title="Delete">Eliminar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Institucion Modal -->
+    <div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: black;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addEmployeeModalLabel">Añadir Categoria</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form #addForm="ngForm" (ngSubmit)="onAddInstitucion(addForm)" id="add-category-form">
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" ngModel name="nombre" class="form-control" id="nombre" placeholder="Nombre"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="imagenUrl">URL de la imagen</label>
+                            <input type="text" ngModel name="imagenUrl" class="form-control" id="imagenUrl" placeholder="Imagen Url"
+                                required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="add-employee-form" class="btn btn-secondary"
+                                data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" id="cerrar">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Institucion -->
+    <div class="modal fade" id="updateEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="employeeEditModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: black;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateEmployeeModalLabel">Editar Institucion {{editInstituciones?.nombre}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form #editForm="ngForm" id="edit-category-form">
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" ngModel="{{editInstituciones?.nombre}}" name="nombre" class="form-control" id="nombre"
+                                aria-describedby="emailHelp" placeholder="Nombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="imagenUrl">URL de la Imagen</label>
+                            <input type="text" ngModel="{{editInstituciones?.imagenUrl}}" name="imagenUrl" class="form-control" id="imagenUrl"
+                                placeholder="URL Imagen">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                            <button (click)="onUpdateInstitucion(editInstituciones.id, editForm.value)" data-dismiss="modal"
+                                class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Institucion -->
+    <div class="modal fade" id="deleteEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: black;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModelLabel">Eliminar Categoria</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Estas seguro de eliminar Institucion: {{deleteInstituciones?.nombre}}?</p>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                        <button (click)="onDeleteInstitucion(deleteInstituciones?.id)" class="btn btn-danger"
+                            data-dismiss="modal">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification for no Instituciones -->
+    <div *ngIf="instituciones?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+        <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">NO HAY INSTITUCIONES!</h4>
+            <p>No se encontraron Instituciones.</p>
+        </div>
+    </div>
+</div>

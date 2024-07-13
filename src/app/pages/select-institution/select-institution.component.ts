@@ -1,5 +1,8 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Institution } from 'src/app/model/institution.model';
+import { InstitutionService } from 'src/app/services/institution.service';
+import { UserAuthService } from 'src/app/services/user-auth.service';
 
 @Component({
   selector: 'app-select-institution',
@@ -7,23 +10,15 @@ import { Institution } from 'src/app/model/institution.model';
   styleUrls: ['./select-institution.component.css']
 })
 export class SelectInstitutionComponent implements OnInit{
-  institutions: Institution[] = [
-    {id:1, name: 'CIBERTEC', img: 'https://seeklogo.com/images/C/cibertec-logo-08375FAEAA-seeklogo.com.png'},
-    {id:2, name: 'UTP', img: 'https://logosenvector.com/logo/img/utp-universidad-tecnologica-del-peru-4374.png'},
-    {id:3, name: 'UPC', img: 'https://seeklogo.com/images/U/universidad-peruana-de-ciencias-aplicadas-upc-logo-B98C3A365C-seeklogo.com.png'},
-    {id:4, name: 'UPN', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkXVyN-bCrvNCuW2q8Z88-kpCvBnaul5AGpQ&s'},
-    {id:5, name: 'Senati', img: 'https://i.vimeocdn.com/portrait/21848295_640x640'},
-    {id:6, name: 'San Marcos', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/UNMSM_coatofarms_seal.svg/1158px-UNMSM_coatofarms_seal.svg.png'},
-    {id:7, name: 'U de Lima', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Universidad_de_Lima_logo.png/220px-Universidad_de_Lima_logo.png'},
-    {id:8, name: 'Idat', img: 'https://seeklogo.com/images/I/idat-logo-1EBB75EA82-seeklogo.com.png'}
-  ];
+  institutions: Institution[] = [];
 
   currentPosition = 0;
   itemsToShow = 4;
 
-  constructor() {}
+  constructor(private userAuthService: UserAuthService, private institutionService: InstitutionService) {}
 
   ngOnInit(): void {
+    this.getInstituciones();
     this.updateInstitutionsPosition();
   }
 
@@ -61,5 +56,20 @@ export class SelectInstitutionComponent implements OnInit{
         this.currentPosition = 0;
     }
     this.updateInstitutionsPosition();
+  }
+
+  isAdmin() {
+    return this.userAuthService.isAdmin();
+  }
+
+  getInstituciones(){
+    this.institutionService.getInstitution().subscribe(
+      (response: Institution[]) => {
+        this.institutions = response;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+      }
+    );
   }
 }

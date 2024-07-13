@@ -8,21 +8,22 @@
                 class="institution" 
                 [ngClass]="{'visible': i >= currentPosition && i < currentPosition + itemsToShow, 'hidden': !(i >= currentPosition && i < currentPosition + itemsToShow)}">
                 <a routerLink="/eventList">
-                    <img [src]="institution.img" [alt]="institution.name">
-                    <p>{{ institution.name }}</p>
+                    <img [src]="institution.imagenUrl" [alt]="institution.nombre">
+                    <p>{{ institution.nombre }}</p>
                 </a>
             </li>
         </ul>
         <button class="nav-button" id="next-button" (click)="next()">&#8250;</button>
     </div>
 
-    <!-- Botones de administrador -->
-    <div class="admin-buttons">
-        <div class="config-button">
+    <!-- Botones de administrador *ngIf="isAdmin()" -->
+    
+    <div class="admin-buttons" >
+        <div class="config-button" >
             <button id="admin-config">Administrar Points</button>
         </div>
         <div class="add-button">
-            <button id="add-point"><i class="fas fa-plus"></i></button>
+            <button id="add-point" ><i class="fas fa-plus"></i></button>
             <p>Añadir Point</p>
         </div>
     </div>
