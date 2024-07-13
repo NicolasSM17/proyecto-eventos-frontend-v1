@@ -191,3 +191,28 @@
     color: rgba(226, 218, 218, 0.9);
     text-decoration: none;
 }
+
+/* Ocultar el formato de fecha predeterminado en el campo de fecha */
+input[type="date"]::-webkit-datetime-edit {
+    color: transparent;
+}
+
+/* Mostrar el texto del campo de fecha cuando el usuario selecciona una fecha */
+input[type="date"]:focus::-webkit-datetime-edit,
+input[type="date"]:valid::-webkit-datetime-edit {
+    color: #fff; /* Color del texto seleccionado */
+}
+
+/* Cambiar el color del icono del selector de fechas */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1); /* Cambia el color a blanco */
+}
+
+/* Para otros navegadores */
+input[type="date"]::-moz-placeholder {
+    color: transparent;
+}
+
+input[type="date"]::-ms-input-placeholder {
+    color: transparent;
+}

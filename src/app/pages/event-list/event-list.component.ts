@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit  } from '@angular/core';
 
+declare var bootstrap: any;
 @Component({
   selector: 'app-event-list',
   templateUrl: './event-list.component.html',
@@ -21,7 +22,10 @@ export class EventListComponent implements OnInit{
   ngOnInit(): void {
     this.addLoadedClassToMain();
     this.addPressEffectToButtons();
+    
   }
+
+  
 
   // Agrega la clase 'loaded' a <main> cuando el componente se inicializa
   addLoadedClassToMain() {

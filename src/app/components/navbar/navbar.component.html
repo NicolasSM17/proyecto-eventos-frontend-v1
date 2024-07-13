@@ -3,13 +3,14 @@
         <div class="logo">
             <img src="https://static.vecteezy.com/system/resources/thumbnails/012/986/755/small/abstract-circle-logo-icon-free-png.png" alt="Logo">
         </div>
-        <a class="btn points" routerLink="/selectInstitution"><i class="fa-solid fa-landmark"></i></a>
+        
         <div class="search-container expanded-search">
             <div class="search-bar">
                 <input type="text" placeholder="Busca eventos,convenciones y más...">
                 <i class="fas fa-search search-icon"></i>
             </div>
         </div>
+        <a class="btn points" routerLink="/selectInstitution"><i class="fa-solid fa-landmark"></i></a>
         <div class="buttons">
             <div class="dropdown col-md-3">
                 <button id="filterButton" class="btn filter-button-categories" aria-label="Filtrar por categorías" (click)="toggleDropdown()" [ngClass]="{'active': isDropdownVisible}">
@@ -36,7 +37,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>            
             <div class="dropdown drop-dos" *ngIf="isLoggedIn()">
                 <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fa-solid fa-user"></i>
@@ -58,19 +59,20 @@
 
 <!-- Modal Cerrar Sesion -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content" style="background-color: #221f1f; max-width: 380px;">
-            <div class="modal-header">
-                <h4 class="modal-title" id="exampleModalLabel">Desea cerrar su sesión?</h4>
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 480px;">
+        <div class="modal-content custom-modal-content" style="background-color: #221f1f;">
+            <div class="modal-header justify-content-center">
+                <h4 class="modal-title text-center" id="exampleModalLabel">Desea cerrar su sesión?</h4>
                 <i class="fa-solid fa-xmark" data-bs-dismiss="modal" aria-label="Close" style="cursor: pointer;"></i>
             </div>
             <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="logout()">Cerrar sesion</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="logout()">Cerrar sesión</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
             </div>
         </div>
     </div>
 </div>
+
 
 <!-- Modal Iniciar Sesion -->
 <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
