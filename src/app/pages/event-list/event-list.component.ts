@@ -1,24 +1,10 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
-
-declare var Hammer: any;
-
-export class MyHammerConfig extends HammerGestureConfig {
-  override overrides = <any>{
-    'swipe': { direction: Hammer.DIRECTION_HORIZONTAL }
-  };
-}
+declare var $: any; // Importa jQuery si estás usando Bootstrap 4
 
 @Component({
   selector: 'app-event-list',
   templateUrl: './event-list.component.html',
-  styleUrls: ['./event-list.component.css'],
-  providers: [
-    {
-      provide: HAMMER_GESTURE_CONFIG,
-      useClass: MyHammerConfig
-    }
-  ]
+  styleUrls: ['./event-list.component.css']
 })
 export class EventListComponent implements OnInit, AfterViewInit {
   @ViewChild('carousel') carousel!: ElementRef;
@@ -41,25 +27,52 @@ export class EventListComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.initializeHammer();
-    this.preventImageDrag();
+   
+      this.initializeSlickCarousel();
+    
   }
 
-  initializeHammer() {
-    const hammer = new Hammer(this.carousel.nativeElement);
-    hammer.get('swipe').set({ direction: Hammer.DIRECTION_HORIZONTAL });
-    hammer.on('swipeleft', () => this.nextSlide());
-    hammer.on('swiperight', () => this.prevSlide());
+  initializeSlickCarousel() {
+    $(this.carousel.nativeElement).slick({
+      dots: true,
+      infinite: true,
+      speed: 300,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      arrows: true,
+      autoplay: true,
+      autoplaySpeed: 5000,
+      cssEase: 'linear',
+      adaptiveHeight: true,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            infinite: true,
+            dots: true
+          }
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }
+      ]
+    });
   }
 
-  nextSlide() {
-    (document.querySelector('#carouselExampleIndicators') as any).carousel('next');
-  }
-
-  prevSlide() {
-    (document.querySelector('#carouselExampleIndicators') as any).carousel('prev');
-  }
-
+  
   addLoadedClassToMain() {
     const main = document.querySelector('main');
     if (main) {
@@ -69,7 +82,6 @@ export class EventListComponent implements OnInit, AfterViewInit {
 
   addPressEffectToButtons() {
     const buyButtons = document.querySelectorAll('.btn-comprar');
-
     buyButtons.forEach(button => {
       button.addEventListener('mousedown', () => {
         button.classList.add('pressed');
@@ -86,9 +98,11 @@ export class EventListComponent implements OnInit, AfterViewInit {
   }
 
   preventImageDrag() {
-    const images = this.carousel.nativeElement.querySelectorAll('img');
-    images.forEach((img: HTMLImageElement) => {
-      img.addEventListener('dragstart', (e) => e.preventDefault());
-    });
+    if (this.carousel && this.carousel.nativeElement) {
+      const images = this.carousel.nativeElement.querySelectorAll('img');
+      images.forEach((img: HTMLImageElement) => {
+        img.addEventListener('dragstart', (e) => e.preventDefault());
+      });
+    }
   }
 }

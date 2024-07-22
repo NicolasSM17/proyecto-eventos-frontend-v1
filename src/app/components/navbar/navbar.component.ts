@@ -41,6 +41,14 @@ export class NavbarComponent implements AfterViewInit, OnInit {
   ngAfterViewInit(): void {
     this.initializeFormValidation();
     this.initializeModal();
+
+    // Añadir el evento de ocultar mensajes de validación al cerrar el modal
+    const modalElement = this.modalElement.nativeElement;
+    if (modalElement) {
+      modalElement.addEventListener('hidden.bs.modal', () => {
+        this.resetValidationMessages();
+      });
+    }
   }
 
   initializeModal() {
@@ -176,6 +184,20 @@ export class NavbarComponent implements AfterViewInit, OnInit {
     });
   }
 
+  resetValidationMessages() {
+    const validationMessages = this.elementRef.nativeElement.querySelectorAll('.validation-message');
+    validationMessages.forEach((msg: HTMLElement) => {
+      msg.style.display = 'none';
+    });
+
+    const inputs = this.elementRef.nativeElement.querySelectorAll('.input-group input') as NodeListOf<HTMLInputElement>;
+    inputs.forEach((input: HTMLInputElement) => {
+      input.style.borderColor = '';
+      input.value = ''; 
+      input.classList.remove('filled'); 
+    });
+  }
+
   toggleDropdown() {
     this.isDropdownVisible = !this.isDropdownVisible;
     const filterButton = this.elementRef.nativeElement.querySelector('#filterButton');
@@ -193,20 +215,20 @@ export class NavbarComponent implements AfterViewInit, OnInit {
   // Escucha los clics fuera del dropdown para cerrarlo
   @HostListener('document:click', ['$event'])
   closeDropdown(event: Event) {
-  const dropdownMenu = document.getElementById("dropdownMenu");
-  const filterButton = document.getElementById("filterButton");
+    const dropdownMenu = document.getElementById("dropdownMenu");
+    const filterButton = document.getElementById("filterButton");
 
-  if (!event.target) return;
-  const target = event.target as HTMLElement;
+    if (!event.target) return;
+    const target = event.target as HTMLElement;
 
-  if (!target.closest('.filter-button-categories') && !target.closest('.dropdown-menu')) {
-    if (dropdownMenu?.classList.contains('show')) {
-      dropdownMenu.classList.remove('show');
-      filterButton?.classList.remove("active");
-      this.isDropdownVisible = false;
+    if (!target.closest('.filter-button-categories') && !target.closest('.dropdown-menu')) {
+      if (dropdownMenu?.classList.contains('show')) {
+        dropdownMenu.classList.remove('show');
+        filterButton?.classList.remove("active");
+        this.isDropdownVisible = false;
+      }
     }
   }
-}
 
   public isLoggedIn() {
     return this.userAuthService.isLoggedIn();
@@ -310,6 +332,4 @@ export class NavbarComponent implements AfterViewInit, OnInit {
       this.selectedCategorias.push(categoria);
     }
   }
-
 }
-
