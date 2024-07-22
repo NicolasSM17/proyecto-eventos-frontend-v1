@@ -6,11 +6,13 @@ export interface Evento{
     id: number;
     titulo: string;
     descripcion: string;
-    fecha: Date;
+    imagen: string;
+    fecha: string;
     hora: string; // Formato HH:mm
     lugar: string;
     direccion: string;
     direccionUrl: string;
+    precio: number;
     institucion: Institution;
     categorias: Category[];
     organizador: User;

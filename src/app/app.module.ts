@@ -15,10 +15,13 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { ViewInstitutionsComponent } from './admin/view-institutions/view-institutions.component';
 import { ViewCategoriesComponent } from './admin/view-categories/view-categories.component';
 
-import 'hammerjs';
+//import 'hammerjs';
 import { EventBuysComponent } from './pages/event-buys/event-buys.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PanelComponent } from './admin/panel/panel.component';
+import { MyEventsComponent } from './pages/my-events/my-events.component';
+import { CalendarComponent } from './pages/calendar/calendar.component';
+import { StatisticsComponent } from './pages/statistics/statistics.component';
 
 
 
@@ -46,8 +49,10 @@ export class MyHammerConfig extends HammerGestureConfig {
     ViewCategoriesComponent,
     EventBuysComponent,
     FooterComponent,
-
-    PanelComponent
+    PanelComponent,
+    MyEventsComponent,
+    CalendarComponent,
+    StatisticsComponent
 
   ],
   imports: [
@@ -58,10 +63,11 @@ export class MyHammerConfig extends HammerGestureConfig {
     HammerModule
   ],
   providers: [
+    /*
     {
       provide: HAMMER_GESTURE_CONFIG,
       useClass: MyHammerConfig
-    }
+    }*/
   ],
   bootstrap: [AppComponent]
 })

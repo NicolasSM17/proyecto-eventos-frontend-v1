@@ -4,13 +4,13 @@
             <img src="https://static.vecteezy.com/system/resources/thumbnails/012/986/755/small/abstract-circle-logo-icon-free-png.png" alt="Logo">
         </div>
         
-        <div class="search-container expanded-search">
+        <div class="search-container expanded-search" >
             <div class="search-bar">
                 <input type="text" placeholder="Busca eventos,convenciones y más...">
                 <i class="fas fa-search search-icon"></i>
             </div>
         </div>
-        <a class="btn points" routerLink="/selectInstitution"><i class="fa-solid fa-landmark"></i></a>
+        <a class="btn points" routerLink="/selectInstitution" ><i class="fa-solid fa-landmark"></i></a>
         <div class="buttons">
             <div class="dropdown col-md-3">
                 <button id="filterButton" class="btn filter-button-categories" aria-label="Filtrar por categorías" (click)="toggleDropdown()" [ngClass]="{'active': isDropdownVisible}">
@@ -44,9 +44,9 @@
             </div>            
             <div class="dropdown drop-dos" *ngIf="isLoggedIn()">
                 <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fa-solid fa-user" *ngIf="isUser()"></i>
-                    <i class="fa-solid fa-user-tie" *ngIf="isOrganizador()"></i>
-                    <i class="fa-solid fa-user-secret" *ngIf="isAdmin()"></i>
+                    <i class="fa-solid fa-user fa-lg" *ngIf="isUser()"></i>
+                    <i class="fa-solid fa-user-tie fa-xl" *ngIf="isOrganizador()"></i>
+                    <i class="fa-solid fa-user-secret fa-lg" *ngIf="isAdmin()"></i>
                 </button>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" *ngIf="isUser()">Administrar cuenta</a></li>

@@ -125,7 +125,7 @@ header .btn-outline-success:focus {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
     position: absolute !important; /* Cambiar a 'absolute' para anclar al contenedor */
     top: 60px !important; /* Colocar justo debajo del botón */
-    left: -180% !important; /* Alinear a la izquierda del contenedor */
+    left: -260% !important; /* Alinear a la izquierda del contenedor */
     z-index: 1000 !important;
     display: block !important;
     margin: 0 !important;

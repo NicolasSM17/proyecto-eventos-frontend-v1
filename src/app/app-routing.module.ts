@@ -23,11 +23,8 @@ const routes: Routes = [
   {path: "forbidden", component: ForbiddenComponent},
   {path: "viewInstitutions", component: ViewInstitutionsComponent},
   {path: "viewCategories", component: ViewCategoriesComponent},
-
- 
-
   {path: "adminPanel", component: PanelComponent},
-  { path: 'eventBuys', component: EventBuysComponent }
+  {path: 'eventBuys', component: EventBuysComponent }
 
 ];
 
