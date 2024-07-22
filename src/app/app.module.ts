@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule, HammerModule  } from '@angular/platform-browser';
-import { HAMMER_GESTURE_CONFIG, HammerGestureConfig } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -14,23 +13,9 @@ import { FormsModule } from '@angular/forms';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { ViewInstitutionsComponent } from './admin/view-institutions/view-institutions.component';
 import { ViewCategoriesComponent } from './admin/view-categories/view-categories.component';
-
-import 'hammerjs';
 import { EventBuysComponent } from './pages/event-buys/event-buys.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PanelComponent } from './admin/panel/panel.component';
-
-
-
-declare var Hammer: any;
-
-export class MyHammerConfig extends HammerGestureConfig {
-  override overrides = <any>{
-    // override hammerjs default configuration
-    'swipe': { direction: Hammer.DIRECTION_HORIZONTAL }
-  };
-}
-
 
 @NgModule({
   declarations: [
@@ -46,23 +31,15 @@ export class MyHammerConfig extends HammerGestureConfig {
     ViewCategoriesComponent,
     EventBuysComponent,
     FooterComponent,
-
     PanelComponent
-
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule,
-    HammerModule
+    HttpClientModule
   ],
-  providers: [
-    {
-      provide: HAMMER_GESTURE_CONFIG,
-      useClass: MyHammerConfig
-    }
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
