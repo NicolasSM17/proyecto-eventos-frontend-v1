@@ -13,7 +13,7 @@ export class InstitutionService {
   constructor(private httpClient: HttpClient) { }
 
   getInstitution(): Observable<Institution[]>{
-    return this.httpClient.get<Institution[]>(this.PATH_OF_API);
+    return this.httpClient.get<Institution[]>(this.PATH_OF_API + "/listar");
   }
 
   getByIdInstitution(id: number): Observable<Institution>{
