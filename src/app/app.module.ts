@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { SelectInstitutionComponent } from './pages/select-institution/select-institution.component';
 import { EventListComponent } from './pages/event-list/event-list.component';
 import { EventDetailComponent } from './pages/event-detail/event-detail.component';
@@ -19,6 +19,10 @@ import { PanelComponent } from './admin/panel/panel.component';
 import { MyEventsComponent } from './pages/my-events/my-events.component';
 import { CalendarComponent } from './pages/calendar/calendar.component';
 import { StatisticsComponent } from './pages/statistics/statistics.component';
+import { AuthGuard } from './auth/auth.guard';
+import { AuthInterceptor } from './auth/auth.interceptor';
+import { UserService } from './services/user.service';
+import { UserAuthService } from './services/user-auth.service';
 
 @NgModule({
   declarations: [
@@ -45,7 +49,15 @@ import { StatisticsComponent } from './pages/statistics/statistics.component';
     FormsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    UserAuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

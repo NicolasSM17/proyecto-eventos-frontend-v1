@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 export class UserAuthService {
 
   PATH_OF_API = "http://localhost:8080/api/v1/";
+  requestHeader = new HttpHeaders( {"No-Auth":"True"} );
 
   constructor(private httpClient: HttpClient) { }
 
@@ -15,7 +16,7 @@ export class UserAuthService {
   }
 
   public login(loginData){
-    return this.httpClient.post(this.PATH_OF_API+ "auth/authenticate", loginData);
+    return this.httpClient.post(this.PATH_OF_API+ "auth/authenticate", loginData, {headers: this.requestHeader});
   }
 
   public setRoles(roles:[]){
@@ -55,5 +56,29 @@ export class UserAuthService {
   public isOrganizador(){
     const roles: any[] = this.getRoles();
     return roles[0].nombre == 'ORGANIZADOR'
+  }
+
+  public roleMatch(allowedRoles): boolean {
+    let isMatch = false;
+    const userRoles: any = this.getRoles();
+
+    if(userRoles != null && userRoles){
+
+      for(let i = 0; i < userRoles.length; i++){
+
+        for(let j = 0; j < allowedRoles.length; j++){
+
+          if(userRoles[i].nombre == allowedRoles[j]){
+            isMatch = true;
+
+            return isMatch;
+          } else {
+            return isMatch;
+          }
+        }
+      }
+    }
+
+    return false;
   }
 }

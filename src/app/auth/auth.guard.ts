@@ -21,7 +21,7 @@ export class AuthGuard implements CanActivate{
       const role = route.data["roles"] as Array<string>;
 
       if(role){
-        const match = this.userService.roleMatch(role);
+        const match = this.userAuthService.roleMatch(role);
 
         if(match){
           return true;

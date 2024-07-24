@@ -11,6 +11,7 @@ import { ViewCategoriesComponent } from './admin/view-categories/view-categories
 import { PanelComponent } from './admin/panel/panel.component';
 
 import { EventBuysComponent } from './pages/event-buys/event-buys.component';
+import { AuthGuard } from './auth/auth.guard';
 
 
 const routes: Routes = [
@@ -21,9 +22,9 @@ const routes: Routes = [
   {path: "register", component: RegisterComponent},
   {path: "eventDetail", component: EventDetailComponent},
   {path: "forbidden", component: ForbiddenComponent},
-  {path: "viewInstitutions", component: ViewInstitutionsComponent},
-  {path: "viewCategories", component: ViewCategoriesComponent},
-  {path: "adminPanel", component: PanelComponent},
+  {path: "viewInstitutions", component: ViewInstitutionsComponent, canActivate:[AuthGuard], data:{roles:['ADMIN']}},
+  {path: "viewCategories", component: ViewCategoriesComponent, canActivate:[AuthGuard], data:{roles:['ADMIN']}},
+  {path: "adminPanel", component: PanelComponent, canActivate:[AuthGuard], data:{roles:['ADMIN']}},
   {path: 'eventBuys', component: EventBuysComponent }
 
 ];
