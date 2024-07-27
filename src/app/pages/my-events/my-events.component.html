@@ -1,1 +1,36 @@
-<p>my-events works!</p>
+<app-navbar></app-navbar>
+
+<div class="container my-5">
+    <h2 style="text-align: left;">Tus Eventos</h2>
+
+    <table class="table table-hover table-borderless my-5 tabla">
+        <thead>
+            <tr>
+                <th scope="col" style="text-align: left;">Evento</th>
+                <th scope="col">Ubicacion</th>
+                <th scope="col">Estado</th>
+            </tr>
+            <tr>
+                <th colspan="3">
+                    <div style="border-bottom: 1px solid white;"></div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="text-align: left;"><img src="https://cdn.joinnus.com/files/2024/06/LfBSShMvDGCvLLd.png" class="mx-3 rounded">Evento 1</td>
+                <td>Lima, Miraflores</td>
+                <td><i class="fa-solid fa-circle mx-3" style="color: green;"></i>Publicado</td>
+            </tr>
+            <tr>
+                <td style="text-align: left;"><img src="https://cdn.joinnus.com/user/3585761/TcS696jHKBRURSk.png" class="mx-3 rounded">Evento 2</td>
+                <td>Lima, Barranco</td>
+                <td><i class="fa-solid fa-circle mx-3" style="color: green;"></i>Publicado</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="my 5 boton-añadir">
+        <a routerLink="" class="btn"><i class="fa-solid fa-circle-plus fa-2xl" style="color: white;"></i></a>
+    </div>
+</div>

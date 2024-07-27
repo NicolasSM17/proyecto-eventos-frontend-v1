@@ -27,7 +27,6 @@ export class EventListComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-   
       this.initializeSlickCarousel();
     
   }

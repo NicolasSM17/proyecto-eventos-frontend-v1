@@ -1,0 +1,17 @@
+.tabla{
+    color: white;
+}
+
+.tabla tbody tr td{
+    color: aliceblue;
+}
+
+.boton-añadir{
+    color: white;
+    text-align: left;
+}
+
+img{
+    width: 65px; 
+    height: 65px;
+}
