@@ -13,6 +13,7 @@ import { PanelComponent } from './admin/panel/panel.component';
 import { EventBuysComponent } from './pages/event-buys/event-buys.component';
 import { AuthGuard } from './auth/auth.guard';
 import { MyEventsComponent } from './pages/my-events/my-events.component';
+import { AddNewEventComponent } from './pages/add-new-event/add-new-event.component';
 
 
 const routes: Routes = [
@@ -27,8 +28,8 @@ const routes: Routes = [
   {path: "viewInstitutions", component: ViewInstitutionsComponent, canActivate:[AuthGuard], data:{roles:['ADMIN']}},
   {path: "viewCategories", component: ViewCategoriesComponent, canActivate:[AuthGuard], data:{roles:['ADMIN']}},
   {path: "adminPanel", component: PanelComponent, canActivate:[AuthGuard], data:{roles:['ADMIN']}},
-  {path: 'eventBuys', component: EventBuysComponent }
-
+  {path: 'eventBuys', component: EventBuysComponent },
+  {path: 'addNewEvent', component: AddNewEventComponent}
 ];
 
 @NgModule({

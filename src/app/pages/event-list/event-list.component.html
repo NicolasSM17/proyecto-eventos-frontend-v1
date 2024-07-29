@@ -8,15 +8,12 @@
             <img [src]="slide.image" class="d-block w-100" alt="Banner">
         </div>
     </div>
-    
-    
-
 
     <section class="events my-5">
         <div class="container container-wide">
             <div class="row">
                 <div class="icon-text-container col-md-12">
-                    <h2 class="text-center">Eventos destacados</h2>
+                    <h2 class="text-center">Eventos disponibles</h2>
                     <i class="fa fa-star-half-alt text-yellow"></i>
                 </div>
                 <div class="row events-container">
@@ -36,40 +33,6 @@
                         </a>
                     </div>
 
-                    <div class="col-10 col-md-6 col-lg-3 mb-4" v-for="event in events">
-                        <a href="#" class="card-link">
-                            <div class="card">
-                                <img class="img-fluid" src="https://cdn.joinnus.com/user/3535201/act66007a306ce82.jpg"
-                                    class="card-img-top" alt="Evento">
-                                <div class="card-body">
-                                    <h5 class="card-title">Crea y vende tu evento</h5>
-                                    <p class="card-text">6M+ ENTRADAS VENDIDAS | 60k+ VENDEDORES | 8k+ ORGANIZADORES DE
-                                        EVENTOS</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <button class="btn btn-info">Contactenos</button>
-                                        <p class="card-text">Precio variable</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="row events-container">
-                    <div class="col-10 col-md-6 col-lg-3 mb-4" *ngFor="let event of events">
-                        <a routerLink="/eventDetail" class="card-link">
-                            <div class="card">
-                                <img class="img-fluid" [src]="event.image" class="card-img-top" alt="Evento">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ event.title }}</h5>
-                                    <p class="card-text"><i class="fas fa-calendar-alt"></i> {{ event.date }}</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <button class="btn btn-comprar">Comprar</button>
-                                        <p class="card-text">Desde {{ event.price }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
                     <div class="col-10 col-md-6 col-lg-3 mb-4" v-for="event in events">
                         <a href="#" class="card-link">
                             <div class="card">

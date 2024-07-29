@@ -23,6 +23,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { UserService } from './services/user.service';
 import { UserAuthService } from './services/user-auth.service';
+import { AddNewEventComponent } from './pages/add-new-event/add-new-event.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { UserAuthService } from './services/user-auth.service';
     PanelComponent,
     MyEventsComponent,
     CalendarComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    AddNewEventComponent
   ],
   imports: [
     BrowserModule,
