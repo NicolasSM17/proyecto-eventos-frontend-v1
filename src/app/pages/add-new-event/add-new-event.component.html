@@ -1,1 +1,137 @@
-<p>add-new-event works!</p>
+<div class="container" *ngIf="step == 1">
+    <div class="row">
+        <div class="col-md-6 d-flex align-items-center justify-content-center vh-90">
+            <h1 class="display-4">Crear tu evento <br> es muy sencillo</h1>
+        </div>
+        <div class="col-md-6 my-3">
+            <div class="step mt-5">
+                <div class="d-flex align-items-center">
+                    <img src="https://cdn-icons-png.freepik.com/512/4029/4029050.png" alt="Icono de notas" class="icon-step">
+                    <div>
+                        <h3>1. Describe tu evento</h3>
+                        <p>Comparte algunos datos básicos, un título, una descripcion y las categorias a las que pertenece.</p>
+                    </div>
+                </div>
+            </div>
+            <div style="border-bottom: 1px solid rgb(77, 75, 75);"></div>
+            <div class="step mt-5">
+                <div class="d-flex align-items-center">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1040/1040241.png" alt="Icono de notas" class="icon-step">
+                    <div>
+                        <h3>2. Hazlo destacar</h3>
+                        <p>Agrega una foto, la ubicación, fecha y hora en la que se realizará tu evento.</p>
+                    </div>
+                </div>
+            </div>
+            <div style="border-bottom: 1px solid rgb(77, 75, 75);"></div>
+            <div class="step mt-5">
+                <div class="d-flex align-items-center">
+                    <img src="https://cdn-icons-png.freepik.com/512/5197/5197704.png" alt="Icono de notas" class="icon-step">
+                    <div>
+                        <h3>3. Terminar y publicar</h3>
+                        <p>Elige un precio inicial, verifica algunos detalles y publica tu evento.</p>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-comenzar mt-4" (click)="next()">Comencemos</button>
+        </div>
+    </div>
+</div>
+
+<div class="container" *ngIf="step == 2">
+    <div class="row">
+        <div class="col-md-6 d-flex flex-column align-items-center justify-content-center vh-80">
+            <h3 class="paso">Paso 1</h3>
+            <h2 class="display-4">Describe tu evento</h2>
+            <p class="mt-2 text-left">
+            Comparte información detallada sobre el evento, comenzando con algunos datos básicos como el nombre del evento, 
+                una descripción completa que explique el propósito y los aspectos más destacados del mismo, así como el título que 
+                lo represente de manera atractiva. No olvides incluir las categorías a las que pertenece, para que los asistentes 
+                potenciales puedan identificar fácilmente el tipo de evento que estás organizando.</p>
+        </div>
+        <div class="col-md-6 mt-4">
+            <img src="https://static.vecteezy.com/system/resources/previews/018/757/969/original/3d-concert-stage-png.png" alt="icono de escenario" class="imagen-paso2">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col d-flex justify-content-between">
+            <button class="btn btn-outline-secondary" (click)="previus()">Atrás</button>
+            <button class="btn btn-2" (click)="next()">Siguiente</button>
+        </div>
+    </div>
+</div>
+
+<form>
+    <div class="container mt-5">
+        <div *ngIf="step == 3">
+            <div class="mb-3 mt-5">
+                <label for="titulo" class="form-label">Título</label>
+                <input type="text" class="form-control" id="titulo" placeholder="Introduce el título del evento">
+            </div>
+            
+            <div class="mb-3 mt-5">
+                <label for="descripcion" class="form-label text-bold">Descripción</label>
+                <textarea class="form-control" id="descripcion" rows="4"
+                    placeholder="Introduce una descripción detallada del evento"></textarea>
+            </div>
+            
+            <div class="mb-5 mt-5">
+                <label for="categoria" class="form-label">Categoría</label><br>
+                <select class="form-select mb-5" id="categoria">
+                    <option selected>Selecciona una categoría</option>
+                    <option value="1">Conferencia</option>
+                    <option value="2">Taller</option>
+                    <option value="3">Concierto</option>
+                    <option value="4">Fiesta</option>
+                    <!-- Agrega más opciones según sea necesario -->
+                </select>
+            </div>
+        </div>
+        
+        <div *ngIf="step == 4">
+            <div class="row">
+                <div class="col-md-6 d-flex flex-column align-items-center justify-content-center vh-80">
+                    <h3 class="paso">Paso 2</h3>
+                    <h2 class="display-4">Hazlo destacar</h2>
+                    <p class="mt-2 text-left">
+                        Sube una imagen representativa que capture la esencia y el ambiente del evento, 
+                        ya sea un póster promocional o cualquier otra visual que ayude a los asistentes a visualizar 
+                        lo que les espera. A continuación, proporciona la 
+                        dirección exacta del evento, incluyendo detalles como el nombre del lugar, la calle y 
+                        cualquier referencia adicional que pueda ser útil para llegar sin inconvenientes. 
+                        No olvides especificar la fecha y la hora de inicio, para que los participantes puedan planificar su 
+                        asistencia de manera adecuada.</p>
+                </div>
+                <div class="col-md-6 mt-4">
+                    <img src="https://cdn-icons-png.flaticon.com/512/5798/5798294.png" alt="icono de subir imagen" class="imagen-paso4">
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="step == 7">
+            <div class="row">
+                <div class="col-md-6 d-flex flex-column align-items-center justify-content-center vh-90 mt-5">
+                    <h3 class="paso">Paso 3</h3>
+                    <h2 class="display-4">Terminar y publicar</h2>
+                    <p class="mt-2 text-left">
+                        Por último, determina el precio inicial para asistir a tu evento, teniendo en cuenta factores como 
+                        los costos de organización y el valor que ofrece la experiencia. Realiza 
+                        una revisión detallada de toda la información proporcionada, incluyendo la descripción del 
+                        evento, la fecha, la hora, la ubicación y cualquier otro detalle relevante, para asegurarte
+                        de que todo esté correcto y completo. Una vez que hayas confirmado que toda la información 
+                        es precisa y estás satisfecho con los detalles, procede a publicar tu evento.</p>
+                </div>
+                <div class="col-md-6 mt-5 mb-5">
+                    <img src="https://th.bing.com/th/id/R.75c46cd81a8db59d59dc3e388a83dedd?rik=5ir2xlsh6OggKg&pid=ImgRaw&r=0" alt="icono de subir imagen" class="imagen-paso4">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col d-flex justify-content-between">
+                <button class="btn btn-outline-secondary" *ngIf="step >= 3" (click)="previus()">Atrás</button>
+                <button class="btn btn-2" *ngIf="step >= 3" (click)="next()">Siguiente</button>
+            </div>
+        </div>
+    </div>
+</form>

@@ -7,8 +7,6 @@ body {
     color: white;
     text-align: center;
     overflow-x: hidden; /* Evita el desplazamiento horizontal */
-
-    
 }
 
 @keyframes onAutoFillStart {
@@ -104,7 +102,7 @@ header .btn-outline-success {
 }
 
 header .btn-outline-primary:hover
- {
+{
     background-color: #3553da;
     color: white;
 }
@@ -182,12 +180,11 @@ header .btn-outline-success:focus {
 
 @supports (-webkit-appearance: none) and (not (-moz-appearance: none)) and (text-size-adjust: none) {
     .general-container input:-webkit-autofill,
-     .general-container input:-webkit-autofill:hover, 
-     .general-container input:-webkit-autofill:focus, 
+    .general-container input:-webkit-autofill:hover, 
+    .general-container input:-webkit-autofill:focus, 
     .general-container input:-webkit-autofill:active {
         
         -webkit-box-shadow: 0 0 0px 1000px rgba(40, 57, 90, 0.4) inset !important;
-       
         -webkit-text-fill-color: rgb(255, 255, 255) !important;
         transition: background-color 5000s ease-in-out 0s;
         animation-name: onAutoFillStart;
@@ -247,13 +244,13 @@ input:not(:-webkit-autofill) {
 
 .slick-dots {
     bottom: 5px;
-  }
-  
-  .slick-dots li {
+}
+
+.slick-dots li {
     margin: 0 10px; /* Aumenta la separación entre los indicadores */
-  }
-  
-  .slick-dots li button:before {
+}
+
+.slick-dots li button:before {
     font-size: 14px;
     color: rgba(255, 153, 0, 0.5); /* Naranja transparente para los no activos */
     content: "";
@@ -262,13 +259,12 @@ input:not(:-webkit-autofill) {
     background-color: rgba(255, 153, 0, 0.5);
     display: inline-block;
     transition: all 0.3s ease; /* Transición suave */
-  }
-  
-  .slick-dots li.slick-active button:before {
+}
+
+.slick-dots li.slick-active button:before {
     font-size: 16px;
     color: rgba(255, 153, 0, 1); /* Naranja fuerte para el activo */
     background-color: rgba(255, 153, 0, 1);
     width: 30px; /* Ajusta el ancho del indicador activo */
     height: 12px; /* Ajusta la altura del indicador activo */
-  }
-  
+}

@@ -6,5 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./add-new-event.component.css']
 })
 export class AddNewEventComponent {
+  step: any = 1;
 
+  next(){
+    this.step = this.step + 1;
+  }
+
+  previus(){
+    this.step = this.step - 1;
+  }
 }
