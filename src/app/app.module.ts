@@ -10,6 +10,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FormsModule } from '@angular/forms';
+import { MatGridListModule } from "@angular/material/grid-list";
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { ViewInstitutionsComponent } from './admin/view-institutions/view-institutions.component';
 import { ViewCategoriesComponent } from './admin/view-categories/view-categories.component';
@@ -54,6 +55,7 @@ import { DragDirective } from './custom/directives/drag.directive';
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    MatGridListModule
   ],
   providers: [
     AuthGuard,

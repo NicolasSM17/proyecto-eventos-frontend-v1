@@ -108,6 +108,68 @@
             </div>
         </div>
 
+        <div *ngIf="step == 5">
+            <div>
+                <h1 class="mb-5">Sube tu imagen</h1>
+                <div class="dropzone" appDrag>
+                    <div class="text-wrapper">
+                        <div class="centered">Arrastre y suelte su imagen o
+                            <a (click)="selectFile.click()" class="browse-button">busque</a> una imagen
+                        </div>
+                    </div>
+                </div>
+                <input type="file" style="display: none;" multiple value="select" #selectFile>
+            </div>
+            <div class="mt-5">
+                <div class="row mb-5 contenedor1">
+                    <mat-grid-list cols="4" rowHeight="1:1">
+                            <div style="position: relative;">
+                                <span class="btn-remove-image">x</span>
+                                <img src="https://th.bing.com/th/id/OIP.IBogViC0L2et77tUTcUPqwHaHa?rs=1&pid=ImgDetMain" class="mb-5" alt="ajsja" width="100px" height="100px">
+                            </div>
+                            
+                    </mat-grid-list>
+                </div>
+            </div>
+        </div>
+        
+        <!--
+        <div class="mt-5">
+            <div class="row">
+                <mat-grid-list cols="4" rowHeight="1:1">
+                    <mat-grid-tile *ngFor="let file of product.productImages; let i = index;">
+                        <div style="position: relative;">
+                            <span class="btn-remove-image" (click)="removeImages(i)">x</span>
+                            <img [src]="file.url" width="100px" height="100px">
+                        </div>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </div>
+        </div>-->
+
+        <div *ngIf="step == 6">
+            <div class="row">
+                <div class="col-md-12 mt-5 mb-4">
+                    <label for="direccion">Dirección:</label>
+                    <input type="text" id="direccion" class="form-control">
+                </div>
+                <div class="col-md-12 mt-3 mb-4">
+                    <label for="url">URL de la dirección:</label>
+                    <input type="text" id="url" class="form-control">
+                </div>
+            </div>
+            <div class="row mb-5">
+                <div class="col-md-6 mt-3 mb-5">
+                    <label for="fecha">Fecha:</label>
+                    <input type="date" id="fecha" class="form-control">
+                </div>
+                <div class="col-md-6 mt-3 mb-5">
+                    <label for="hora">Hora:</label>
+                    <input type="time" id="hora" class="form-control">
+                </div>
+            </div>
+        </div>
+
         <div *ngIf="step == 7">
             <div class="row">
                 <div class="col-md-6 d-flex flex-column align-items-center justify-content-center vh-90 mt-5">
@@ -127,10 +189,29 @@
             </div>
         </div>
 
+        <div *ngIf="step == 8">
+            <div class="row mb-5">
+                <div class="col-md-6 mt-5 mb-5">
+                    <label for="precio">Precio:</label>
+                    <input type="number" id="precio" class="form-control">
+                </div>
+                <div class="col-md-6 mt-5 mb-5">
+                    <label for="institucion">Institución:</label>
+                    <select id="institucion" class="form-control">
+                        <option value="">Seleccione una opción</option>
+                        <option value="institucion1">Institución 1</option>
+                        <option value="institucion2">Institución 2</option>
+                        <option value="institucion3">Institución 3</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col d-flex justify-content-between">
                 <button class="btn btn-outline-secondary" *ngIf="step >= 3" (click)="previus()">Atrás</button>
-                <button class="btn btn-2" *ngIf="step >= 3" (click)="next()">Siguiente</button>
+                <button class="btn btn-2" *ngIf="step >= 3  && step < 8" (click)="next()">Siguiente</button>
+                <button class="btn btn-2" type="submit" *ngIf="step == 8">PUBLICAR EVENTO</button>
             </div>
         </div>
     </div>

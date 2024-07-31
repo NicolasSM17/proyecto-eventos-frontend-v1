@@ -15,14 +15,14 @@ export class DragDirective {
   public onDragOver(evt: DragEvent){
     evt.preventDefault();
     evt.stopPropagation();
-    this.background = "#999"
+    this.background = "#eee"
   }
 
   @HostListener("dragleave", ["$event"])
   public onDragLeave(evt: DragEvent){
     evt.preventDefault();
     evt.stopPropagation();
-    this.background = "#eee"
+    this.background = "#f77d31"
   }
 
   @HostListener("drop", ["$event"])
