@@ -24,6 +24,8 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { UserService } from './services/user.service';
 import { UserAuthService } from './services/user-auth.service';
 import { AddNewEventComponent } from './pages/add-new-event/add-new-event.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DragDirective } from './custom/directives/drag.directive';
 
 @NgModule({
   declarations: [
@@ -43,13 +45,15 @@ import { AddNewEventComponent } from './pages/add-new-event/add-new-event.compon
     MyEventsComponent,
     CalendarComponent,
     StatisticsComponent,
-    AddNewEventComponent
+    AddNewEventComponent,
+    DragDirective
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     AuthGuard,
