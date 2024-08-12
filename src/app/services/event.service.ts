@@ -24,8 +24,8 @@ export class EventService {
     return this.httpClient.get<Evento[]>(`${this.PATH_OF_API}/eventosPorInstitucionId/${institucionId}`);
   }
 
-  getByIdEvento(id: number): Observable<Evento>{
-    return this.httpClient.get<Evento>(this.PATH_OF_API + "/" + id);
+  getByIdEvento(eventoId): Observable<Evento>{
+    return this.httpClient.get<Evento>(this.PATH_OF_API + "/" + eventoId);
   }
 
   save(evento: FormData): Observable<Evento>{
