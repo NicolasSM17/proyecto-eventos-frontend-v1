@@ -16,6 +16,14 @@ export class EventService {
     return this.httpClient.get<Evento[]>(this.PATH_OF_API);
   }
 
+  getEventoByIdOrganizador(organizadorId: number): Observable<Evento[]>{
+    return this.httpClient.get<Evento[]>(`${this.PATH_OF_API}/eventosPorOrganizadorId/${organizadorId}`);
+  }
+
+  getEventosByIdInstitucion(institucionId: number): Observable<Evento[]>{
+    return this.httpClient.get<Evento[]>(`${this.PATH_OF_API}/eventosPorInstitucionId/${institucionId}`);
+  }
+
   getByIdEvento(id: number): Observable<Evento>{
     return this.httpClient.get<Evento>(this.PATH_OF_API + "/" + id);
   }
