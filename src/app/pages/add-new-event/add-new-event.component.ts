@@ -18,6 +18,7 @@ import { InstitutionService } from 'src/app/services/institution.service';
 })
 export class AddNewEventComponent implements OnInit{
   step: any = 1;
+  selectedCategoriaIds: number[] = [];
   institutions: Institution[] = [];
   isNewEvento = true;
   categorias: Category[] = [];
@@ -25,15 +26,15 @@ export class AddNewEventComponent implements OnInit{
     id: null,
     titulo: "",
     descripcion: "",
-    fecha: null,
+    fecha: "",
     hora: "", // Formato HH:mm
     direccion: "",
     direccionUrl: "",
-    precio: 0,
-    institucion: null,
-    categorias: null,
+    precioEntrada: 0,
+    institucion: { id: null, nombre: "", imagenUrl: ""},
+    categorias: [],
     organizador: null,
-    eventoImagenes:[] = []
+    eventoImagenes:[]
   };
 
   constructor(private eventService: EventService, private categoryService: CategoryService,
@@ -53,7 +54,24 @@ export class AddNewEventComponent implements OnInit{
   }
 
   addEvento(eventoForm: NgForm){
+    this.evento.categorias = this.selectedCategoriaIds.map(
+      id => this.categorias.find(
+        cat => cat.id === id
+      )
+    );
 
+    const eventoFormData = this.prepareFormData(this.evento);
+
+    this.eventService.save(eventoFormData).subscribe(
+      (response: Evento) => {
+        eventoForm.reset();
+        this.evento.eventoImagenes = [];
+        console.log(response);
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+      }
+    );
   }
 
   next(){
@@ -68,7 +86,6 @@ export class AddNewEventComponent implements OnInit{
     this.institutionService.getInstitution().subscribe(
       (response: Institution[]) => {
         this.institutions = response;
-        console.log(response);
       },
       (error: HttpErrorResponse) => {
         console.log(error);
@@ -80,7 +97,6 @@ export class AddNewEventComponent implements OnInit{
     this.categoryService.getCategory().subscribe(
       (response: Category[]) => {
         this.categorias = response;
-        console.log(response);
       },
       (error: HttpErrorResponse) => {
         console.log(error);

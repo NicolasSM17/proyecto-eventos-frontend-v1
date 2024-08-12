@@ -11,7 +11,7 @@ export interface Evento{
     hora: string; // Formato HH:mm
     direccion: string;
     direccionUrl: string;
-    precio: number;
+    precioEntrada: number;
     institucion: Institution;
     categorias: Category[];
     organizador: User;

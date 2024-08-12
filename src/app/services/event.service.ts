@@ -20,8 +20,8 @@ export class EventService {
     return this.httpClient.get<Evento>(this.PATH_OF_API + "/" + id);
   }
 
-  save(evento: Evento): Observable<Evento>{
-    return this.httpClient.post<Evento>(this.PATH_OF_API, evento);
+  save(evento: FormData): Observable<Evento>{
+    return this.httpClient.post<Evento>(this.PATH_OF_API + "/insertar", evento);
   }
 
   update(evento: Evento): Observable<Evento>{

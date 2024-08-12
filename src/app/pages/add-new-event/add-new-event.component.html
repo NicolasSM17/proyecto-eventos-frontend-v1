@@ -66,19 +66,18 @@
         <div *ngIf="step == 3">
             <div class="mb-3 mt-5">
                 <label for="titulo" class="form-label">Título</label>
-                <input type="text" class="form-control" id="titulo" placeholder="Introduce el título del evento" name="titulo">
+                <input type="text" class="form-control" id="titulo" placeholder="Introduce el título del evento" name="titulo" [(ngModel)]="evento.titulo">
             </div>
             
             <div class="mb-3 mt-5">
                 <label for="descripcion" class="form-label text-bold">Descripción</label>
-                <textarea class="form-control" id="descripcion" rows="4" name="descripcion"
+                <textarea class="form-control" id="descripcion" rows="4" name="descripcion" [(ngModel)]="evento.descripcion"
                     placeholder="Introduce una descripción detallada del evento"></textarea>
             </div>
             
             <div class="mb-5 mt-5">
                 <label for="categoria" class="form-label">Categoría</label><br>
-                <select class="form-select mb-5" id="categoria">
-                    <option selected>Selecciona una categoría</option>
+                <select class="form-select mb-5" id="categoria" name="categorias" [(ngModel)]="selectedCategoriaIds" multiple>
                     <option *ngFor="let categoria of categorias" [value]="categoria.id">{{ categoria.nombre }}</option>
                 </select>
             </div>
@@ -117,7 +116,7 @@
                 <input type="file" name="eventoImagenes" style="display: none;" multiple value="select" #selectFile (change)="onFileSelected($event)">
             </div>  
             <div class="mt-5">
-                <div class="row mb-5 contenedor1">
+                <div class="row mb-5 contenedor1" *ngIf="evento && evento.eventoImagenes">
                     <mat-grid-list cols="4" rowHeight="1:1">
                             <div style="display: inline-flex;" *ngFor="let file of evento.eventoImagenes; let i = index;">
                                 <span class="btn-remove-image" (click)="removeImages(i)">x</span>
@@ -132,21 +131,21 @@
             <div class="row">
                 <div class="col-md-12 mt-5 mb-4">
                     <label for="direccion">Dirección:</label>
-                    <input type="text" id="direccion" class="form-control">
+                    <input type="text" id="direccion" class="form-control" name="direccion" [(ngModel)]="evento.direccion">
                 </div>
                 <div class="col-md-12 mt-3 mb-4">
                     <label for="url">URL de la dirección:</label>
-                    <input type="text" id="url" class="form-control">
+                    <input type="text" id="url" class="form-control" name="direccionUrl" [(ngModel)]="evento.direccionUrl">
                 </div>
             </div>
             <div class="row mb-5">
                 <div class="col-md-6 mt-3 mb-5">
                     <label for="fecha">Fecha:</label>
-                    <input type="date" id="fecha" class="form-control">
+                    <input type="date" id="fecha" class="form-control" name="fecha" [(ngModel)]="evento.fecha">
                 </div>
                 <div class="col-md-6 mt-3 mb-5">
                     <label for="hora">Hora:</label>
-                    <input type="time" id="hora" class="form-control">
+                    <input type="time" id="hora" class="form-control" name="hora" [(ngModel)]="evento.hora">
                 </div>
             </div>
         </div>
@@ -174,12 +173,12 @@
             <div class="row mb-5">
                 <div class="col-md-6 mt-5 mb-5">
                     <label for="precio">Precio:</label>
-                    <input type="number" id="precio" class="form-control">
+                    <input type="number" id="precio" class="form-control" name="precioEntrada" [(ngModel)]="evento.precioEntrada">
                 </div>
                 <div class="col-md-6 mt-5 mb-5">
                     <label for="institucion">Institución:</label>
-                    <select id="institucion" class="form-control">
-                        <option value="">Seleccione una opción</option>
+                    <select id="institucion" class="form-control" name="institucion" [(ngModel)]="evento.institucion.id">
+                        <option selected value="">Seleccione una opción</option>
                         <option *ngFor="let institucion of institutions" [value]="institucion.id" >{{ institucion.nombre }}</option>
                     </select>
                 </div>
@@ -188,8 +187,8 @@
 
         <div class="row">
             <div class="col d-flex justify-content-between">
-                <button class="btn btn-outline-secondary" *ngIf="step >= 3" (click)="previus()">Atrás</button>
-                <button class="btn btn-2" *ngIf="step >= 3  && step < 8" (click)="next()">Siguiente</button>
+                <button class="btn btn-outline-secondary" type="button" *ngIf="step >= 3" (click)="previus()">Atrás</button>
+                <button class="btn btn-2" type="button" *ngIf="step >= 3  && step < 8" (click)="next()">Siguiente</button>
                 <button class="btn btn-2" type="submit" *ngIf="step == 8">PUBLICAR EVENTO</button>
             </div>
         </div>

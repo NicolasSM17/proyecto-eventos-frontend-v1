@@ -29,7 +29,7 @@ const routes: Routes = [
   {path: "viewCategories", component: ViewCategoriesComponent, canActivate:[AuthGuard], data:{roles:['ADMIN']}},
   {path: "adminPanel", component: PanelComponent, canActivate:[AuthGuard], data:{roles:['ADMIN']}},
   {path: 'eventBuys', component: EventBuysComponent },
-  {path: 'addNewEvent', component: AddNewEventComponent}
+  {path: 'addNewEvent', component: AddNewEventComponent, data:{roles:['USER']}}
 ];
 
 @NgModule({
