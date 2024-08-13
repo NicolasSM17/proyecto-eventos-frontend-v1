@@ -15,7 +15,7 @@ declare var $: any; // Importa jQuery si estás usando Bootstrap 4
 export class EventListComponent implements OnInit, AfterViewInit {
   @ViewChild('carousel') carousel!: ElementRef;
   eventos: Evento[] = [];
-  institucionId = +this.activatedRoute.snapshot.paramMap.get("institucionId");
+  institucionId: number;
 
   slides = [
     { image: 'https://cdn.joinnus.com/files/2024/06/LfBSShMvDGCvLLd.png' },
@@ -29,7 +29,13 @@ export class EventListComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.addLoadedClassToMain();
     this.addPressEffectToButtons();
-    this.getEventos();
+    
+    this.activatedRoute.paramMap.subscribe(
+      params => {
+        this.institucionId = +params.get("institucionId");
+        this.getEventos();
+      }
+    );
   }
 
   ngAfterViewInit() {
@@ -110,14 +116,13 @@ export class EventListComponent implements OnInit, AfterViewInit {
   }
 
   getEventos(){
-    this.eventoService.getEventoByIdOrganizador(this.institucionId).pipe(
+    this.eventoService.getEventosByIdInstitucion(this.institucionId).pipe(
       map(
         (x: Evento[], i) => x.map(
           (evento: Evento) => {
             const [hours, minutes] = evento.hora.split(':');
             evento.horaDate = new Date(0, 0, 0, +hours, +minutes);
-
-            return this.imageProcessingService.createImages(evento)
+            return this.imageProcessingService.createImages(evento);
           }
         )
       )
