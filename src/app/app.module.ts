@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,6 +27,10 @@ import { UserAuthService } from './services/user-auth.service';
 import { AddNewEventComponent } from './pages/add-new-event/add-new-event.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDirective } from './custom/directives/drag.directive';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+
+registerLocaleData(localeEs, 'es');
 
 @NgModule({
   declarations: [
@@ -58,6 +62,7 @@ import { DragDirective } from './custom/directives/drag.directive';
     MatGridListModule
   ],
   providers: [
+    {provide: LOCALE_ID, useValue: 'es'},
     AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,

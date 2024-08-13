@@ -14,12 +14,13 @@ import { EventBuysComponent } from './pages/event-buys/event-buys.component';
 import { AuthGuard } from './auth/auth.guard';
 import { MyEventsComponent } from './pages/my-events/my-events.component';
 import { AddNewEventComponent } from './pages/add-new-event/add-new-event.component';
+import { EventoResolveService } from './resolvers/evento-resolve.service';
 
 
 const routes: Routes = [
   {path: "", redirectTo: "selectInstitution", pathMatch: 'full'},
   {path: "selectInstitution", component: SelectInstitutionComponent},
-  {path: "eventList", component: EventListComponent},
+  {path: "eventList/:institucionId", component: EventListComponent, resolve: {eventos: EventoResolveService}},
   {path: "login", component: LoginComponent},
   {path: "register", component: RegisterComponent},
   {path: "eventDetail", component: EventDetailComponent},

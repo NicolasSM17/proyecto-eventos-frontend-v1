@@ -1,4 +1,10 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs';
+import { Evento } from 'src/app/model/event.model';
+import { EventService } from 'src/app/services/event.service';
+import { ImageProcessingService } from 'src/app/services/image-processing.service';
 declare var $: any; // Importa jQuery si estás usando Bootstrap 4
 
 @Component({
@@ -8,6 +14,8 @@ declare var $: any; // Importa jQuery si estás usando Bootstrap 4
 })
 export class EventListComponent implements OnInit, AfterViewInit {
   @ViewChild('carousel') carousel!: ElementRef;
+  eventos: Evento[] = [];
+  institucionId = +this.activatedRoute.snapshot.paramMap.get("institucionId");
 
   slides = [
     { image: 'https://cdn.joinnus.com/files/2024/06/LfBSShMvDGCvLLd.png' },
@@ -15,20 +23,17 @@ export class EventListComponent implements OnInit, AfterViewInit {
     { image: 'https://cdn.joinnus.com/files/2024/05/5ez52ZUqddX2U5s.png' }
   ];
 
-  events = [
-    { title: 'UNA VIDA', date: 'viernes 07 de junio - 8:00 pm', price: 'S/ 25.00', image: 'https://cdn.joinnus.com/user/3585761/TcS696jHKBRURSk.png' },
-    { title: 'Fan Fest - Final UEFA Champions League', date: 'sábado 01 de junio - 12:00 pm', price: 'S/ 20.00', image: 'https://cdn.joinnus.com/user/53328/9EBowQBinOOJs68.jpg' },
-    { title: 'Milena Warthon en Trujillo (Pop Andino Tour 2024)', date: 'sábado 01 de junio - 8:00 pm', price: 'S/ 35.00', image: 'https://cdn.joinnus.com/user/3990907/act66565cd812d5e.jpg' }
-  ];
+  constructor(private activatedRoute: ActivatedRoute, private eventoService: EventService,
+              private imageProcessingService: ImageProcessingService){}
 
   ngOnInit(): void {
     this.addLoadedClassToMain();
     this.addPressEffectToButtons();
+    this.getEventos();
   }
 
   ngAfterViewInit() {
       this.initializeSlickCarousel();
-    
   }
 
   initializeSlickCarousel() {
@@ -71,7 +76,6 @@ export class EventListComponent implements OnInit, AfterViewInit {
     });
   }
 
-  
   addLoadedClassToMain() {
     const main = document.querySelector('main');
     if (main) {
@@ -103,5 +107,28 @@ export class EventListComponent implements OnInit, AfterViewInit {
         img.addEventListener('dragstart', (e) => e.preventDefault());
       });
     }
+  }
+
+  getEventos(){
+    this.eventoService.getEventoByIdOrganizador(this.institucionId).pipe(
+      map(
+        (x: Evento[], i) => x.map(
+          (evento: Evento) => {
+            const [hours, minutes] = evento.hora.split(':');
+            evento.horaDate = new Date(0, 0, 0, +hours, +minutes);
+
+            return this.imageProcessingService.createImages(evento)
+          }
+        )
+      )
+    ).subscribe(
+      (response: Evento[]) => {
+        this.eventos = response;
+        console.log(response);
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+      }
+    );
   }
 }

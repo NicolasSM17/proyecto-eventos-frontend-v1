@@ -9,6 +9,7 @@ export interface Evento{
     descripcion: string;
     fecha: string;
     hora: string; // Formato HH:mm
+    horaDate?: Date; // Nuevo campo opcional para almacenar la hora como Date
     direccion: string;
     direccionUrl: string;
     precioEntrada: number;
