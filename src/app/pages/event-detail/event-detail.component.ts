@@ -15,51 +15,35 @@ export class EventDetailComponent implements OnInit{
   evento: Evento;
   eventoId: number;
   institucionId: number;
-
-  eventosSimilares = [
-    {
-      nombre: 'Nombre del Evento Similar 1',
-      fecha: '5 de mayo de 2024',
-      imagen: 'https://via.placeholder.com/800x300?text=Evento+1',
-      url: 'url-a-tu-evento-similar',
-      precio: 'XX.XX'
-    },
-    {
-      nombre: 'Nombre del Evento Similar 2',
-      fecha: '6 de mayo de 2024',
-      imagen: 'https://via.placeholder.com/800x300?text=Evento+2',
-      url: 'url-a-tu-evento-similar',
-      precio: 'XX.XX'
-    },
-    {
-      nombre: 'Nombre del Evento Similar 3',
-      fecha: '7 de mayo de 2024',
-      imagen: 'https://via.placeholder.com/800x300?text=Evento+3',
-      url: 'url-a-tu-evento-similar',
-      precio: 'XX.XX'
-    }
-  ];
+  eventosSimilares: Evento[] = [];
 
   constructor(private activatedRoute: ActivatedRoute, private eventoService: EventService,
               private imageProcessingService: ImageProcessingService) { }
 
   ngOnInit(): void {
-    this.activatedRoute.paramMap.subscribe(
-      params => {
-        this.eventoId = +params.get("eventoId");
-        this.getEventoInfo();
-      }
-    );
-
-    this.activatedRoute.queryParamMap.subscribe(
-      params => {
-        this.institucionId = +params.get("institucionId");
-      }
-    );
-
+    // Combina paramMap y queryParamMap en una sola suscripción
+    this.activatedRoute.paramMap.subscribe(params => {
+      this.eventoId = +params.get("eventoId");
+      this.activatedRoute.queryParamMap.subscribe(queryParams => {
+        this.institucionId = +queryParams.get("institucionId");
+        
+        // Asegúrate de que ambos IDs estén definidos antes de proceder
+        if (this.eventoId && this.institucionId) {
+          this.loadData();
+        } else {
+          console.error('eventoId o institucionId no definidos');
+        }
+      });
+    });
+  
     // Optionally, you can add animation logic here on component initialization
     const eventoInfo = document.querySelector('.evento-info');
     eventoInfo?.classList.add('visible');
+  }
+  
+  loadData(): void {
+    this.getEventoInfo();
+    this.getEventosSimilares();
   }
 
   getEventoInfo(){
@@ -76,7 +60,28 @@ export class EventDetailComponent implements OnInit{
     ).subscribe(
       (response: Evento) => {
         this.evento = response;
-        console.log(response);
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+      }
+    );
+  }
+
+  getEventosSimilares(){
+    this.eventoService.getEventosConCategoriasSimilares(this.eventoId, this.institucionId).pipe(
+      map(
+        (x: Evento[], i) => x.map(
+          (evento: Evento) => {
+            const [hours, minutes] = evento.hora.split(':');
+            evento.horaDate = new Date(0, 0, 0, +hours, +minutes);
+
+            return this.imageProcessingService.createImages(evento);
+          }
+        )
+      )
+    ).subscribe(
+      (response: Evento[]) => {
+        this.eventosSimilares = response;
       },
       (error: HttpErrorResponse) => {
         console.log(error);
