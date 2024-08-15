@@ -28,6 +28,11 @@ export class EventService {
     return this.httpClient.get<Evento>(this.PATH_OF_API + "/" + eventoId);
   }
 
+  getEventosConCategoriasSimilares(eventoId: number, institucionId: number): Observable<Evento[]>{
+    return this.httpClient.get<Evento[]>(`${this.PATH_OF_API}/${eventoId}/similares`, 
+                                        {params: { institucionId }});
+  }
+
   save(evento: FormData): Observable<Evento>{
     return this.httpClient.post<Evento>(this.PATH_OF_API + "/insertar", evento);
   }

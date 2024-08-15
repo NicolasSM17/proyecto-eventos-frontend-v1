@@ -13,7 +13,7 @@
             <h2><strong>Categorias</strong></h2><br>
             <div class="categorias-container">
                 <mat-chip-listbox>
-                    <mat-chip color="accent" *ngFor="let categoria of evento.categorias">{{ categoria.nombre }}</mat-chip>
+                    <mat-chip color="accent" *ngFor="let categoria of evento?.categorias">{{ categoria.nombre }}</mat-chip>
                 </mat-chip-listbox>
             </div>
         </div>
@@ -42,16 +42,16 @@
     </div>
     <div class="eventos-similares">
         <h3>Eventos Similares</h3>
-        <a *ngFor="let evento of eventosSimilares" [href]="evento.url" class="evento-similar-link">
+        <a *ngFor="let eventos of eventosSimilares | slice:0:3 " [routerLink]="['/eventDetail', eventos.id]" [queryParams]="{institucionId: institucionId}" class="evento-similar-link">
             <div class="evento-similar">
                 <div class="card">
-                    <img [src]="evento.imagen" class="card-img-top" alt="Evento Similar">
+                    <img [src]="eventos.eventoImagenes[0].url" class="card-img-top" alt="Evento Similar">
                     <div class="card-body">
-                        <h5 class="card-title">{{ evento.nombre }}</h5>
-                        <p class="card-text"><i class="fas fa-calendar-alt"></i> {{ evento.fecha }}</p>
+                        <h5 class="card-title">{{ eventos.titulo }}</h5>
+                        <p class="card-text"><i class="fas fa-calendar-alt"></i> {{ eventos.fecha | date:'EEEE dd \'de\' MMMM' }}</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <button class="btn btn-success btn-comprar">Comprar</button>
-                            <p class="card-text">Desde S/ {{ evento.precio }}</p>
+                            <p class="card-text">Desde S/ {{ eventos.precioEntrada }}</p>
                         </div>
                     </div>
                 </div>
