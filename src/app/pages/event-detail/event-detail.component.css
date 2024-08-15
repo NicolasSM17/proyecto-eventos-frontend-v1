@@ -45,14 +45,15 @@
 }
 
 
-.evento-info::before {
+
+.evento-info::before, .evento-info img{
     content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('https://cdn.joinnus.com/user/3585761/TcS696jHKBRURSk.png');
+    /*background-image: url('https://cdn.joinnus.com/user/3585761/TcS696jHKBRURSk.png');*/
     background-size: cover;
     background-position: top;
     filter: blur(3px);

@@ -1,4 +1,10 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs';
+import { Evento } from 'src/app/model/event.model';
+import { EventService } from 'src/app/services/event.service';
+import { ImageProcessingService } from 'src/app/services/image-processing.service';
 
 @Component({
   selector: 'app-event-detail',
@@ -6,13 +12,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./event-detail.component.css']
 })
 export class EventDetailComponent implements OnInit{
-  fechaEvento: string = '4 de mayo de 2024';
-  horaEvento: string = '19:00';
-  lugarEvento: string = 'Lima, PE';
-  organizadorEvento: string = 'Nombre del organizador';
-  ubicacion: string = 'Lima, PE';
-  direccion: string = 'AV. Carlos Izaguirre 178 – Lima norte (a 3 cdras de Mega Plaza)';
-  mapaLink: string = 'https://www.google.com.pe/maps/dir//-11.98928,-77.060195/@-11.98928,-77.060195,15z';
+  evento: Evento;
+  eventoId: number;
+  institucionId: number;
 
   eventosSimilares = [
     {
@@ -38,11 +40,47 @@ export class EventDetailComponent implements OnInit{
     }
   ];
 
-  constructor() { }
+  constructor(private activatedRoute: ActivatedRoute, private eventoService: EventService,
+              private imageProcessingService: ImageProcessingService) { }
 
   ngOnInit(): void {
+    this.activatedRoute.paramMap.subscribe(
+      params => {
+        this.eventoId = +params.get("eventoId");
+        this.getEventoInfo();
+      }
+    );
+
+    this.activatedRoute.queryParamMap.subscribe(
+      params => {
+        this.institucionId = +params.get("institucionId");
+      }
+    );
+
     // Optionally, you can add animation logic here on component initialization
     const eventoInfo = document.querySelector('.evento-info');
     eventoInfo?.classList.add('visible');
+  }
+
+  getEventoInfo(){
+    this.eventoService.getByIdEvento(this.eventoId).pipe(
+      map(
+        (evento: Evento) => {
+          const [hours, minutes] = evento.hora.split(':');
+          evento.horaDate = new Date(0, 0, 0, +hours, +minutes);
+
+          return this.imageProcessingService.createImages(evento);
+        }
+        
+      )
+    ).subscribe(
+      (response: Evento) => {
+        this.evento = response;
+        console.log(response);
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+      }
+    );
   }
 }

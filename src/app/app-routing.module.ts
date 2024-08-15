@@ -23,7 +23,7 @@ const routes: Routes = [
   {path: "eventList/:institucionId", component: EventListComponent, resolve: {eventos: EventoResolveService}},
   {path: "login", component: LoginComponent},
   {path: "register", component: RegisterComponent},
-  {path: "eventDetail", component: EventDetailComponent},
+  {path: "eventDetail/:eventoId", component: EventDetailComponent, resolve: {eventos: EventoResolveService}},
   {path: "forbidden", component: ForbiddenComponent},
   {path: "myEvents", component: MyEventsComponent},
   {path: "viewInstitutions", component: ViewInstitutionsComponent, canActivate:[AuthGuard], data:{roles:['ADMIN']}},
