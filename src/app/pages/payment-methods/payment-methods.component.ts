@@ -1,4 +1,5 @@
 import { Component, OnInit  } from '@angular/core';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,12 +14,16 @@ export class PaymentMethodsComponent implements OnInit {
     { imageUrl: 'visa-logo.png', name: 'ITALO LINARES', expiry: '25/28', id: 2 }
   ];
 
-  constructor() { }
+  constructor(private router: Router) {}
 
   ngOnInit(): void {}
 
   onSelectPaymentMethod(paymentMethodId: number) {
     console.log('Selected Payment Method ID:', paymentMethodId);
    
+  }
+
+  openAddPaymentMethod() {
+    this.router.navigate(['/add-payment-method']);
   }
 }

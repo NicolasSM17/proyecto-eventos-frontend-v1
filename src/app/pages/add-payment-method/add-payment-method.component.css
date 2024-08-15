@@ -35,6 +35,11 @@
     animation: fadeIn 0.7s ease-out forwards;
     position: relative;
     z-index: 1;
+    border: 2px solid #131111; /* Añade un borde para resaltar */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
 }
 
 .add-payment-options {
@@ -45,8 +50,50 @@
     padding-left: 50px;
 }
 
+.payment-method {
+    padding: 20px;
+    border: 2px solid #140d0d; /* Borde para resaltar */
+    border-radius: 10px;
+    background-color: #f9f9f9; /* Color de fondo claro */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
 h1 {
     font-size: 22px;
     color: #070807;
     margin-bottom: 40px;
+    margin-left: 0; /* Alinea el título a la izquierda */
   }
+
+
+  .payment-method-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #070807;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.payment-method-icons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.method-icon {
+    width: 20px;
+    height: 20px;
+   
+}
+
+.add-icon {
+    width: 40px;
+    height: 40px;
+    
+   
+}
+
+
