@@ -18,6 +18,7 @@ import { EventBuysComponent } from './pages/event-buys/event-buys.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PanelComponent } from './admin/panel/panel.component';
 import { MyEventsComponent } from './pages/my-events/my-events.component';
+import { MatChipsModule } from '@angular/material/chips';
 import { CalendarComponent } from './pages/calendar/calendar.component';
 import { StatisticsComponent } from './pages/statistics/statistics.component';
 import { AuthGuard } from './auth/auth.guard';
@@ -59,7 +60,8 @@ registerLocaleData(localeEs, 'es');
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatGridListModule
+    MatGridListModule,
+    MatChipsModule
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'es'},
