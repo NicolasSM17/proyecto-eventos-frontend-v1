@@ -1,0 +1,34 @@
+<a routerLink="/" class="logo-link">
+    <img src="https://static.vecteezy.com/system/resources/thumbnails/012/986/755/small/abstract-circle-logo-icon-free-png.png"
+        alt="Logo de tu página" class="logo">
+</a>
+<div class="overlay"></div>
+<div class="payment-methods-container">
+    <h1><b>Métodos de Pago</b></h1>
+    <div class="cards-container">
+        <div class="card add-card">
+            <button class="add-payment-method">
+                <i class="fas fa-credit-card"></i>
+                <span class="button-text">Agregar método de pago</span>
+            </button>
+        </div>
+        <div class="card credit-card" *ngFor="let card of creditCards">
+            <div class="card-content">
+                <img [src]="card.imageUrl" alt="Credit Card" />
+                <p>{{ card.name }}</p>
+                <p>{{ card.expiry }}</p>
+            </div>
+            <input type="radio" name="paymentMethod" />
+        </div>
+        <div class="card paypal">
+            <img src="paypal-logo.png" alt="PayPal" />
+            <p>PayPal</p>
+            <input type="radio" name="paymentMethod" />
+        </div>
+        <div class="card cash">
+            <img src="cash-icon.png" alt="Cash" />
+            <p>Efectivo</p>
+            <input type="radio" name="paymentMethod" />
+        </div>
+    </div>
+</div>

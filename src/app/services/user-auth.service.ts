@@ -43,9 +43,13 @@ export class UserAuthService {
     return this.getRoles() && this.getToken();
   }
 
-  public isAdmin(){
-    const roles: any[] = this.getRoles();
-    return roles[0].nombre == 'ADMIN';
+  public isAdmin(): boolean {
+    const roles: any[] = this.getRoles() || []; 
+    if (roles.length === 0) {
+      
+      return false; 
+    }
+    return roles.some(role => role.nombre === 'ADMIN');
   }
 
   public isUser(){

@@ -162,7 +162,7 @@ header .btn-outline-success:focus {
 .dropdown-menu.show {
     
     opacity: 1 !important;
-    pointer-events: auto; /* Permite que los elementos sean interactuables cuando está visible */
+    pointer-events: auto;
 }
 
 
@@ -198,7 +198,7 @@ input:not(:-webkit-autofill) {
 }
 
 
-/* Estilos del carrusel */
+/* EVENT LIST */
 .carousel {
     position: relative;
 }
@@ -267,5 +267,65 @@ input:not(:-webkit-autofill) {
     background-color: rgba(255, 153, 0, 1);
     width: 30px; /* Ajusta el ancho del indicador activo */
     height: 12px; /* Ajusta la altura del indicador activo */
+
+  }
+
+
+
+  /* SELECT INSTITUTION */
+
+  .institutions-wrapper .carousel {
+    position: relative;
 }
+
+.institutions-wrapper .slick-slide img {
+    width: 100%;
+    
+}
+
+
+  .institutions-wrapper .slick-prev, .institutions-wrapper .slick-next {
+    position: absolute !important;
+    top: 50% !important;
+    width: 30px !important;
+    height: 30px !important;
+    background-color: transparent !important;
+    border: none !important;
+    color: rgb(83, 76, 76) !important;
+    outline: none !important;
+    cursor: pointer !important;
+    transform: translateY(-50%) !important;
+    z-index: 10 !important; 
+  }
+  
+  .institutions-wrapper .slick-prev:before, .institutions-wrapper .slick-next:before {
+    color:#74665e !important;
+    font-size: 40px; 
+  }
+  
+  .institutions-wrapper .slick-prev {
+    left: 10px !important;
+  }
+  
+  .institutions-wrapper .slick-next {
+    right: 20px !important;
+  }
+  
+  .institutions-wrapper .slick-prev:hover, .institutions-wrapper .slick-next:hover {
+    background-color: transparent !important;
+    border: none !important;
+    outline: none !important;
+  }
+  
+
+
+
+
+
+
+  
+  
+
+
+
 

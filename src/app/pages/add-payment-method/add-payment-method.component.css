@@ -1,0 +1,52 @@
+@keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+
+.logo-link {
+    position: absolute;
+    top: 20px;
+    left: 62px;
+    z-index: 3;
+    text-decoration: none;
+}
+
+.logo {
+    max-width: 100px;
+    height: auto;
+    cursor: pointer;
+}
+
+.payment-method-option {
+    width: 100%;
+    max-width: 1200px;
+    margin: 100px auto 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.7s ease-out forwards;
+    position: relative;
+    z-index: 1;
+}
+
+.add-payment-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start; 
+    padding-left: 50px;
+}
+
+h1 {
+    font-size: 22px;
+    color: #070807;
+    margin-bottom: 40px;
+  }

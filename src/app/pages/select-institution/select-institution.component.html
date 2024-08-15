@@ -1,32 +1,45 @@
 <div class="own-container">
-    <h1>¿Cual es tu Point?</h1>
+    <h1>¿Cuál es tu Point?</h1>
+
+
 
     <div class="institutions-wrapper">
-        <button class="nav-button" id="prev-button" (click)="prev()">&#8249;</button>
-        <ul class="institutions">
-            <li *ngFor="let institution of institutions; let i = index" 
-                class="institution" 
-                [ngClass]="{'visible': i >= currentPosition && i < currentPosition + itemsToShow, 'hidden': !(i >= currentPosition && i < currentPosition + itemsToShow)}">
-                <a [routerLink]="['/eventList', institution.id]">
-                    <img [src]="institution.imagenUrl" [alt]="institution.nombre">
-                    <p>{{ institution.nombre }}</p>
+        <ngx-slick-carousel #slickModal="slick-carousel" class="carousel" [config]="slideConfig">
+
+            <div ngxSlickItem *ngFor="let institution of institutions" class="institution">
+                <a draggable="false" 
+                (mousedown)="onMouseDown($event)" 
+                (mousemove)="onMouseMove($event)"
+                    
+                    (mouseleave)="onMouseLeave()" 
+                    (click)="handleClick($event, institution)"
+                    (init)="slickInit($event)"
+                    (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
+                    (beforeChange)="beforeChange($event)">
+                    <div class="image-container">
+                        <img [src]="institution.imagenUrl" [alt]="institution.nombre" loading="lazy"
+                            class="d-block w-100" draggable="false">
+                    </div>
+                    <p draggable="false">{{ institution.nombre }}</p>
                 </a>
-            </li>
-        </ul>
-        <button class="nav-button" id="next-button" (click)="next()">&#8250;</button>
+            </div>
+        </ngx-slick-carousel>
+
+
     </div>
 
-    <!-- Botones de administrador *ngIf="isAdmin()" -->
-    
-    <div class="admin-buttons" >
-        <div class="config-button" >
-            <button id="admin-config">Administrar Points</button>
+
+    <div class="admin-buttons" *ngIf="isAdmin()">
+        <div class="config-button">
+            <button id="admin-config" routerLink="/viewInstitutions">Administrar Points</button>
         </div>
         <div class="add-button">
-            <button id="add-point" ><i class="fas fa-plus"></i></button>
+            <button id="add-point" routerLink="/viewInstitutions"><i class="fas fa-plus"></i></button>
             <p>Añadir Point</p>
         </div>
     </div>
-</div>
 
+
+
+</div>
 <app-footer></app-footer>

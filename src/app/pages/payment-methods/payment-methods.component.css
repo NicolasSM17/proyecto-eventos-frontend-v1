@@ -1,0 +1,133 @@
+@keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+
+.logo-link {
+    position: absolute;
+    top: 20px;
+    left: 62px;
+    z-index: 3;
+    text-decoration: none;
+}
+
+.logo {
+    max-width: 100px;
+    height: auto;
+    cursor: pointer;
+}
+
+
+
+.payment-methods-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 100px auto 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.7s ease-out forwards;
+    position: relative;
+    z-index: 1;
+}
+  
+  h1 {
+    font-size: 34px;
+    color: #2ecc71;
+    margin-bottom: 40px;
+  }
+  
+  .cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start; 
+    padding-left: 50px;
+}
+
+.card {
+    width: 250px; 
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    transition: transform 0.3s;
+    min-height: 150px; 
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.add-card {
+    background-color: #e0f7fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.icon {
+    font-size: 24px;
+    color: #2ecc71;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    text-align: center;
+}
+
+input[type="radio"] {
+    align-self: center;
+}
+
+.add-payment-method {
+    background-color: #2ecc71; 
+    border: none;
+    border-radius: 50%; 
+    width: 60px; 
+    height: 60px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    outline: none; 
+    transition: background-color 0.3s;
+}
+
+.add-payment-method:hover {
+    background-color: #27ae60;
+   
+}
+
+.fas.fa-credit-card {
+    font-size: 24px; 
+    color: white; 
+}
+
+.button-text {
+    margin-top: 40px; 
+    font-size: 14px; 
+    color: #2ecc71; 
+    text-align: center;
+    position: absolute; 
+    top: 70px; 
+    width: 200px; /* Ancho del texto */
+}

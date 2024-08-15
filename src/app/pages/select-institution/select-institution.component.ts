@@ -1,68 +1,117 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef  } from '@angular/core';
 import { Institution } from 'src/app/model/institution.model';
 import { InstitutionService } from 'src/app/services/institution.service';
 import { UserAuthService } from 'src/app/services/user-auth.service';
+import { Router } from '@angular/router';
+import { ChangeDetectorRef } from '@angular/core';
+import { SlickCarouselComponent } from 'ngx-slick-carousel';
+
+declare var $: any;
 
 @Component({
   selector: 'app-select-institution',
   templateUrl: './select-institution.component.html',
   styleUrls: ['./select-institution.component.css']
 })
-export class SelectInstitutionComponent implements OnInit{
+export class SelectInstitutionComponent implements OnInit  {
   institutions: Institution[] = [];
+  slideConfig = {
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    infinite: true,
+    dots: false,
+    speed: 400, 
+    cssEase: 'linear', 
+    adaptiveHeight: true, 
+    responsive : [
 
-  currentPosition = 0;
-  itemsToShow = 4;
+      {
+        breakpoint : 1292,
+        settings : {
+          arrows: true,
+          infinite: true,
+          dots: false,
+          slidesToShow: 3,
+          slidesToScroll: 1
+        }
+      },
+      {
+        breakpoint : 992,
+        settings : {
+          arrows: true,
+          infinite: true,
+          dots: false,
+          slidesToShow: 2,
+          slidesToScroll: 1
+        }
+      },
+      {
+        breakpoint : 662,
+        settings : {
+          arrows: true,
+          infinite: true,
+          dots: false,
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
+  };
 
-  constructor(private userAuthService: UserAuthService, private institutionService: InstitutionService) {}
+  private isDragging = false;
+  private startX: number = 0;
+  private scrollThreshold = 5;
+  
+
+  @ViewChild('slickModal') slickModal!: SlickCarouselComponent;
+
+  constructor(
+    private userAuthService: UserAuthService, 
+    private institutionService: InstitutionService,
+    private router: Router,
+    private cdRef: ChangeDetectorRef
+    
+  ) {}
 
   ngOnInit(): void {
     this.getInstituciones();
-    this.updateInstitutionsPosition();
   }
 
-  updateInstitutionsPosition() {
-    const institutionsElement = document.querySelector(".institutions") as HTMLElement;
-    const institutionElements = Array.from(institutionsElement.children) as HTMLElement[];
-    const itemWidth = institutionElements[0].offsetWidth + 20; // Ancho del elemento más margen
-    const offset = -this.currentPosition * itemWidth;
-
-    institutionsElement.style.transition = "transform 0.5s ease";
-    institutionsElement.style.transform = `translateX(${offset}px)`;
-
-    institutionElements.forEach((element, index) => {
-        if (index >= this.currentPosition && index < this.currentPosition + this.itemsToShow) {
-            element.classList.add("visible");
-            element.classList.remove("hidden");
-        } else {
-            element.classList.remove("visible");
-            element.classList.add("hidden");
-        }
-    });
+ 
+  
+  onMouseDown(event: MouseEvent) {
+    this.isDragging = false;
+    this.startX = event.clientX;
   }
 
-  prev() {
-    this.currentPosition--;
-    if (this.currentPosition < 0) {
-        this.currentPosition = this.institutions.length - this.itemsToShow;
+  onMouseMove(event: MouseEvent) {
+    if (Math.abs(event.clientX - this.startX) > this.scrollThreshold) {
+      this.isDragging = true;
     }
-    this.updateInstitutionsPosition();
-  } 
+  }
 
-  next() {
-    this.currentPosition++;
-    if (this.currentPosition > this.institutions.length - this.itemsToShow) {
-        this.currentPosition = 0;
+  
+
+
+  onMouseLeave() {
+    this.isDragging = false;
+    console.log('Mouse leave');
+  }
+
+  handleClick(event: MouseEvent, institution: Institution) {
+    // Si está arrastrando, no realizar ninguna acción
+    if (this.isDragging) {
+      event.preventDefault();
+      return;
     }
-    this.updateInstitutionsPosition();
+  
+    // Navegar solo si no está arrastrando
+    this.router.navigate(['/eventList', institution.id]);
   }
+  
 
-  isAdmin() {
-    return this.userAuthService.isAdmin();
-  }
-
-  getInstituciones(){
+  getInstituciones() {
     this.institutionService.getInstitution().subscribe(
       (response: Institution[]) => {
         this.institutions = response;
@@ -72,4 +121,27 @@ export class SelectInstitutionComponent implements OnInit{
       }
     );
   }
+
+  isAdmin() {
+    return this.userAuthService.isAdmin();
+  }
+
+  slickInit(e) {
+    this.slickModal.slickGoTo(0); 
+    console.log('slick initialized');
+  }
+  
+  breakpoint(e) {
+    console.log('breakpoint');
+  }
+  
+  afterChange(e) {
+  console.log('afterChange', e.currentSlide);
+}
+
+beforeChange(e) {
+  console.log('beforeChange', e.currentSlide);
+}
+
+  
 }

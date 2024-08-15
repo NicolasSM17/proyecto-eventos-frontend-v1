@@ -30,6 +30,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDirective } from './custom/directives/drag.directive';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { PaymentMethodsComponent } from './pages/payment-methods/payment-methods.component';
+import { AddPaymentMethodComponent } from './pages/add-payment-method/add-payment-method.component';
 
 registerLocaleData(localeEs, 'es');
 
@@ -52,12 +55,15 @@ registerLocaleData(localeEs, 'es');
     CalendarComponent,
     StatisticsComponent,
     AddNewEventComponent,
-    DragDirective
+    DragDirective,
+    PaymentMethodsComponent,
+    AddPaymentMethodComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    SlickCarouselModule,
     HttpClientModule,
     BrowserAnimationsModule,
     MatGridListModule,

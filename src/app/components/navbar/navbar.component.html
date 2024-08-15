@@ -54,7 +54,7 @@
                     <!--
                     <li><a class="dropdown-item" routerLink="/viewInstitutions">Mantenimiento Instituciones</a></li>
                     <li><a class="dropdown-item" >Mantenimiento Categorias</a></li>-->
-                    <li><a class="dropdown-item" *ngIf="isUser()">Agregar metodo de pago</a></li>
+                    <li><a class="dropdown-item" *ngIf="isUser()" routerLink="/paymentMethods">Agregar metodo de pago</a></li>
                     <li><a class="dropdown-item" *ngIf="isUser()" routerLink="/myEvents">Modo Organizador</a></li>
                     <li><a class="dropdown-item logout" data-bs-toggle="modal" data-bs-target="#exampleModal">Cerrar Sesion</a></li>
                 </ul>

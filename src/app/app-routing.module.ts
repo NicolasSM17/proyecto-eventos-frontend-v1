@@ -15,6 +15,8 @@ import { AuthGuard } from './auth/auth.guard';
 import { MyEventsComponent } from './pages/my-events/my-events.component';
 import { AddNewEventComponent } from './pages/add-new-event/add-new-event.component';
 import { EventoResolveService } from './resolvers/evento-resolve.service';
+import { PaymentMethodsComponent } from './pages/payment-methods/payment-methods.component';
+import { AddPaymentMethodComponent } from './pages/add-payment-method/add-payment-method.component'; // Componente para agregar método
 
 
 const routes: Routes = [
@@ -30,7 +32,10 @@ const routes: Routes = [
   {path: "viewCategories", component: ViewCategoriesComponent, canActivate:[AuthGuard], data:{roles:['ADMIN']}},
   {path: "adminPanel", component: PanelComponent, canActivate:[AuthGuard], data:{roles:['ADMIN']}},
   {path: 'eventBuys', component: EventBuysComponent },
-  {path: 'addNewEvent', component: AddNewEventComponent, data:{roles:['USER']}}
+  {path: 'addNewEvent', component: AddNewEventComponent, data:{roles:['USER']}},
+  {path: 'paymentMethods', component: PaymentMethodsComponent, data:{roles:['USER']}},
+  { path: 'add-payment-method', component: AddPaymentMethodComponent }
+  
 ];
 
 @NgModule({
