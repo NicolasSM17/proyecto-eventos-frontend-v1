@@ -18,7 +18,7 @@
                 </div>
                 <div class="row events-container">
                     <div class="col-10 col-md-6 col-lg-3 mb-4" *ngFor="let evento of eventos">
-                        <a routerLink="/eventDetail" class="card-link">
+                        <a [routerLink]="['/eventDetail', evento.id]" [queryParams]="{institucionId: institucionId}" class="card-link">
                             <div class="card">
                                 <img class="img-fluid" [src]="evento.eventoImagenes[0].url" class="card-img-top" alt="Evento">
                                 <div class="card-body">
