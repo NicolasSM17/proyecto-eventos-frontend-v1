@@ -26,15 +26,15 @@ export class NavbarComponent implements AfterViewInit, OnInit {
   showEmailValidation: boolean = false;
   showPasswordValidation: boolean = false;
   isOpen = false;
-
+  userId: number;
   categorias: Category[];
-
   selectedCategorias: string[] = [];
 
   constructor(private elementRef: ElementRef, private userAuthService: UserAuthService, 
               private router: Router, private categoryService: CategoryService) {}
 
   ngOnInit(): void {
+    this.userId = this.userAuthService.getUserId();
     this.getCategory();
   }
 
@@ -331,5 +331,9 @@ export class NavbarComponent implements AfterViewInit, OnInit {
     } else {
       this.selectedCategorias.push(categoria);
     }
+  }
+
+  navigateToOrganizadorMode() {
+    this.router.navigate(['/myEvents'], { queryParams: { organizadorId: this.userId } });
   }
 }
