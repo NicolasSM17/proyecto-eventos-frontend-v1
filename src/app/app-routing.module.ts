@@ -34,8 +34,7 @@ const routes: Routes = [
   {path: 'eventBuys', component: EventBuysComponent },
   {path: 'addNewEvent', component: AddNewEventComponent, data:{roles:['USER']}},
   {path: 'paymentMethods', component: PaymentMethodsComponent, data:{roles:['USER']}},
-  { path: 'add-payment-method', component: AddPaymentMethodComponent }
-  
+  {path: 'add-payment-method', component: AddPaymentMethodComponent }
 ];
 
 @NgModule({

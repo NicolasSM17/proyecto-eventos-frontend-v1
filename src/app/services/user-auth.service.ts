@@ -1,5 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { tap } from 'rxjs';
+import { AuthenticationResponse } from '../model/auth-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +18,12 @@ export class UserAuthService {
   }
 
   public login(loginData){
-    return this.httpClient.post(this.PATH_OF_API+ "auth/authenticate", loginData, {headers: this.requestHeader});
+    return this.httpClient.post(this.PATH_OF_API+ "auth/authenticate", loginData, {headers: this.requestHeader}).pipe(
+      tap((response: AuthenticationResponse) => {
+          localStorage.setItem('user', JSON.stringify(response.usuario));
+        }
+      )
+    );
   }
 
   public setRoles(roles:[]){
@@ -84,5 +91,11 @@ export class UserAuthService {
     }
 
     return false;
+  }
+
+  public getUserId(): number {
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    return user?.id;
   }
 }
