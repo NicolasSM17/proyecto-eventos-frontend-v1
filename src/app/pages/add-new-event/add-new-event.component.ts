@@ -10,6 +10,7 @@ import { Institution } from 'src/app/model/institution.model';
 import { CategoryService } from 'src/app/services/category.service';
 import { EventService } from 'src/app/services/event.service';
 import { InstitutionService } from 'src/app/services/institution.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-new-event',
@@ -39,7 +40,9 @@ export class AddNewEventComponent implements OnInit{
 
   constructor(private eventService: EventService, private categoryService: CategoryService,
               private institutionService: InstitutionService, private sanitizer: DomSanitizer,
-              private activatedRoute: ActivatedRoute){}
+              private activatedRoute: ActivatedRoute, private router: Router){}
+
+            
   
   ngOnInit(): void {
     this.getCategory();
@@ -77,6 +80,10 @@ export class AddNewEventComponent implements OnInit{
   next(){
     this.step = this.step + 1;
   }
+  cancel(): void {
+    
+    this.router.navigate(['/selectInstitution']); 
+}
 
   previus(){
     this.step = this.step - 1;

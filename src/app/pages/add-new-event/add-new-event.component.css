@@ -16,9 +16,25 @@ h1.display-4 {
     color: #a18d76;
 }
 
+.buttons-start {
+    display: flex; /* Para alinear los elementos de manera horizontal */
+    justify-content: space-between; /* Para colocar los botones en extremos opuestos */
+    align-items: center; /* Centrar verticalmente los botones si tienen diferentes alturas */
+    width: 100%; /* Asegurar que el contenedor ocupe todo el ancho disponible */
+}
+
 .btn-comenzar {
     background-color: #f77d31;
     border-color: #f77d31;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.btn-cancel {
+    background-color: #7e7671;
+    border-color: #8f8e8d;
     border-radius: 20px;
     padding: 10px 20px;
     font-weight: bold;

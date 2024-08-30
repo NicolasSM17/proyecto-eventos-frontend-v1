@@ -153,7 +153,7 @@ h1 {
 /*MODAL*/
 
 .modal {
-  display: block; 
+  display: none; 
   position: fixed;
   z-index: 1000; 
   left: 0;
@@ -166,6 +166,11 @@ h1 {
   visibility: hidden; 
   transition: opacity 0.3s ease, visibility 0.3s ease; 
   color: #000;
+
+  /* Añade estas líneas para mantener una altura constante */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .modal-content {
@@ -175,14 +180,17 @@ h1 {
   border-radius: 10px;
   width: 90%;
   max-width: 410px;
+  height: 600px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   transform: translateY(-50px);
   position: relative;
-  top: -1%;
+  top: 1%;
   transition: all 0.3s ease;
+  display: block;
 }
 
 .modal.show {
+  display: block;
   opacity: 1; 
   visibility: visible; 
 }
@@ -215,6 +223,7 @@ h1 {
   }
   
   .btn-close {
+    
     background-color: rgb(180, 54, 54);
     border-radius: 50%;
     border: none;
@@ -436,6 +445,17 @@ h1 {
     font-size: 12.5px
 }
 
+.form-read {
+  display: block; /* Asegura que el contenedor esté en bloque */
+  margin-top: 0; /* Ajusta el margen superior si es necesario */
+  padding: 8px; /* Espacio interno opcional */
+  font-size: 14px; /* Tamaño de fuente opcional */
+  color: #000; /* Color de texto */
+  background-color: #f5f5f5; /* Color de fondo opcional para diferenciar */
+  border-radius: 4px; /* Bordes redondeados opcionales */
+  width: 100%;
+}
+
 .form-group input {
   width: 100%;
   padding: 10px;
@@ -459,21 +479,67 @@ h1 {
 
 
 /* Estilo del botón de envío */
+
+.modal-footer {
+  margin-top: 10px;
+  width: 100%;
+  padding: 0;
+}
 .submit-btn {
-  background-color: #00B761;
+  background-color: #e27734;
   color: #fff;
   border: none;
-  padding: 15px;
-  border-radius: 25px;
+  padding: 10px;
+  border-radius: 15px;
   cursor: pointer;
   width: 100%;
-  font-size: 18px;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  box-sizing: border-box;
+ 
+}
+
+.submit-btn:hover {
+  background-color: #f76307;
+}
+
+
+
+.form-container,
+.form-confirm,
+.verify-alert-container {
+  /* Añadir estilos comunes aquí */
+  /* Asegúrate de que todos los contenedores compartan las mismas propiedades de posición, tamaño, margen, etc. */
+  position: relative;
+  width: 100%; /* Ajusta según sea necesario */
+  /* Otros estilos aquí */
+}
+
+
+.btn-confirm {
+  background-color: #e27734;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 15px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 31.5px;
+  font-size: 15px;
   font-weight: bold;
   text-align: center;
 }
 
-.submit-btn:hover {
-  background-color: #008D49;
+
+.btn-confirm:hover {
+  background-color: #f76307;
+}
+
+
+/* Mostrar contenedores adicionales cuando se envía el formulario */
+[hidden="false"] {
+  display: block;
 }
 
 

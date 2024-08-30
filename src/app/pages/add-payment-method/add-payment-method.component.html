@@ -1,116 +1,162 @@
 <a routerLink="/" class="logo-link">
-    <img src="https://static.vecteezy.com/system/resources/thumbnails/012/986/755/small/abstract-circle-logo-icon-free-png.png" alt="Logo de tu página" class="logo">
+  <img
+    src="https://static.vecteezy.com/system/resources/thumbnails/012/986/755/small/abstract-circle-logo-icon-free-png.png"
+    alt="Logo de tu página" class="logo">
 </a>
 <div class="overlay"></div>
 <div class="payment-methods-container">
-    
-    <div class="add-payment-options">
-        <div class="payment-method-option">
-            <div class="header-container">
-                <a routerLink="/paymentMethods" class="back-link">
-                    <i class="fas fa-arrow-left"></i>
-                    Métodos de pago
-                </a>
-                <h1><b>Agregar nuevo método de pago</b></h1>
-            </div>
 
-            <div class="payment-method" (click)="openModal()">
-                <div class="payment-method-title">
-                    <img src="https://images.rappi.pe/payment_methods/cc_round.png" alt="Tarjeta de Crédito o Débito" title="Tarjeta de Crédito o Débito" class="add-icon">
-                    Tarjeta de Crédito o Débito
-                </div>
-                <div class="payment-method-icons">
-                    <img src="https://images.rappi.pe/payment_methods/amex_round_100_2.png" alt="Amex" title="Amex" class="method-icon">
-                    <img src="https://images.rappi.pe/payment_methods/diners_round_100.png" alt="Diners" title="Diners" class="method-icon">
-                    <img src="https://images.rappi.pe/payment_methods/master_round_100_2.png" alt="Mastercard" title="Mastercard" class="method-icon">
-                    <img src="https://images.rappi.pe/payment_methods/visa_round_100_2.png" alt="Visa" title="Visa" class="method-icon">
-                </div>
-            </div>
+  <div class="add-payment-options">
+    <div class="payment-method-option">
+      <div class="header-container">
+        <a routerLink="/paymentMethods" class="back-link">
+          <i class="fas fa-arrow-left"></i>
+          Métodos de pago
+        </a>
+        <h1><b>Agregar nuevo método de pago</b></h1>
+      </div>
 
+      <div class="payment-method" (click)="openModal()">
+        <div class="payment-method-title">
+          <img src="https://images.rappi.pe/payment_methods/cc_round.png" alt="Tarjeta de Crédito o Débito"
+            title="Tarjeta de Crédito o Débito" class="add-icon">
+          Tarjeta de Crédito o Débito
         </div>
-       
+        <div class="payment-method-icons">
+          <img src="https://images.rappi.pe/payment_methods/amex_round_100_2.png" alt="Amex" title="Amex"
+            class="method-icon">
+          <img src="https://images.rappi.pe/payment_methods/diners_round_100.png" alt="Diners" title="Diners"
+            class="method-icon">
+          <img src="https://images.rappi.pe/payment_methods/master_round_100_2.png" alt="Mastercard" title="Mastercard"
+            class="method-icon">
+          <img src="https://images.rappi.pe/payment_methods/visa_round_100_2.png" alt="Visa" title="Visa"
+            class="method-icon">
+        </div>
+      </div>
+
     </div>
+
+  </div>
 </div>
 
 
 <!-- MODAL PARA EL REGISTRO DE UNA TARJETA DE CREDITO O DEBITO -->
 
-<div id="paymentModal" class="modal" [ngClass]="{'show': showModal}" (click)="closeModal()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-      <div class="modal-header">
-        <h5><b>Agregar nueva tarjeta</b></h5>
-        <button class="btn-close" (click)="closeModal()">
-          <i class="material-icons">close</i>
-        </button>
+<div id="paymentModal" class="modal" [ngClass]="{'show': showModal}">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h5><b>Agregar nueva tarjeta</b></h5>
+      <button class="btn-close" (click)="closeModal()">
+        <i class="material-icons">close</i>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <!-- Vista previa de la tarjeta -->
+      <div class="credit-card-preview">
+
+        <div class="card-front">
+          <div class="card-number">
+            <span class="card-number">****</span>
+            <span class="card-number">****</span>
+            <span class="card-number">****</span>
+            <span class="card-number">****</span>
+          </div>
+          <img id="card-type" class="card-type" src="https://images.rappi.com/web/default.png?e=webp" alt="Card Type">
+
+          <img alt="img-chip" class="card-chip" src="https://images.rappi.com/web/credit-card-chip.png?e=webp">
+          <div class="card-expiration">
+            <div class="valid-tru">VENCE FIN DE</div>
+            <div class="expiration-date">
+              {{ expirationDate || 'MM/AA' }}
+            </div>
+          </div>
+          <div class="card-holder">
+            {{ firstName }} {{ lastName }}
+          </div>
+        </div>
+
+        <div class="card-back">
+          <div class="card-cvv">
+            <div class="cvv-title">CVV</div>
+            <div class="cvv-value">***</div>
+          </div>
+        </div>
       </div>
-    
-      <div class="modal-body">
-        <!-- Vista previa de la tarjeta -->
-        <div class="credit-card-preview">
 
-          <div  class="card-front">
-            <div  class="card-number">
-                <span class="card-number">****</span>
-                <span class="card-number">****</span>
-                <span class="card-number">****</span>
-                <span class="card-number">****</span>
-             </div>
-                <img alt="card-brand" class="card-type" src="https://images.rappi.com/web/default.png?e=webp">
-                <img alt="img-chip" class="card-chip" src="https://images.rappi.com/web/credit-card-chip.png?e=webp">
-            <div  class="card-expiration">
-                <div  class="valid-tru">VENCE FIN DE</div>
-                <div  class="expiration-date">
-                  {{ expirationDate || 'MM/AA' }}
-                </div>
-            </div>
-            <div class="card-holder"> 
-              {{ firstName }} {{ lastName }}
-            </div>
+      <!-- Formulario de entrada -->
+      <div class="form-container" [hidden]="formSubmitted">
+        <div class="form-group">
+          <label for="card-number">Número de la tarjeta</label>
+          <input id="card-number" type="text" placeholder="Número de la tarjeta" [(ngModel)]="cardNumber"
+            (input)="validateCardNumber($event)">
         </div>
-
-          <div class="card-back">
-            <div class="card-cvv">
-              <div class="cvv-title">CVV</div>
-              <div class="cvv-value">***</div>
-            </div>
-          </div>
-        </div>
-    
-        <!-- Formulario de entrada -->
-        <div class="form-container">
+        <div class="form-nameApe">
           <div class="form-group">
-            <label for="card-number">Número de la tarjeta</label>
-            <input id="card-number" type="text" maxlength="16" pattern="\d*" placeholder="Número de la tarjeta" [(ngModel)]="cardNumber" (input)="validateCardNumber($event)">
+            <label for="first-name">Nombre</label>
+            <input id="first-name" type="text" placeholder="Nombre" [(ngModel)]="firstName"
+              (input)="validateName($event)" minlength="3">
           </div>
-          <div class="form-nameApe">
-            <div class="form-group">
-              <label for="first-name">Nombre</label>
-              <input id="first-name" type="text" placeholder="Nombre" [(ngModel)]="firstName" (input)="validateName($event)" minlength="3">
-            </div>
-            <div class="form-group">
-              <label for="last-name">Apellido</label>
-              <input id="last-name" type="text" placeholder="Apellido" [(ngModel)]="lastName" (input)="validateName($event)" minlength="3">
-            </div>
+          <div class="form-group">
+            <label for="last-name">Apellido</label>
+            <input id="last-name" type="text" placeholder="Apellido" [(ngModel)]="lastName"
+              (input)="validateName($event)" minlength="3">
+          </div>
+        </div>
+        <div class="form-inline">
+          <div class="form-group">
+            <label for="expiration-date">Fecha de expiración</label>
+            <input id="expiration-date" type="text" maxlength="5" placeholder="MM/AA" [(ngModel)]="expirationDate"
+              (input)="validateExpirationDate($event)">
+          </div>
+          <div class="form-group">
+            <label for="cvv">Código CVV</label>
+            <input id="cvv" type="text" maxlength="4" placeholder="CVV" [(ngModel)]="cvv" (input)="validateCVV($event)"
+              (focus)="onCVVFocus()" (blur)="onCVVBlur()">
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="submit-btn" [disabled]="!isFormValid()" (click)="submitForm()">
+            Siguiente
+          </button>
+        </div>
+      </div>
+
+      <!-- Contenedores a mostrar después de enviar el formulario -->
+      <div *ngIf="formSubmitted">
+        <div class="form-confirm" [hidden]="!formSubmitted">
+          <div class="form-group">
+            <label>Número de la tarjeta</label>
+            <div class="form-read">{{ restrictionCardNumber(cardNumber) }}</div>
           </div>
           <div class="form-inline">
             <div class="form-group">
-              <label for="expiration-date">Fecha de expiración</label>
-              <input id="expiration-date" type="text" maxlength="5" placeholder="MM/AA" [(ngModel)]="expirationDate" (input)="validateExpirationDate($event)">
+              <label>Nombre</label>
+              <div class="form-read">{{ firstName }}</div>
             </div>
             <div class="form-group">
-              <label for="cvv">Código CVV</label>
-              <input id="cvv" type="text" maxlength="4" placeholder="CVV" [(ngModel)]="cvv" (input)="validateCVV($event)"
-              (focus)="onCVVFocus()" 
-                (blur)="onCVVBlur()">
+              <label>Apellido</label>
+              <div class="form-read">{{ lastName }}</div>
             </div>
           </div>
+          <div class="form-group">
+            <label>Fecha de expiración</label>
+            <div class="form-read">{{ expirationDate }}</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="verify-alert-container">
+            <i class="iconf-shield"></i>
+          </div>
+          <button class="btn btn-confirm primary-button-filled">Confirmar</button>
         </div>
       </div>
-    
-      <div class="modal-footer">
-        <button class="submit-btn">Siguiente</button>
-      </div>
-    </div>
-  </div>
-  
 
+
+    </div>
+
+
+  </div>
+</div>

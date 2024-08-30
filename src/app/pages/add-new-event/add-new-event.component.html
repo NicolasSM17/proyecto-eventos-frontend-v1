@@ -33,15 +33,21 @@
                     </div>
                 </div>
             </div>
-            <button class="btn btn-comenzar mt-4" (click)="next()">Comencemos</button>
+           
+           
         </div>
+
+         <div class="buttons-start">
+                <button class="btn btn-cancel btn-outline-secondary mt-4" (click)="cancel()">Regresar al Inicio</button>
+                <button class="btn btn-comenzar mt-4" (click)="next()">Comencemos</button>
+            </div>
     </div>
 </div>
 
 <div class="container" *ngIf="step == 2">
     <div class="row">
         <div class="col-md-6 d-flex flex-column align-items-center justify-content-center vh-80">
-            <h3 class="paso">Paso 1</h3>
+            <h3 class="paso"><i class="fas fa-info-circle"></i> Paso 1</h3>
             <h2 class="display-4">Describe tu evento</h2>
             <p class="mt-2 text-left">
             Comparte información detallada sobre el evento, comenzando con algunos datos básicos como el nombre del evento, 
@@ -86,7 +92,7 @@
         <div *ngIf="step == 4">
             <div class="row">
                 <div class="col-md-6 d-flex flex-column align-items-center justify-content-center vh-80">
-                    <h3 class="paso">Paso 2</h3>
+                    <h3 class="paso"><i class="fas fa-image"></i> Paso 2</h3>
                     <h2 class="display-4">Hazlo destacar</h2>
                     <p class="mt-2 text-left">
                         Sube una imagen representativa que capture la esencia y el ambiente del evento, 
@@ -153,7 +159,7 @@
         <div *ngIf="step == 7">
             <div class="row">
                 <div class="col-md-6 d-flex flex-column align-items-center justify-content-center vh-90 mt-5">
-                    <h3 class="paso">Paso 3</h3>
+                    <h3 class="paso"><i class="fas fa-check-circle"></i> Paso 3</h3>
                     <h2 class="display-4">Terminar y publicar</h2>
                     <p class="mt-2 text-left">
                         Por último, determina el precio inicial para asistir a tu evento, teniendo en cuenta factores como 
