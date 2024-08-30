@@ -17,6 +17,7 @@ import { AddNewEventComponent } from './pages/add-new-event/add-new-event.compon
 import { EventoResolveService } from './resolvers/evento-resolve.service';
 import { PaymentMethodsComponent } from './pages/payment-methods/payment-methods.component';
 import { AddPaymentMethodComponent } from './pages/add-payment-method/add-payment-method.component'; // Componente para agregar método
+import { ManageAccountComponent } from './pages/manage-account/manage-account.component';
 
 
 const routes: Routes = [
@@ -34,7 +35,8 @@ const routes: Routes = [
   {path: 'eventBuys', component: EventBuysComponent },
   {path: 'addNewEvent', component: AddNewEventComponent, data:{roles:['USER']}},
   {path: 'paymentMethods', component: PaymentMethodsComponent, data:{roles:['USER']}},
-  {path: 'add-payment-method', component: AddPaymentMethodComponent }
+  {path: 'add-payment-method', component: AddPaymentMethodComponent },
+  {path: 'manageAccount', component: ManageAccountComponent}
 ];
 
 @NgModule({

@@ -33,6 +33,7 @@ import localeEs from '@angular/common/locales/es';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { PaymentMethodsComponent } from './pages/payment-methods/payment-methods.component';
 import { AddPaymentMethodComponent } from './pages/add-payment-method/add-payment-method.component';
+import { ManageAccountComponent } from './pages/manage-account/manage-account.component';
 
 registerLocaleData(localeEs, 'es');
 
@@ -57,7 +58,8 @@ registerLocaleData(localeEs, 'es');
     AddNewEventComponent,
     DragDirective,
     PaymentMethodsComponent,
-    AddPaymentMethodComponent
+    AddPaymentMethodComponent,
+    ManageAccountComponent
   ],
   imports: [
     BrowserModule,
