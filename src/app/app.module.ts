@@ -34,6 +34,7 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { PaymentMethodsComponent } from './pages/payment-methods/payment-methods.component';
 import { AddPaymentMethodComponent } from './pages/add-payment-method/add-payment-method.component';
 import { ManageAccountComponent } from './pages/manage-account/manage-account.component';
+import { EditMyEventComponent } from './pages/edit-my-event/edit-my-event.component';
 
 registerLocaleData(localeEs, 'es');
 
@@ -59,7 +60,8 @@ registerLocaleData(localeEs, 'es');
     DragDirective,
     PaymentMethodsComponent,
     AddPaymentMethodComponent,
-    ManageAccountComponent
+    ManageAccountComponent,
+    EditMyEventComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,163 @@
+/* Container */
+.container {
+    display: flex;
+    height: 85vh;
+    padding: 20px;
+    gap: 20px;
+}
+
+/* Left Panel */
+.left-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #ddd;
+    padding-right: 20px;
+    text-align: left;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    flex-shrink: 0;
+}
+
+.secciones-container {
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.seccion {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.seccion:hover {
+    background-color: #4e4e4e;
+}
+
+/* Sección Asistentes */
+.asistentes-seccion {
+    border: 2px solid #28a745;
+    background-color: #221f1f;
+    color: #28a745;
+}
+
+.asistentes-seccion:hover {
+    background-color: rgba(40, 167, 69, 0.2);
+    color: #fff;
+}
+
+/* Sección Eliminar Evento */
+.eliminar-seccion {
+    border: 2px solid #dc3545;
+    background-color: #221f1f;
+    color: #dc3545;
+}
+
+.eliminar-seccion:hover {
+    background-color: rgba(220, 53, 69, 0.2);
+    color: #fff;
+}
+
+/* Right Panel */
+.right-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    text-align: left;
+    overflow-y: hidden;
+}
+
+.right-panel-content {
+    flex: 1;
+    position: relative;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.right-panel-content h2 {
+    position: sticky;
+    top: 0;
+    background-color: #221f1f;
+    z-index: 1;
+    padding: 15px 0;
+}
+
+/* Scrollable Content */
+.scrollable-content {
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+/* Inputs, Textareas and Buttons */
+textarea,
+input {
+    width: 100%;
+    height: auto;
+    padding: 15px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    background-color: #fafafa;
+}
+
+button {
+    align-self: flex-end;
+    padding: 10px 20px;
+    background-color: #f77d31;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #e06924;
+}
+
+/* Custom Buttons for Asistentes and Eliminar Evento */
+.btn-export {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.btn-export:hover {
+    background-color: #218838;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+/* Scrollbar Styling (optional) */
+.secciones-container::-webkit-scrollbar,
+.right-panel-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.secciones-container::-webkit-scrollbar-track,
+.right-panel-content::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 4px;
+}
+
+.secciones-container::-webkit-scrollbar-thumb,
+.right-panel-content::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
+}

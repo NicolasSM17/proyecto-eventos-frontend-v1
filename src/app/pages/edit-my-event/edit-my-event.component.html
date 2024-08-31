@@ -1,0 +1,96 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+    <div class="left-panel">
+        <h2 class="title mt-3 mb-5">Editor de Eventos</h2>
+        <div class="secciones-container">
+            <div class="seccion asistentes-seccion" (click)="seleccionarSeccion('asistentes')">
+                <h3>ASISTENTES</h3>
+                <p>Lista de asistentes</p>
+            </div>
+            <div class="seccion" (click)="seleccionarSeccion('titulo')">
+                <h3>Título</h3>
+                <p>{{ evento?.titulo }}</p>
+            </div>
+            <div class="seccion" (click)="seleccionarSeccion('descripcion')">
+                <h3>Descripción</h3>
+                <p>{{ evento?.descripcion }}</p>
+            </div>
+            <div class="seccion" (click)="seleccionarSeccion('fecha')">
+                <h3>Fecha</h3>
+                <p>{{ evento?.fecha }}</p>
+            </div>
+            <div class="seccion" (click)="seleccionarSeccion('hora')">
+                <h3>Hora</h3>
+                <p>{{ evento?.hora }}</p>
+            </div>
+            <div class="seccion" (click)="seleccionarSeccion('direccion')">
+                <h3>Dirección</h3>
+                <p>{{ evento?.direccion }}</p>
+            </div>
+            <div class="seccion" (click)="seleccionarSeccion('precioEntrada')">
+                <h3>Precio de Entrada</h3>
+                <p>{{ evento?.precioEntrada | currency: 'S/' }}</p>
+            </div>
+            <div class="seccion eliminar-seccion" (click)="seleccionarSeccion('eliminarEvento')">
+                <h3>ELIMINAR EVENTO</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="right-panel" *ngIf="seccionSeleccionada">
+        <div class="right-panel-content mt-3 mb-5" [ngSwitch]="seccionSeleccionada">
+            <div *ngSwitchCase="'asistentes'" class="scrollable-content">
+                <h2>LISTA DE ASISTENTES</h2>
+                <table class="table table-dark table-hover">
+                    <thead>
+                        <tr>
+                            <th>CODIGO DE TICKET</th>
+                            <th>NOMBRES COMPLETOS</th>
+                            <th>DNI</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let asistente of asistentes">
+                            <td>{{ asistente.codigoTicket }}</td>
+                            <td>{{ asistente.nombreCompleto }}</td>
+                            <td>{{ asistente.dni }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngSwitchCase="'titulo'">
+                <h2>Editar Título</h2>
+                <input [(ngModel)]="evento.titulo" placeholder="Título del evento" />
+            </div>
+            <div *ngSwitchCase="'descripcion'">
+                <h2>Editar Descripción</h2>
+                <textarea [(ngModel)]="evento.descripcion" placeholder="Descripción del evento"></textarea>
+            </div>
+            <div *ngSwitchCase="'fecha'">
+                <h2>Editar Fecha</h2>
+                <input type="date" [(ngModel)]="evento.fecha" />
+            </div>
+            <div *ngSwitchCase="'hora'">
+                <h2>Editar Hora</h2>
+                <input type="time" [(ngModel)]="evento.hora" />
+            </div>
+            <div *ngSwitchCase="'direccion'">
+                <h2>Editar Dirección</h2>
+                <input [(ngModel)]="evento.direccion" placeholder="Dirección del evento" />
+            </div>
+            <div *ngSwitchCase="'precioEntrada'">
+                <h2>Editar Precio de Entrada</h2>
+                <input type="number" [(ngModel)]="evento.precioEntrada" placeholder="Precio de entrada" />
+            </div>
+            <div *ngSwitchCase="'eliminarEvento'">
+                <h2>Eliminar Evento</h2>
+                <p>Esta acción eliminará el evento de forma permanente.</p>
+                <!-- Aquí se agregará la funcionalidad para eliminar el evento -->
+            </div>
+        </div>
+        <button *ngIf="seccionSeleccionada !== 'asistentes' && seccionSeleccionada !== 'eliminarEvento'" (click)="guardarCambios()">Guardar</button>
+        <button *ngIf="seccionSeleccionada === 'asistentes'" class="btn-export" (click)="exportarAExcel()">Exportar a Excel</button>
+        <button *ngIf="seccionSeleccionada === 'eliminarEvento'" class="btn-delete" (click)="eliminarEvento()">Eliminar Evento</button>
+    </div>
+</div>

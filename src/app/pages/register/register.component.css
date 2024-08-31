@@ -155,7 +155,7 @@
     padding: 10px;
     border: none;
     border-radius: 5px;
-    background-color: #e50914;
+    background-color: #f77d31;
     color: white;
     font-size: 16px;
     cursor: pointer;
@@ -165,7 +165,7 @@
 }
 
 .register-btn:hover {
-    background-color: rgba(255, 0, 0, 0.7);
+    background-color: #bb5d22;
 }
 
 .register-btn:active,
