@@ -1,64 +1,37 @@
-<app-navbar></app-navbar>
+<app-custom-navbar></app-custom-navbar>
 
 <main class="compra-evento-container">
     <div class="evento-info">
         <button class="btn-atras" routerLink="/eventDetail">
             <i class="fas fa-arrow-left"></i> Atrás
         </button>
-        <h1>Añadimientos</h1>
+        <h1>Comprar Entrada</h1>
     </div>
 
     <div class="contenedor-general">
         <div class="lugar-info">
-            <img src="https://cdn.joinnus.com/user/3585761/TcS696jHKBRURSk.png" alt="Imagen del lugar">
+            <img src="https://shop.feidofficial.com/cdn/shop/files/DownloadDigitalCover_Feid_Vol1Mor_1.png?v=1682704845" alt="Imagen del lugar">
             <div>
-                <p><b>2DO ANIVERSARIO VALLENATO FEST</b></p>
+                <p><b>EVENTO PRUEBA</b></p>
             </div>
         </div>
 
         <div class="contenedor-principal">
             <div class="categoria-compra">
-                <button class="categoria active">PROMOCIONAL</button>
-                <button class="categoria">COMBOS</button>
-                <button class="categoria">SOCIO</button>
-                <button class="categoria">CANCHITA / HD / NACHOS</button>
-                <button class="categoria">BEBIDAS</button>
-                <button class="categoria">GOLOSINAS</button>
-                <button class="categoria">POR TIEMPO LIMITADO</button>
+                <button class="categoria active">ENTRADAS</button>
             </div>
 
             <div class="compra-options">
                 <div class="opcion">
-                    <img src="https://via.placeholder.com/150" alt="Combo 1">
-                    <h3>COMBO 2 SALADO + 2 KIT KAT OL</h3>
-                    <p>1 Canchita Gigante (Salado) + 2 Bebidas (32oz) + 2 KIT KAT.</p>
+                    <img src="https://th.bing.com/th/id/R.6f9525f5a79159ce43b6b4fb81615b0f?rik=ep17tgMWWwPPQQ&pid=ImgRaw&r=0" alt="entrada 1" height="150px" width="150px">
+                    <h3>ENTRADA GENERAL</h3>
+                    <p>Acceso a todas las actividades del evento.</p>
                     <p>S/ 58.00</p>
+
                     <div class="cantidad">
-                        <button>-</button>
-                        <span>0</span>
-                        <button>+</button>
-                    </div>
-                </div>
-                <div class="opcion">
-                    <img src="https://via.placeholder.com/150" alt="Combo 2">
-                    <h3>COMBO 2 DULCE + 2 KIT KAT OL</h3>
-                    <p>1 Canchita Gigante (Dulce) + 2 Bebidas (32oz) + 2 KIT KAT.</p>
-                    <p>S/ 60.00</p>
-                    <div class="cantidad">
-                        <button>-</button>
-                        <span>0</span>
-                        <button>+</button>
-                    </div>
-                </div>
-                <div class="opcion">
-                    <img src="https://via.placeholder.com/150" alt="Combo 3">
-                    <h3>COMBO 2 MIX + 2 KIT KAT OL</h3>
-                    <p>1 Canchita Gigante (Mix) + 2 Bebidas (32oz) + 2 KIT KAT.</p>
-                    <p>S/ 61.00</p>
-                    <div class="cantidad">
-                        <button>-</button>
-                        <span>0</span>
-                        <button>+</button>
+                        <button (click)="cambiarCantidad(-1)" [disabled]="cantidad <= 0">-</button>
+                        <span>{{ cantidad }}</span>
+                        <button (click)="cambiarCantidad(1)">+</button>
                     </div>
                 </div>
             </div>

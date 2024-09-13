@@ -31,75 +31,6 @@ header .logo img {
     height: 60px; /* Ajustar según tu logo */
 }
 
-
-/*BARRA DE BUSQUEDA*/
-
-
-
-header .search-container.expanded-search {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start; /* Alinear la barra de búsqueda a la izquierda */
-    flex: 0 1 auto; /* Permitir que el contenedor se ajuste a su contenido */
-    margin-right: 220px; /* Espacio entre la barra de búsqueda y el botón "Points" */
-    margin-top: 20px;
-   
-}
-
-header .search-container.expanded-search .search-bar {
-    position: relative;
-    width: 180%; 
-    max-width: 600px; /* Limitar el ancho máximo */
-    margin: 0 auto; /* Centra la barra de búsqueda */
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-}
-
-header .search-container.expanded-search .search-bar input {
-    width: 100%;
-    padding: 10px 40px 10px 20px; 
-    border-radius: 25px;
-    color: white;
-    background-color: #0e0d0d; 
-    font-size: 16px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
-    transition: all 0.3s ease; /* Transición suave para todos los cambios */
-}
-
-header .search-container.expanded-search .search-bar input:focus,
-header .search-container.expanded-search .search-bar input:not(:placeholder-shown){
-    border-color: #faf5f5; /* Color de borde al enfocar */
-    background-color: #f7f7f7; /* Color de fondo al enfocar */
-    color: #181717; /* Color del texto al enfocar */
-    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3); /* Sombra azul suave */
-    outline: none; /* Eliminar el borde de enfoque predeterminado */
-}
-
-header .search-container.expanded-search .search-bar input:hover {
-    background-color: #f7f7f7; /* Color de fondo al pasar el cursor */
-    color: #181717; /* Color del texto al pasar el cursor */
-    border-color: #e6f7ff; /* Color del borde al pasar el cursor */
-}
-
-header .search-bar input::placeholder {
-    color: #bbb; /* Color del texto del marcador de posición */
-    font-style: italic; /* Estilo cursiva */
-}
-
-header .search-bar .search-icon {
-    position: absolute;
-    right: 20px; /* Posición del ícono a la derecha */
-    top: 50%;
-    transform: translateY(-50%); /* Centrar verticalmente */
-    font-size: 1.2rem;
-    color: #bbb;
-    pointer-events: none; /* Hacer el ícono no clicable */
-}
-
-
-
-
 /*////////////////////////////////////////////////////////////////////////////////////////////////// */
 
 
@@ -109,14 +40,19 @@ header .buttons {
     align-items: center;
     gap: 10px; /* Espacio entre botones */
     margin-left: auto; /* Alinea los botones a la derecha */
-    margin-right: -90px; /* Ajusta este valor según sea necesario para más espacio a la derecha */
+    margin-right: 30px; /* Ajusta este valor según sea necesario para más espacio a la derecha */
+}
+/* Ajuste de la lista centrada */
+.centered-list {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1; /* Ocupa todo el espacio disponible entre el logo y los botones */
 }
 
-header a.btn.points {
-    color: white; /* Asegurarse de que el ícono sea visible */
-    font-size: 28px; /* Ajustar tamaño del ícono */
-    margin-right: 20px; /* Espacio entre elementos */
-    
+.centered-list a {
+    margin: 0 15px; /* Espacio entre las opciones */
+    font-size: 18px;
+    color: white;
 }
 
 
@@ -170,59 +106,13 @@ div.dropdown ul.dropdown-menu li a:hover {
     word-wrap: break-word; /* Permite que el texto se ajuste a múltiples líneas */
     white-space: normal; /* Permite que el texto se ajuste a múltiples líneas */
     overflow-wrap: break-word; /* Asegura que las palabras largas se dividan */
+    left: -50px; /* Mueve el dropdown más a la izquierda */
 }
 
 div.dropdown ul.dropdown-menu li a.logout {
     color: red !important;
 }
 
-.points {
-    color: white;
-    font-size: 28px;
-}
-
-/* Estilo para el botón de eliminar filtro */
-.dropdown-menu.custom-dropdown .custom-delete-filter {
-    display: flex;
-    align-items: center;
-    position: relative;
-    top: -20px; /* Ajusta este valor según sea necesario */
-    color: red; /* Asegúrate de que el color esté definido aquí si es necesario */
-}
-
-.dropdown-menu.custom-dropdown .custom-delete-filter i {
-    margin-right: 5px;
-}
-
-/* Estilo para el botón de aplicar */
-.dropdown-menu.custom-dropdown .custom-apply-btn {
-    background-color: #004080; /* Azul oscuro */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Estilo para los botones de categorías en estado normal */
-.btn.btn-outline-white {
-    background-color: #1e1e1e;
-    color: white;
-    border: 1px solid #444;
-  }
-
-  /* Estilo para los botones de categorías en estado hover */
-.btn.btn-outline-white:hover {
-    background-color: #bb7c55;
-    color: white;
-    border: 1px solid #bb7c55;
-  }
-
-  /* Estilo para los botones de categorías en estado focus */
-.btn.btn-outline-white:focus,
-.btn.btn-outline-white.selected {
-  color: white;
-  outline: none;
-  box-shadow: none;
-}
 
 .btn.points:focus {
     box-shadow: none !important;
@@ -233,11 +123,6 @@ div.dropdown ul.dropdown-menu li a.logout {
     box-shadow: none !important;
 }
 
-.btn.selected{
-    background-color: #bb5d22;
-    color: white;
-    box-shadow: none;
-  }
 
 /* MODAL LOGIN */
 
@@ -351,7 +236,7 @@ div.dropdown ul.dropdown-menu li a.logout {
 
 .login-btn:active,
 .login-btn:focus {
-    background-color: rgba(255, 81, 0, 0.5);
+    background-color: rgba(255, 81, 0, 0.5);;
     transition: background-color 0.3s ease;
     outline: none;
     box-shadow: none;

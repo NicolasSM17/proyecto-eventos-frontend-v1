@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
 export class PaymentMethodsComponent implements OnInit {
 
   creditCards = [
-    { imageUrl: 'visa-logo.png', name: 'ITALO LINARES', expiry: '12/27', id: 1 },
-    { imageUrl: 'visa-logo.png', name: 'ITALO LINARES', expiry: '25/28', id: 2 }
+    { imageUrl: 'https://th.bing.com/th/id/OIP.xVREsbEnxpFwYsgl4hNO7QHaDA?rs=1&pid=ImgDetMain', name: 'ITALO LINARES', expiry: '12/27', id: 1 },
+    { imageUrl: 'https://th.bing.com/th/id/OIP.xVREsbEnxpFwYsgl4hNO7QHaDA?rs=1&pid=ImgDetMain', name: 'ITALO LINARES', expiry: '25/28', id: 2 }
   ];
 
   constructor(private router: Router) {}

@@ -25,11 +25,11 @@ export class EventService {
   }
 
   getByIdEvento(eventoId): Observable<Evento>{
-    return this.httpClient.get<Evento>(this.PATH_OF_API + "/" + eventoId);
+    return this.httpClient.get<Evento>(this.PATH_OF_API + "/getEventById/" + eventoId);
   }
 
   getEventosConCategoriasSimilares(eventoId: number, institucionId: number): Observable<Evento[]>{
-    return this.httpClient.get<Evento[]>(`${this.PATH_OF_API}/${eventoId}/similares`, 
+    return this.httpClient.get<Evento[]>(`${this.PATH_OF_API}/similares/${eventoId}`, 
                                         {params: { institucionId }});
   }
 

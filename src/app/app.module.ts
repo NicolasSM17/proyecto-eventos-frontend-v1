@@ -11,7 +11,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FormsModule } from '@angular/forms';
 import { MatGridListModule } from "@angular/material/grid-list";
-import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { ForbiddenComponent } from './pages/forbidden/forbidden.component';
 import { ViewInstitutionsComponent } from './admin/view-institutions/view-institutions.component';
 import { ViewCategoriesComponent } from './admin/view-categories/view-categories.component';
 import { EventBuysComponent } from './pages/event-buys/event-buys.component';
@@ -35,6 +35,8 @@ import { PaymentMethodsComponent } from './pages/payment-methods/payment-methods
 import { AddPaymentMethodComponent } from './pages/add-payment-method/add-payment-method.component';
 import { ManageAccountComponent } from './pages/manage-account/manage-account.component';
 import { EditMyEventComponent } from './pages/edit-my-event/edit-my-event.component';
+import { OrganizerNavbarComponent } from './components/organizer-navbar/organizer-navbar.component';
+import { CustomNavbarComponent } from './components/custom-navbar/custom-navbar.component';
 
 registerLocaleData(localeEs, 'es');
 
@@ -61,7 +63,9 @@ registerLocaleData(localeEs, 'es');
     PaymentMethodsComponent,
     AddPaymentMethodComponent,
     ManageAccountComponent,
-    EditMyEventComponent
+    EditMyEventComponent,
+    OrganizerNavbarComponent,
+    CustomNavbarComponent
   ],
   imports: [
     BrowserModule,
