@@ -34,6 +34,11 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { PaymentMethodsComponent } from './pages/payment-methods/payment-methods.component';
 import { AddPaymentMethodComponent } from './pages/add-payment-method/add-payment-method.component';
 import { ManageAccountComponent } from './pages/manage-account/manage-account.component';
+import { PublicationsOrganizationComponent } from './pages/publications-organization/publications-organization.component';
+import { MyTournamentsComponent } from './pages/my-tournaments/my-tournaments.component';
+import { AddNewTournamentComponent } from './pages/add-new-tournament/add-new-tournament.component';
+import { NgbPopoverModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 registerLocaleData(localeEs, 'es');
 
@@ -59,7 +64,12 @@ registerLocaleData(localeEs, 'es');
     DragDirective,
     PaymentMethodsComponent,
     AddPaymentMethodComponent,
-    ManageAccountComponent
+    ManageAccountComponent,
+    PublicationsOrganizationComponent,
+    MyTournamentsComponent,
+    AddNewTournamentComponent,
+
+  
   ],
   imports: [
     BrowserModule,
@@ -69,18 +79,20 @@ registerLocaleData(localeEs, 'es');
     HttpClientModule,
     BrowserAnimationsModule,
     MatGridListModule,
-    MatChipsModule
+    MatChipsModule,
+    NgbModule,
+    NgbPopoverModule
   ],
-  providers: [
+  providers: [/*
     {provide: LOCALE_ID, useValue: 'es'},
     AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
+     useClass: AuthInterceptor,
       multi: true
     },
     UserAuthService
-  ],
+  */],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

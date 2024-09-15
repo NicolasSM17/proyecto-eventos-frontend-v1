@@ -1,0 +1,609 @@
+
+
+.container-form {
+  margin-top: 120px;
+  max-width: 1500px !important;
+}
+
+h1.display-4 {
+    font-weight: bold;
+}
+
+.step {
+    margin-bottom: 20px;
+}
+
+.step h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: left;
+}
+
+.step p {
+    color: #a18d76;
+}
+
+.buttons-start {
+    display: flex; /* Para alinear los elementos de manera horizontal */
+    justify-content: space-between; /* Para colocar los botones en extremos opuestos */
+    align-items: center; /* Centrar verticalmente los botones si tienen diferentes alturas */
+    width: 100%; /* Asegurar que el contenedor ocupe todo el ancho disponible */
+}
+
+.btn-comenzar {
+    background-color: #f77d31;
+    border-color: #f77d31;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.btn-cancel {
+    background-color: #7e7671;
+    border-color: #8f8e8d;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.icon-step {
+    width: 100px;
+    height: 100px;
+    margin-right: 15px;
+}
+
+.custom-text-left {
+    align-items: flex-start !important;
+}
+
+h2.display-4{
+    font-weight: bold;
+}
+
+.imagen-paso2{
+    height: 100%;
+    width: 100%;
+}
+
+.btn-2{
+    background-color: #f77d31;
+    border-color: #f77d31;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-weight: bold;
+    color: white;
+}
+
+form label {
+    font-weight: bold;
+}
+
+.imagen-paso4{
+    height: 90%;
+    width: 90%;
+}
+.row {
+    margin-bottom: 90px;
+}
+
+.row p{
+    color: #a18d76;
+}
+
+.row-form {
+  margin-bottom: 280px;
+}
+
+/*******/
+
+mat-grid-tile{
+    border: 1px solid #eee;
+}
+
+.btn-remove-image{
+    position: absolute;
+    cursor: pointer;
+    top: -10px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: auto;
+    text-align: center;
+}
+
+.dropzone{
+    height: 160px;
+    min-width: 110px;
+    display: table;
+    background-color: #f8975b !important;
+    width: 300px;
+    border: dashed 2px #804b2a;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.text-wrapper{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.centered{
+    text-align: center;
+}
+
+
+.browse-button{
+    color: black;
+    cursor: pointer;
+}
+
+
+.options-selector {
+  
+    
+ align-items: center; /* Centra verticalmente los contenedores si tienen diferentes alturas */
+   
+  }
+
+
+  .modality-select {
+    margin-top: 40px;
+    margin-bottom: 80px;
+  }
+
+  /* Centraliza el contenedor de botones */
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  border-radius: 5px;
+}
+
+
+
+/* Botones estilizados */
+.select-button {
+  padding: 15px 20px;
+  border: none;
+  background-color: #e2915e; /* Color base de los botones */
+  color: #f1f0f0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  flex: 1; /* Ocupa el mismo espacio para cada botón */
+  border-right: 1px solid #fff; /* Separador entre botones */
+}
+
+/* Eliminar borde derecho para el último botón */
+.select-button:last-child {
+  border-right: none;
+}
+
+/* Efecto hover suave */
+.select-button:hover {
+  background-color: #e66c21; /* Color de fondo al hacer hover */
+}
+
+/* Efecto "selected" */
+.select-button.selected {
+  background-color:  #fa6000; /* Color de fondo cuando está seleccionado */
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.select-button:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+#bt_dropdown_sport {
+  width: 300px; /* Define el ancho que prefieras */
+  text-align: center; /* Alinea el texto a la izquierda */
+}
+
+
+
+
+    /* Contenedor para la lista desplegable */
+.dropdown-container {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 50px;
+}
+
+.custom-btn-size {
+  padding: 15px 30px; 
+  font-size: 18px; 
+  border-width: 2px; 
+}
+  
+  /* Estilo de la lista desplegable */
+.sportsMenu-dropdown {
+  width: 100%;
+  padding: 10px;
+  
+  border-radius: 4px;
+  background-color: rgb(119, 155, 196);
+  color: #faf8f8;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000; /* Asegura que el dropdown aparezca por encima de otros elementos */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Mostrar el dropdown */
+.sportsMenu-dropdown.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(20px);
+}
+
+/* Estilos para los elementos de la lista */
+.sport-dropdown {
+  color: white;
+  text-decoration: none; /* Eliminamos la subrayado */
+  display: block;
+  padding: 8px 0;
+  cursor: pointer; /* Agrega el cursor pointer */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Estilo hover */
+.sport-dropdown:hover {
+  background-color: #0056b3; /* Cambia el fondo al pasar el mouse */
+  color: #ffffff; /* Cambia el color del texto al pasar el mouse */
+}
+
+
+
+
+/* Ajuste de contenedor de las opciones adicionales */
+.additional-options {
+  display: flex;
+  justify-content: center; /* Centra los elementos horizontalmente */
+  align-items: center; /* Alinear verticalmente al centro */
+  margin-top: 20px;
+  padding: 20px; /* Añade un padding interno */
+  background-color: #222; /* Fondo oscuro para el contenedor */
+  border-radius: 8px; /* Bordes redondeados */
+  width: 100%;
+}
+
+/* Estilos para cada opción */
+.option {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centra el contenido dentro de la opción */
+  margin: 0 85px; /* Espacio horizontal entre las opciones */
+  width: 20%; /* Ajusta el ancho de cada opción */
+  
+}
+
+/* Ajusta el tamaño de los selectores y alineación en línea */
+.select-container {
+  display: flex; /* Alineación en fila (horizontal) */
+  align-items: center; /* Alinear verticalmente al centro */
+  width: 100%; /* Expandir al 100% del contenedor padre */
+  padding-left: 0; /* Elimina el padding */
+  position: relative;
+}
+
+
+.select-wrapper {
+  background-color: #a4d4ae; /* Color verde claro */
+  padding: 10px 15px;
+  margin: 0 20px; /* Añadir margen entre los selectores */
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+
+.select-wrapper:hover {
+  background-color: #81c28d; /* Color verde más oscuro al pasar el cursor */
+}
+
+.select-wrapper span {
+  color: black; /* Asegúrate de que el color sea visible */
+  font-size: 16px;
+  display: block; /* Asegurarse de que el span esté visible */
+}
+
+
+/* Ajustar la posición del menú desplegable */
+.select-items {
+  position: absolute;
+  min-width: 160px;
+  max-height: 200px;
+  overflow: auto;
+  z-index: 1000;
+  border: 2px solid #ccc; /* Agregar bordes */
+  list-style: none outside none;
+  border-radius: 5px;
+  top: 100%;
+  box-shadow: 0 0 3px rgba(86, 96, 117, 0.7);
+  float: left;
+  text-shadow: none;
+  left: auto;
+  right: 0;
+  display: block;
+  padding: 0;
+}
+
+.select-items li {
+  cursor: pointer;
+  width: 100%;
+  border-radius: 3px;
+  color: inherit;
+  line-height: 35px;
+  margin: 4px;
+  text-align: left;
+  font-weight: normal;
+  transition: background-color 0.3s ease;
+}
+
+.select-items li a {
+  text-decoration: none;
+  margin: 4px;
+  padding: 3px 20px;
+}
+
+
+.select-items li:hover {
+  background-color: #646363; /* Cambia el fondo al pasar el cursor */
+}
+
+/* Bordes entre las opciones del menú desplegable */
+.select-option {
+  padding: 8px 15px;
+  cursor: pointer;
+  color: black;
+  border-bottom: 1px solid #ccc; /* Bordes grises para separar los elementos */
+}
+
+.select-option:last-child {
+  border-bottom: none; /* Elimina el borde del último elemento */
+}
+
+
+.select-option:hover {
+  background-color: #f0f0f0;
+}
+
+/* Mejorar el icono de información */
+.info-icon {
+  margin-top: 20px;
+  margin-left: 10px;
+  color: #007bff;
+  cursor: pointer;
+}
+
+.info-icon:hover {
+  color: #0056b3;
+}
+
+/* Flecha personalizada */
+.select-wrapper::after {
+  content: "▼";
+  font-size: 12px;
+  color: #333;
+  margin-left: auto;
+}
+
+/* Ocultar items cuando el dropdown está cerrado */
+.select-hide {
+  display: none;
+}
+
+
+
+
+
+
+  /*Formato para la seleccion del tipo de Torneo*/
+
+  .tournament-options-container {
+    padding: 20px;
+    background-color: #fff;
+  }
+  
+  .tournament-format-options {
+    display: flex;
+    gap: 50px;
+    justify-content: center;
+    margin-top: 40px;
+  }
+  
+  .format-option {
+    padding: 15px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 8px;
+    width: 280px;  /* Ajusta el ancho del contenedor principal */
+    transition: all 0.3s ease;  /* Transición suave para hover */
+    background-color: #3f3d3d;  /* Color de fondo del contenedor principal */
+    margin-bottom: 20px;  /* Margen inferior para separar elementos */
+  }
+  
+  .format-option:hover {
+    transform: scale(1.1);  /* Agrandamiento en hover con transición suave */
+    
+  }
+  
+  .format-option.selected {
+    border-color: #ff4500;
+  }
+
+  .format-icon {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .format-details {
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  .format-settings,
+  .bracket-size-options {
+    margin-top: 30px;  /* Margen superior para separar secciones */
+  }
+  
+  .size-options button {
+    margin-right: 10px;
+    margin-bottom: 50px;  /* Margen inferior para separación vertical */
+  }
+  
+  input[type="number"] {
+    margin-top: 10px;
+    width: 100px;
+  }
+
+
+
+
+  .bracket-size-options {
+    margin-bottom: 20px;
+  }
+  
+   .bracket-size-options button {
+    padding: 10px 15px;
+    margin: 5px;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    background-color: #e69d3e;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .bracket-size-options button:hover {
+    background-color: #f57b34;
+    
+  }
+  
+  .bracket-size-options button.selected {
+    background-color: #ee5700;
+    color: #fff;
+    
+  }
+  
+  .bracket-size-options button.selected:hover {
+    background-color: #ee5700;
+    border-color: #b46408;
+  }
+  
+  .bracket-size-options button:not(.selected):hover {
+    background-color: #f57b34;
+  }
+
+
+
+
+
+/* Contenedor del toggle (Alineación centrada y con flexbox) */
+.toggle-container {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Alineación centrada horizontalmente */
+  gap: 10px;
+}
+
+  /* Contenedor del toggle */
+.toggle-switch {
+  width: 50px;
+  height: 25px;
+  background-color: #ccc;
+  border-radius: 25px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* El círculo (palanca) del toggle */
+.toggle-switch span {
+  width: 23px;
+  height: 23px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  transition: transform 0.3s ease;
+}
+
+/* Estado activo del toggle */
+.toggle-switch span.active {
+  transform: translateX(25px); /* Mueve el círculo a la derecha */
+  
+}
+
+.toggle-switch.active {
+
+  background-color: #f57b34;
+}
+
+
+
+.label {
+  font-size: 16px;
+}
+
+
+
+/* CREACION DE LOS BRACKETS */
+
+h2.display-6{
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.tournament-bracket {
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 20px;
+}
+
+.bracket-svg {
+
+ 
+}
+
+.bracket-match {
+  fill: #fff;
+  stroke: #ccc;
+}
+
+.player-box {
+  fill: #fff;
+  stroke: #000;
+}
+
+.player-name {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  fill: #070707;
+}
+
+line {
+  stroke: #000;
+  stroke-width: 2;
+}
+
+
+  
+  
+

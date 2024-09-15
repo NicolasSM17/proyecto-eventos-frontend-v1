@@ -1,0 +1,64 @@
+.tabla {
+    width: 100%;
+    color: white;
+    border-collapse: separate;
+    border-spacing: 0 15px; 
+}
+
+.tabla th {
+    padding: 15px; 
+   
+    text-align: center;
+}
+
+/* Estilos generales para <td> que no sean de iconos */
+.tabla tbody tr td {
+    color: aliceblue;
+    padding: 15px; /* Espacio dentro de cada celda */
+    text-align: center; /* Centra el contenido de cada celda */
+    background-color: #2a2a2a; /* Fondo para las filas */
+    border-top: 1px solid #444; /* Borde superior para la separación */
+}
+
+/* Estilos específicos para los <td> con iconos */
+.icon-arrow, .icon-svg {
+    background-color: transparent; /* Fondo transparente o diferente */
+    padding: 0; /* Elimina el padding si no es necesario */
+    text-align: center; /* Centra el contenido, o puedes cambiar esto */
+}
+
+/* Opcional: estilos adicionales para la decoración */
+.icon-arrow i, .icon-svg svg {
+    margin: 0 auto; /* Centra los iconos dentro del <td> */
+    display: block;
+}
+
+
+
+
+.boton-añadir {
+    color: white;
+    text-align: left;
+}
+
+img {
+    width: 65px; 
+    height: 65px;
+    display: block; 
+    margin: 0 auto; 
+}
+
+.arrow-icon {
+    opacity: 0;
+    transition: opacity 0.3s ease; 
+}
+
+.arrow-cell:hover .arrow-icon {
+    opacity: 1; 
+}
+
+.container {
+    background-color: #0e0e0e;
+    padding: 20px;
+    border-radius: 10px; 
+}

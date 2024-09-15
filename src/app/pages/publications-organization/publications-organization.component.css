@@ -1,0 +1,49 @@
+.organizacion-publicaciones-container {
+    text-align: center;
+    padding: 40px 20px; /* Aumentamos el padding superior para mover el contenido más hacia el top */
+  }
+  
+  .organizacion-publicaciones-container h1 {
+    font-size: 2.5rem;
+    margin-bottom: 120px;
+    color: #f0e6e6;
+    margin-top: 0; /* Asegúrate de que no haya margen superior */
+  }
+  
+  .iconos-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 600px; /* Aumentamos el espacio entre los iconos para mayor separación */
+    margin-top: 200px; /* Mueve los iconos más hacia el centro de la página */
+  }
+  
+  .icono-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .icono-item:hover {
+    transform: scale(1.1);
+  }
+
+  .icono-item:hover p{
+    color: #dbd7d7;
+  }
+  
+  .icono-grande {
+    font-size: 15rem;
+    color: #f77d31; /* Puedes cambiar el color según tu preferencia */
+    margin-bottom: 10px;
+  }
+  
+  .icono-item p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+    color: #555;
+    transition: 0.2s ease-in-out;
+  }

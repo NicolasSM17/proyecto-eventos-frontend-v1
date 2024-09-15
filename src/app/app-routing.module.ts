@@ -16,9 +16,11 @@ import { MyEventsComponent } from './pages/my-events/my-events.component';
 import { AddNewEventComponent } from './pages/add-new-event/add-new-event.component';
 import { EventoResolveService } from './resolvers/evento-resolve.service';
 import { PaymentMethodsComponent } from './pages/payment-methods/payment-methods.component';
-import { AddPaymentMethodComponent } from './pages/add-payment-method/add-payment-method.component'; // Componente para agregar método
+import { AddPaymentMethodComponent } from './pages/add-payment-method/add-payment-method.component'; 
 import { ManageAccountComponent } from './pages/manage-account/manage-account.component';
-
+import { PublicationsOrganizationComponent } from './pages/publications-organization/publications-organization.component';
+import { MyTournamentsComponent } from './pages/my-tournaments/my-tournaments.component';
+import { AddNewTournamentComponent } from './pages/add-new-tournament/add-new-tournament.component';
 
 const routes: Routes = [
   {path: "", redirectTo: "selectInstitution", pathMatch: 'full'},
@@ -36,7 +38,10 @@ const routes: Routes = [
   {path: 'addNewEvent', component: AddNewEventComponent, data:{roles:['USER']}},
   {path: 'paymentMethods', component: PaymentMethodsComponent, data:{roles:['USER']}},
   {path: 'add-payment-method', component: AddPaymentMethodComponent },
-  {path: 'manageAccount', component: ManageAccountComponent}
+  {path: 'manageAccount', component: ManageAccountComponent},
+  {path: 'publicationsOrganization', component: PublicationsOrganizationComponent, data:{roles:['USER']}},
+  {path: "myTournaments", component: MyTournamentsComponent},
+  {path: 'addNewTournament', component: AddNewTournamentComponent, data:{roles:['USER']}},
 ];
 
 @NgModule({

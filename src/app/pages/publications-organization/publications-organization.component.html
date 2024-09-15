@@ -1,0 +1,22 @@
+<app-navbar></app-navbar>
+
+<div class="organizacion-publicaciones-container" *ngIf="isLoggedIn()">
+    
+    <h1>Organiza tus Publicaciones</h1>
+  
+   
+    <div class="iconos-container" >
+     
+      <div class="icono-item" *ngIf="isUser()" [routerLink]="['/myEvents']" [queryParams]="{organizadorId: userId}" (click)="navigateToOrganizadorMode()">
+        
+        <i class="fas fa-calendar-check icono-grande"></i>
+        <p>Eventos</p>
+      </div>
+  
+      <div class="icono-item" routerLink="/myTournaments">
+        <i class="fas fa-trophy icono-grande"></i>
+        <p>Torneos</p>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,544 @@
+<div class="container" *ngIf="step == 1">
+    <div class="row">
+        <div class="col-md-6 d-flex align-items-center justify-content-center vh-90">
+            <h1 class="display-4">Crea tu Torneo <br> perfecto</h1>
+        </div>
+        <div class="col-md-6 my-3">
+            <div class="step mt-5">
+                <div class="d-flex align-items-center">
+                    <img src="https://cdn-icons-png.freepik.com/512/4029/4029050.png" alt="Icono de notas"
+                        class="icon-step">
+                    <div>
+                        <h3>1. Describe tu torneo</h3>
+                        <p>Comparte algunos datos básicos, un título, una descripcion y el tipo de torneo.</p>
+                    </div>
+                </div>
+            </div>
+            <div style="border-bottom: 1px solid rgb(77, 75, 75);"></div>
+            <div class="step mt-5">
+                <div class="d-flex align-items-center">
+                    <img src="https://cdn4.iconfinder.com/data/icons/soccer-filled-line/550/soccer-03-512.png"
+                        alt="Icono de notas" class="icon-step">
+                    <div>
+                        <h3><span>2.</span> Define la cantidad de participantes</h3>
+                        <p>Decide que tan grande quieres que sea tu torneo definiendo la cantidad de jugadores o equipos
+                            que se podrán inscribir.</p>
+                    </div>
+                </div>
+            </div>
+            <div style="border-bottom: 1px solid rgb(77, 75, 75);"></div>
+            <div class="step mt-5">
+                <div class="d-flex align-items-center">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4578/4578995.png" alt="Icono de notas"
+                        class="icon-step">
+                    <div>
+                        <h3><span>3.</span> Determina la duración del torneo</h3>
+                        <p>Limita el tiempo que tienen los usuarios para poder inscribirse al torneo y la duración que
+                            tendra este al estar activo.</p>
+                    </div>
+                </div>
+            </div>
+            <div style="border-bottom: 1px solid rgb(77, 75, 75);"></div>
+            <div class="step mt-5">
+                <div class="d-flex align-items-center">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1040/1040241.png" alt="Icono de notas"
+                        class="icon-step">
+                    <div>
+                        <h3><span>4.</span>Hazlo destacar</h3>
+                        <p>Agrega una foto, la ubicación, fecha y hora en la que se realizará tu evento.</p>
+                    </div>
+                </div>
+            </div>
+            <div style="border-bottom: 1px solid rgb(77, 75, 75);"></div>
+            <div class="step mt-5">
+                <div class="d-flex align-items-center">
+                    <img src="https://cdn-icons-png.freepik.com/512/5197/5197704.png" alt="Icono de notas"
+                        class="icon-step">
+                    <div>
+                        <h3>5. Terminar y publicar</h3>
+                        <p>Elige un precio inicial, verifica algunos detalles y publica tu evento.</p>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="buttons-start">
+            <button class="btn btn-cancel btn-outline-secondary mt-4" (click)="cancel()">Regresar al Inicio</button>
+            <button class="btn btn-comenzar mt-4" (click)="next()">Comencemos</button>
+        </div>
+    </div>
+</div>
+
+<div class="container" *ngIf="step == 2">
+    <div class="row">
+        <div class="col-md-6 d-flex flex-column align-items-center justify-content-center vh-80">
+            <h3 class="paso"><i class="fas fa-info-circle"></i> Paso 1</h3>
+            <h2 class="display-4">Describe tu torneo</h2>
+            <p class="mt-2 text-left">
+                Comparte información detallada sobre el torneo, comenzando con algunos datos básicos como el nombre del
+                torneo,
+                una descripción completa que explique el propósito y los aspectos más destacados del mismo, así como el
+                título que
+                lo represente de manera atractiva. No olvides incluir las categorías a las que pertenece, para que los
+                asistentes
+                potenciales puedan identificar fácilmente el tipo de torneo que estás organizando.</p>
+        </div>
+        <div class="col-md-6 mt-4">
+            <img src="https://static.vecteezy.com/system/resources/previews/018/757/969/original/3d-concert-stage-png.png"
+                alt="icono de escenario" class="imagen-paso2">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col d-flex justify-content-between">
+            <button class="btn btn-outline-secondary" (click)="previus()">Atrás</button>
+            <button class="btn btn-2" (click)="next()">Siguiente</button>
+        </div>
+    </div>
+</div>
+
+
+<form #eventoForm="ngForm" (ngSubmit)="addEvento(eventoForm)">
+    <div class="container container-form">
+
+        <div *ngIf="step == 3">
+
+            <div class="mb-3 mt-5">
+                <label for="anfitrion" class="form-label">Anfitrión</label>
+                <input type="text" class="form-control" id="anfitrion" placeholder="Indica el Anfitrión del torneo"
+                    name="anfitrion">
+            </div>
+
+
+            <div class="mb-3 mt-5">
+                <label for="titulo" class="form-label">Título</label>
+                <input type="text" class="form-control" id="titulo" placeholder="Introduce el título del evento"
+                    name="titulo" [(ngModel)]="evento.titulo">
+            </div>
+
+            <div class="mb-3 mt-5">
+                <label for="descripcion" class="form-label text-bold">Descripción</label>
+                <textarea class="form-control" id="descripcion" rows="4" name="descripcion"
+                    [(ngModel)]="evento.descripcion"
+                    placeholder="Introduce una descripción detallada del evento"></textarea>
+            </div>
+            <div class="options-selector">
+                <div class="sports mb-5 mt-5">
+                    <label for="sports" class="form-label">Deportes</label><br>
+
+                    <div class="dropdown-container">
+                        <button id="bt_dropdown_sport" class="btn btn-outline btn-info dropdown-toggle custom-btn-size"
+                            (click)="toggleDropdown()" aria-expanded="false">
+                            <span id="span_sport">{{ selectedSportLabel }}</span>
+                            <span class="caret"></span>
+                        </button>
+
+                        <ul class="sportsMenu-dropdown" [ngClass]="{ show: dropdownOpen }"
+                            style="max-height: 150px; overflow-y: auto; margin-top: 5px;">
+                            <li *ngFor="let sport of sportsList" (click)="selectSport(sport)">
+                                <a class="sport-dropdown">{{ sport }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="modality-select">
+                    <label class="form-label">Modalidad</label><br>
+
+                    <div class="button-group">
+                        <button class="select-button" [ngClass]="{'selected': selectedButtons['solo']}"
+                            (click)="toggleButton('solo')">En Solitario</button>
+                        <button class="select-button" [ngClass]="{'selected': selectedButtons['duo']}"
+                            (click)="toggleButton('duo')">En Duo</button>
+                        <button class="select-button" [ngClass]="{'selected': selectedButtons['team']}"
+                            (click)="toggleButton('team')">Por Equipo</button>
+                    </div>
+
+                    <div *ngIf="selectedButtons['team']" class="additional-options">
+                        <div class="option">
+                            <label for="numTitulares">Nº Titulares:</label>
+
+                            <div class="select-container">
+
+                                <button class="select-wrapper players-wrapper" (click)="playersDropdown('players')">
+                                    <span>{{ numPlayers || 'Selecciona un número' }}</span>
+
+                                </button>
+                                <ul class="select-items players-items"
+                                    [ngClass]="{'select-hide': !dropdowns['players']}">
+                                    <li *ngFor="let player of playersList" (click)="selectPlayer(player)">
+                                        <a>{{ player }}</a>
+                                    </li>
+                                </ul>
+
+                                <a tabindex="0" class="info-icon"
+                                    ngbPopover="Introduce el mínimo número de jugadores necesario para aceptar un equipo en tu campeonato."
+                                    popoverTitle="Información" triggers="hover focus">
+                                    <i class="fa fa-lg fa-info-circle"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="option">
+                            <label for="numFichas">Nº Fichas:</label>
+                            <div class="select-container">
+
+                                <button class="select-wrapper rosters-wrapper" (click)="playersDropdown('rosters')">
+                                    <span>{{ numRosters || 'Selecciona un número' }}</span>
+
+                                </button>
+                                <ul class="select-items rosters-items"
+                                    [ngClass]="{'select-hide': !dropdowns['rosters']}">
+                                    <li *ngFor="let roster of rostersList" (click)="selectRoster(roster)">
+                                        <a>{{ roster }}</a>
+                                    </li>
+                                </ul>
+
+                                <a tabindex="0" class="info-icon"
+                                    ngbPopover="Introduce el número máximo de fichas de jugadores que tendrán los equipos. Este número debe ser mayor o igual que el número de titulares que selecciones."
+                                    popoverTitle="Información" triggers="hover focus">
+                                    <i class="fa fa-lg fa-info-circle"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+        <div class="container" *ngIf="step == 4">
+            <div class="row row-form">
+                <div class="col-md-6 d-flex flex-column align-items-center justify-content-center vh-80">
+                    <h3 class="paso"><i class="fas fa-image"></i> Paso 2</h3>
+                    <h2 class="display-4">Define la cantidad de participantes</h2>
+                    <p class="mt-2 text-left">
+                        Aqui es donde podras definir la cantidad de participantes que tendra tu torneo,
+                        a través de un sistema de "llaves" en la cual se producirán multiples enfrentamientos
+                        hasta definir a los mas habilidosos. La opción que escojas aqui podra afectar en el tiempo
+                        de duración del torneo, asi que si tienes en mente cuantos participantes vas a querer dentro
+                        de tu torneo, adelante.
+                    </p>
+                </div>
+                <div class="col-md-6 mt-4">
+                    <img src="https://assets.challonge.com/assets/bracket-tree-8ce099d29904dd717b6707ff62fcdccfe3510956862e0a1b6d49265b02482a90.png"
+                        alt="icono de Brackets" class="imagen-paso4">
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div *ngIf="step == 5">
+
+            <!-- Título -->
+            <h2>Formato para el Torneo</h2>
+            <p>Selecciona un formato para generar los Brackets del Torneo:</p>
+
+            <!-- Opciones de Formato de Torneo -->
+            <div class="tournament-format-options">
+                <div *ngFor="let format of tournamentFormats" [ngClass]="{ 'selected': selectedFormat === format.key }"
+                    class="format-option" (click)="selectFormat(format.key)">
+
+                    <div class="format-details">
+                        <h3>{{ format.title }}</h3>
+                        <div class="format-icon">
+                            <img [src]="format.iconUrl" [alt]="format.title" />
+                        </div>
+                        <p>{{ format.description }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Configuraciones de una sola eliminación -->
+            <div class="format-settings" *ngIf="selectedFormat === 'singleElimination'">
+                <label for="splitParticipantsToggleSingle">Configuraciones de una sola eliminación</label>
+                <div class="toggle-container">
+                    <div class="toggle-switch" [ngClass]="{'active': splitParticipantsSingleElimination}"
+                        (click)="toggleSplitParticipantsSingleElimination()">
+                        <span [ngClass]="{ 'active': splitParticipantsSingleElimination }"></span>
+                    </div>
+                    <label for="splitParticipantsToggleSingle">Incluir un partido por el 3er puesto</label>
+                </div>
+            </div>
+
+            <!-- Configuraciones de doble eliminación -->
+            <div class="format-settings" *ngIf="selectedFormat === 'doubleElimination'">
+                <label for="splitParticipantsToggleDouble">Configuraciones de doble eliminación</label>
+                <div class="toggle-container">
+                    <div class="toggle-switch" [ngClass]="{'active': splitParticipantsDoubleElimination}"
+                        (click)="toggleSplitParticipantsDoubleElimination()">
+                        <span [ngClass]="{ 'active': splitParticipantsDoubleElimination }"></span>
+                    </div>
+                    <label for="splitParticipantsToggleDouble">Habilitar participantes divididos</label>
+                </div>
+            </div>
+
+
+
+            <!-- Tamaño de Llave -->
+            <div class="bracket-size-options">
+                <h3>Tamaño del bracket</h3>
+                <button *ngFor="let size of [4, 8, 16, 32]" (click)="setBracketSize(size)"
+                    [ngClass]="{'selected': selectedSize === size}">
+                    {{ size }} Participantes
+                </button>
+            </div>
+
+
+        </div>
+
+        <!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+
+
+
+        <!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+
+        <div *ngIf="step == 6">
+            <div class="row">
+                <div class="col-md-6 d-flex flex-column align-items-center justify-content-center vh-80">
+                    <h2 class="display-6">VISUALIZACIÓN DE LOS BRACKETS</h2>
+                </div>
+                <!-- BRACKETS -->
+                <div class="tournament-bracket">
+                    <svg class="bracket-svg" [attr.width]="1500" [attr.height]="svgHeight"
+                        xmlns="http://www.w3.org/2000/svg">
+
+                        <!-- Primera Ronda -->
+                        <g *ngFor="let match of round1Matches; let i = index" class="bracket-match"
+                            [attr.transform]="'translate(0,' + (i * 130) + ')'">
+
+                            <!-- Jugador 1 -->
+                            <rect x="0" y="0" width="180" height="30" rx="5" ry="5" class="player-box"></rect>
+                            <text x="90" y="20" text-anchor="middle" class="player-name">{{ match.player1 }}</text>
+
+                            <!-- Jugador 2 -->
+                            <rect x="0" y="30" width="180" height="30" rx="5" ry="5" class="player-box"></rect>
+                            <text x="90" y="50" text-anchor="middle" class="player-name">{{ match.player2 }}</text>
+
+                            <!-- Condicional para Llave -->
+                            <ng-container *ngIf="i % 2 === 0; else oddMatch">
+                                <!-- Llave invertida para partidos pares -->
+                                <g>
+                                    <line x1="180" y1="30" x2="210" y2="30" stroke="black" stroke-width="2"></line>
+                                    <line x1="210" y1="30" x2="210" y2="92" stroke="black" stroke-width="2"></line>
+                                    <line x1="210" y1="92" x2="250" y2="92" stroke="black" stroke-width="2"></line>
+                                </g>
+                            </ng-container>
+                            <ng-template #oddMatch>
+                                <!-- Llave original para partidos impares -->
+                                <g>
+                                    <line x1="180" y1="30" x2="210" y2="30" stroke="black" stroke-width="2"></line>
+                                    <line x1="210" y1="-37" x2="210" y2="30" stroke="black" stroke-width="2"></line>
+                                    <line x1="210" y1="-37" x2="250" y2="-37" stroke="black" stroke-width="2"></line>
+                                </g>
+                            </ng-template>
+                        </g>
+
+
+                        <!-- Segunda Ronda -->
+                        <ng-container *ngIf="round2Matches.length > 0">
+                            <g *ngFor="let match of round2Matches; let i = index" class="bracket-match"
+                                [attr.transform]="'translate(260,' + (i * 260 + 62) + ')'">
+                                <!-- Línea de conexión para Ronda 2 -->
+                                <line x1="180" y1="30" x2="300" y2="30" stroke="black" stroke-width="2"></line>
+                                <!-- Jugador 1 -->
+                                <rect x="0" y="0" width="180" height="30" rx="5" ry="5" class="player-box"></rect>
+                                <text x="90" y="20" text-anchor="middle" class="player-name">{{ match.player1 }}</text>
+                                <!-- Jugador 2 -->
+                                <rect x="0" y="30" width="180" height="30" rx="5" ry="5" class="player-box"></rect>
+                                <text x="90" y="50" text-anchor="middle" class="player-name">{{ match.player2 }}</text>
+                            </g>
+                        </ng-container>
+
+                        <!-- Tercera Ronda -->
+                        <ng-container *ngIf="round3Matches.length > 0">
+                            <g *ngFor="let match of round3Matches; let i = index" class="bracket-match"
+                                [attr.transform]="'translate(520,' + (i * 520 + 124) + ')'">
+                                <!-- Línea de conexión para Ronda 3 -->
+                                <line x1="180" y1="30" x2="300" y2="30" stroke="black" stroke-width="2"></line>
+                                <!-- Jugador 1 -->
+                                <rect x="0" y="0" width="180" height="30" rx="5" ry="5" class="player-box"></rect>
+                                <text x="90" y="20" text-anchor="middle" class="player-name">{{ match.player1 }}</text>
+                                <!-- Jugador 2 -->
+                                <rect x="0" y="30" width="180" height="30" rx="5" ry="5" class="player-box"></rect>
+                                <text x="90" y="50" text-anchor="middle" class="player-name">{{ match.player2 }}</text>
+                            </g>
+                        </ng-container>
+
+                        <!-- Cuarta Ronda -->
+                        <ng-container *ngIf="round4Matches.length > 0">
+                            <g *ngFor="let match of round4Matches; let i = index" class="bracket-match"
+                                [attr.transform]="'translate(780,' + (i * 780 + 248) + ')'">
+                                <!-- Línea de conexión para Ronda 4 -->
+                                <line x1="180" y1="30" x2="300" y2="30" stroke="black" stroke-width="2"></line>
+                                <!-- Jugador 1 -->
+                                <rect x="0" y="0" width="180" height="30" rx="5" ry="5" class="player-box"></rect>
+                                <text x="90" y="20" text-anchor="middle" class="player-name">{{ match.player1 }}</text>
+                                <!-- Jugador 2 -->
+                                <rect x="0" y="30" width="180" height="30" rx="5" ry="5" class="player-box"></rect>
+                                <text x="90" y="50" text-anchor="middle" class="player-name">{{ match.player2 }}</text>
+                            </g>
+                        </ng-container>
+
+                        <!-- Quinta Ronda -->
+                        <ng-container *ngIf="round5Matches.length > 0">
+                            <g *ngFor="let match of round5Matches; let i = index" class="bracket-match"
+                                [attr.transform]="'translate(1040,' + (i * 1040 + 496) + ')'">
+                                <!-- Línea de conexión para Ronda 5 -->
+                                <line x1="180" y1="30" x2="300" y2="30" stroke="black" stroke-width="2"></line>
+                                <!-- Jugador 1 -->
+                                <rect x="0" y="0" width="180" height="30" rx="5" ry="5" class="player-box"></rect>
+                                <text x="90" y="20" text-anchor="middle" class="player-name">{{ match.player1 }}</text>
+                                <!-- Jugador 2 -->
+                                <rect x="0" y="30" width="180" height="30" rx="5" ry="5" class="player-box"></rect>
+                                <text x="90" y="50" text-anchor="middle" class="player-name">{{ match.player2 }}</text>
+                            </g>
+                        </ng-container>
+
+
+
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+
+        <div *ngIf="step == 7">
+            <div class="row">
+                <div class="col-md-6 d-flex flex-column align-items-center justify-content-center vh-80">
+                    <h3 class="paso"><i class="fas fa-image"></i> Paso 2</h3>
+                    <h2 class="display-4">Hazlo destacar</h2>
+                    <p class="mt-2 text-left">
+                        Sube una imagen representativa que capture la esencia y el ambiente del evento,
+                        ya sea un póster promocional o cualquier otra visual que ayude a los asistentes a visualizar
+                        lo que les espera. A continuación, proporciona la
+                        dirección exacta del evento, incluyendo detalles como el nombre del lugar, la calle y
+                        cualquier referencia adicional que pueda ser útil para llegar sin inconvenientes.
+                        No olvides especificar la fecha y la hora de inicio, para que los participantes puedan
+                        planificar su
+                        asistencia de manera adecuada.</p>
+                </div>
+                <div class="col-md-6 mt-4">
+                    <img src="https://cdn-icons-png.flaticon.com/512/5798/5798294.png" alt="icono de subir imagen"
+                        class="imagen-paso4">
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div *ngIf="step == 8">
+            <div>
+                <h1 class="mb-5">Sube tu imagen</h1>
+                <div class="dropzone" appDrag (files)="fileDropped($event)">
+                    <div class="text-wrapper">
+                        <div class="centered">Arrastre y suelte su imagen o
+                            <a (click)="selectFile.click()" class="browse-button">busque</a> una imagen
+                        </div>
+                    </div>
+                </div>
+                <input type="file" name="eventoImagenes" style="display: none;" multiple value="select" #selectFile
+                    (change)="onFileSelected($event)">
+            </div>
+            <div class="mt-5">
+                <div class="row mb-5 contenedor1" *ngIf="evento && evento.eventoImagenes">
+                    <mat-grid-list cols="4" rowHeight="1:1">
+                        <div style="display: inline-flex;" *ngFor="let file of evento.eventoImagenes; let i = index;">
+                            <span class="btn-remove-image" (click)="removeImages(i)">x</span>
+                            <img [src]="file.url" width="100px" height="100px" class="mx-2">
+                        </div>
+                    </mat-grid-list>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="step == 9">
+            <div class="row">
+                <div class="col-md-12 mt-5 mb-4">
+                    <label for="direccion">Dirección:</label>
+                    <input type="text" id="direccion" class="form-control" name="direccion"
+                        [(ngModel)]="evento.direccion">
+                </div>
+                <div class="col-md-12 mt-3 mb-4">
+                    <label for="url">URL de la dirección:</label>
+                    <input type="text" id="url" class="form-control" name="direccionUrl"
+                        [(ngModel)]="evento.direccionUrl">
+                </div>
+            </div>
+            <div class="row mb-5">
+                <div class="col-md-6 mt-3 mb-5">
+                    <label for="fecha">Fecha:</label>
+                    <input type="date" id="fecha" class="form-control" name="fecha" [(ngModel)]="evento.fecha">
+                </div>
+                <div class="col-md-6 mt-3 mb-5">
+                    <label for="hora">Hora:</label>
+                    <input type="time" id="hora" class="form-control" name="hora" [(ngModel)]="evento.hora">
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="step == 10">
+            <div class="row">
+                <div class="col-md-6 d-flex flex-column align-items-center justify-content-center vh-90 mt-5">
+                    <h3 class="paso"><i class="fas fa-check-circle"></i> Paso 3</h3>
+                    <h2 class="display-4">Terminar y publicar</h2>
+                    <p class="mt-2 text-left">
+                        Por último, determina el precio inicial para asistir a tu evento, teniendo en cuenta factores
+                        como
+                        los costos de organización y el valor que ofrece la experiencia. Realiza
+                        una revisión detallada de toda la información proporcionada, incluyendo la descripción del
+                        evento, la fecha, la hora, la ubicación y cualquier otro detalle relevante, para asegurarte
+                        de que todo esté correcto y completo. Una vez que hayas confirmado que toda la información
+                        es precisa y estás satisfecho con los detalles, procede a publicar tu evento.</p>
+                </div>
+                <div class="col-md-6 mt-5 mb-5">
+                    <img src="https://th.bing.com/th/id/R.75c46cd81a8db59d59dc3e388a83dedd?rik=5ir2xlsh6OggKg&pid=ImgRaw&r=0"
+                        alt="icono de subir imagen" class="imagen-paso4">
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="step == 11">
+            <div class="row mb-5">
+                <div class="col-md-6 mt-5 mb-5">
+                    <label for="precio">Precio:</label>
+                    <input type="number" id="precio" class="form-control" name="precioEntrada"
+                        [(ngModel)]="evento.precioEntrada">
+                </div>
+                <div class="col-md-6 mt-5 mb-5">
+                    <label for="institucion">Institución:</label>
+                    <select id="institucion" class="form-control" name="institucion"
+                        [(ngModel)]="evento.institucion.id">
+                        <option selected value="">Seleccione una opción</option>
+                        <option *ngFor="let institucion of institutions" [value]="institucion.id">{{ institucion.nombre
+                            }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col d-flex justify-content-between">
+                <button class="btn btn-outline-secondary" type="button" *ngIf="step >= 3"
+                    (click)="previus()">Atrás</button>
+                <button class="btn btn-2" type="button" *ngIf="step >= 3 && step < 8" (click)="next()"
+                    [disabled]="step === 5 && (!selectedFormat || !selectedSize)">
+                    Siguiente
+                </button>
+
+
+                <button class="btn btn-2" type="submit" *ngIf="step == 8">PUBLICAR TORNEO</button>
+            </div>
+        </div>
+    </div>
+</form>
