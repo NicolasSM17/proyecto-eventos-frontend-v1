@@ -37,8 +37,8 @@ export class EventService {
     return this.httpClient.post<Evento>(this.PATH_OF_API + "/insertar", evento);
   }
 
-  update(evento: Evento): Observable<Evento>{
-    return this.httpClient.put<Evento>(this.PATH_OF_API + "/" + evento.id, evento);
+  update(id:number, evento: Evento): Observable<Evento>{
+    return this.httpClient.put<Evento>(`${this.PATH_OF_API}/${id}`, evento);
   }
 
   delete(id: number): Observable<void>{

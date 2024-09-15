@@ -9,7 +9,7 @@ import { EventDetailComponent } from './pages/event-detail/event-detail.componen
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatGridListModule } from "@angular/material/grid-list";
 import { ForbiddenComponent } from './pages/forbidden/forbidden.component';
 import { ViewInstitutionsComponent } from './admin/view-institutions/view-institutions.component';
@@ -71,6 +71,7 @@ registerLocaleData(localeEs, 'es');
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     SlickCarouselModule,
     HttpClientModule,
     BrowserAnimationsModule,
