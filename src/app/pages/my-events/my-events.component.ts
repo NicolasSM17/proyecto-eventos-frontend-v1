@@ -42,7 +42,6 @@ export class MyEventsComponent implements OnInit{
     ).subscribe(
       (response: Evento[]) => {
         this.eventos = response;
-        console.log(response);
       },
       (error: HttpErrorResponse) => {
         console.log(error);

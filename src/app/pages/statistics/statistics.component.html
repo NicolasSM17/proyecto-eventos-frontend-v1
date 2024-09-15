@@ -1,1 +1,43 @@
-<p>statistics works!</p>
+<app-organizer-navbar></app-organizer-navbar>
+
+<!-- income.component.html -->
+<div class="income-container">
+    <div class="main-content">
+        <h2>Estadisticas</h2>
+        <h1>Ganaste</h1>
+        <h1 class="amount">{{earnedAmount}} este mes</h1>
+        <p>Próximos ingresos: {{nextIncome}}</p>
+        <div class="chart-container">
+            <div *ngFor="let data of monthlyData" class="bar-column">
+                <div class="bar" [style.height.%]="(data.amount / 3000) * 100"></div>
+                <span class="month-label">{{data.month}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="summary-card">
+        <h3>Resumen del año en curso</h3>
+        <p>{{yearSummary.period}}</p>
+        <table>
+            <tr>
+                <td>Ingresos brutos</td>
+                <td>{{yearSummary.grossIncome}}</td>
+            </tr>
+            <tr>
+                <td>Ajustes</td>
+                <td>{{yearSummary.adjustments}}</td>
+            </tr>
+            <tr>
+                <td>Tarifa por servicio</td>
+                <td>{{yearSummary.serviceCharge}}</td>
+            </tr>
+            <tr>
+                <td>Impuestos retenidos</td>
+                <td>{{yearSummary.taxesWithheld}}</td>
+            </tr>
+            <tr class="total">
+                <td>Total (PEN)</td>
+                <td>{{yearSummary.total}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

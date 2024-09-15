@@ -11,6 +11,7 @@ import { CategoryService } from 'src/app/services/category.service';
 import { EventService } from 'src/app/services/event.service';
 import { InstitutionService } from 'src/app/services/institution.service';
 import { Router } from '@angular/router';
+import { UserAuthService } from 'src/app/services/user-auth.service';
 
 @Component({
   selector: 'app-add-new-event',
@@ -40,9 +41,7 @@ export class AddNewEventComponent implements OnInit{
 
   constructor(private eventService: EventService, private categoryService: CategoryService,
               private institutionService: InstitutionService, private sanitizer: DomSanitizer,
-              private activatedRoute: ActivatedRoute, private router: Router){}
-
-            
+              private userAuthService: UserAuthService, private router: Router){}
   
   ngOnInit(): void {
     this.getCategory();
@@ -57,6 +56,8 @@ export class AddNewEventComponent implements OnInit{
   }
 
   addEvento(eventoForm: NgForm){
+    const organizadorId = this.userAuthService.getUserId();
+
     this.evento.categorias = this.selectedCategoriaIds.map(
       id => this.categorias.find(
         cat => cat.id === id
@@ -70,6 +71,7 @@ export class AddNewEventComponent implements OnInit{
         eventoForm.reset();
         this.evento.eventoImagenes = [];
         console.log(response);
+        this.router.navigate(['/myEvents'], { queryParams: { organizadorId } });
       },
       (error: HttpErrorResponse) => {
         console.log(error);

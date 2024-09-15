@@ -25,11 +25,11 @@ export class EventService {
   }
 
   getByIdEvento(eventoId): Observable<Evento>{
-    return this.httpClient.get<Evento>(this.PATH_OF_API + "/" + eventoId);
+    return this.httpClient.get<Evento>(this.PATH_OF_API + "/getEventById/" + eventoId);
   }
 
   getEventosConCategoriasSimilares(eventoId: number, institucionId: number): Observable<Evento[]>{
-    return this.httpClient.get<Evento[]>(`${this.PATH_OF_API}/${eventoId}/similares`, 
+    return this.httpClient.get<Evento[]>(`${this.PATH_OF_API}/similares/${eventoId}`, 
                                         {params: { institucionId }});
   }
 
@@ -37,8 +37,8 @@ export class EventService {
     return this.httpClient.post<Evento>(this.PATH_OF_API + "/insertar", evento);
   }
 
-  update(evento: Evento): Observable<Evento>{
-    return this.httpClient.put<Evento>(this.PATH_OF_API + "/" + evento.id, evento);
+  update(id:number, evento: Evento): Observable<Evento>{
+    return this.httpClient.put<Evento>(`${this.PATH_OF_API}/${id}`, evento);
   }
 
   delete(id: number): Observable<void>{

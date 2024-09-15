@@ -1,0 +1,136 @@
+<app-organizer-navbar></app-organizer-navbar>
+
+<div class="container">
+    <div class="left-panel">
+        <h2 class="title mt-3 mb-5">Editor de Eventos</h2>
+        <div class="secciones-container">
+            <div class="seccion asistentes-seccion" (click)="seleccionarSeccion('asistentes')">
+                <h3>ASISTENTES</h3>
+                <p>Lista de asistentes</p>
+            </div>
+            <div class="seccion" (click)="seleccionarSeccion('titulo')">
+                <h3>Título</h3>
+                <p>{{ evento?.titulo }}</p>
+            </div>
+            <div class="seccion" (click)="seleccionarSeccion('descripcion')">
+                <h3>Descripción</h3>
+                <p>{{ evento?.descripcion }}</p>
+            </div>
+            <div class="seccion" (click)="seleccionarSeccion('fecha')">
+                <h3>Fecha</h3>
+                <p>{{ evento?.fecha | date:'EEEE dd \'de\' MMMM' }}</p>
+            </div>
+            <div class="seccion" (click)="seleccionarSeccion('hora')">
+                <h3>Hora</h3>
+                <p>{{ evento?.hora }}</p>
+            </div>
+            <div class="seccion" (click)="seleccionarSeccion('direccion')">
+                <h3>Dirección</h3>
+                <p>{{ evento?.direccion }}</p>
+            </div>
+            <div class="seccion" (click)="seleccionarSeccion('direccionUrl')">
+                <h3>URL de la Dirección</h3>
+                <p title="{{ evento?.direccionUrl }}" style="color: rgb(53, 140, 253);">{{ evento?.direccionUrl | slice:0:30 }}...</p>
+            </div>
+            <div class="seccion" (click)="seleccionarSeccion('precioEntrada')">
+                <h3>Precio de Entrada</h3>
+                <p>{{ evento?.precioEntrada > 0 ? ('S/' + evento.precioEntrada) : 'Gratis' }}</p>
+            </div>
+            <div class="seccion eliminar-seccion" (click)="seleccionarSeccion('eliminarEvento')">
+                <h3>ELIMINAR EVENTO</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="right-panel" *ngIf="seccionSeleccionada">
+        <form [formGroup]="editEventForm" (ngSubmit)="onSubmit()">
+            <div class="right-panel-content mt-3 mb-5" [ngSwitch]="seccionSeleccionada">
+                <div *ngSwitchCase="'asistentes'" class="scrollable-content">
+                    <h2>LISTA DE ASISTENTES</h2>
+                    <table class="table table-dark table-hover">
+                        <thead>
+                            <tr>
+                                <th>CODIGO DE TICKET</th>
+                                <th>NOMBRES COMPLETOS</th>
+                                <th>DNI</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let asistente of asistentes">
+                                <td>{{ asistente.codigoTicket }}</td>
+                                <td>{{ asistente.nombreCompleto }}</td>
+                                <td>{{ asistente.dni }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div *ngSwitchCase="'titulo'">
+                    <div class="form-group">
+                        <label for="titulo">Editar Título</label>
+                        <input [(ngModel)]="evento.titulo" placeholder="Título del evento" name="titulo" id="titulo" formControlName="titulo" class="form-control"/>
+                    </div>
+                </div>
+                <div *ngSwitchCase="'descripcion'">
+                    <div class="form-group">
+                        <label for="descripcion">Editar Descripción</label>
+                        <textarea [(ngModel)]="evento.descripcion" placeholder="Descripción del evento" name="descripcion" id="descripcion" formControlName="descripcion" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div *ngSwitchCase="'fecha'">
+                    <div class="form-group">
+                        <label for="fecha">Editar Fecha</label>
+                        <input type="date" [(ngModel)]="evento.fecha" name="fecha" id="fecha" formControlName="fecha" class="form-control"/>
+                    </div>
+                </div>
+                <div *ngSwitchCase="'hora'">
+                    <div class="form-group">
+                        <label for="hora">Editar Hora</label>
+                        <input type="time" [(ngModel)]="evento.hora" name="hora" id="hora" formControlName="hora" class="form-control"/>
+                    </div>
+                </div>
+                <div *ngSwitchCase="'direccion'">
+                    <div class="form-group">
+                        <label for="direccion">Editar Dirección</label>
+                        <input [(ngModel)]="evento.direccion" placeholder="Dirección del evento" name="direccion" id="direccion" formControlName="direccion" class="form-control"/>
+                    </div>
+                </div>
+                <div *ngSwitchCase="'direccionUrl'">
+                    <div class="form-group">
+                        <label for="direccionUrl">Editar URL de la Dirección</label>
+                        <input [(ngModel)]="evento.direccionUrl" placeholder="URL de la Dirección del evento" name="direccionUrl" id="direccionUrl" formControlName="direccionUrl" class="form-control"/>
+                    </div>
+                </div>
+                <div *ngSwitchCase="'precioEntrada'">
+                    <div class="form-group">
+                        <label for="precioEntrada">Editar Precio de Entrada</label>
+                        <input type="number" [(ngModel)]="evento.precioEntrada" placeholder="Precio de entrada" name="precioEntrada" id="precioEntrada" formControlName="precioEntrada" class="form-control"/>
+                    </div>
+                </div>
+                <div *ngSwitchCase="'eliminarEvento'">
+                    <h2>Eliminar Evento</h2>
+                    <p>Esta acción eliminará el evento de forma permanente.</p>
+                    <!-- Aquí se agregará la funcionalidad para eliminar el evento -->
+                </div>
+            </div>
+            <button type="submit" *ngIf="seccionSeleccionada !== 'asistentes' && seccionSeleccionada !== 'eliminarEvento'">Guardar</button>
+            <button *ngIf="seccionSeleccionada === 'asistentes'" class="btn-export" (click)="exportarAExcel()">Exportar a Excel</button>
+            <button *ngIf="seccionSeleccionada === 'eliminarEvento'" class="btn-delete" data-bs-toggle="modal" data-bs-target="#ModalEliminarEvento">Eliminar Evento</button>
+        </form>
+    </div>
+
+    <!----------------------------------------- Modal Cerrar Sesion ---------------------------------------------->
+    <div class="modal fade" id="ModalEliminarEvento" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 480px;">
+            <div class="modal-content custom-modal-content" style="background-color: #221f1f;">
+                <div class="modal-header justify-content-center">
+                    <h4 class="modal-title text-center" id="exampleModalLabel">Está seguro de eliminar su evento?</h4>
+                    <i class="fa-solid fa-xmark" data-bs-dismiss="modal" aria-label="Close" style="cursor: pointer;"></i>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <a type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteEvento(eventoId)">Eliminar evento</a>
+                    <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

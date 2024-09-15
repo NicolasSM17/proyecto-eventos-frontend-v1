@@ -6,6 +6,7 @@ import { Component, OnInit, AfterViewInit, HostListener, OnDestroy } from '@angu
   styleUrls: ['./event-buys.component.css']
 })
 export class EventBuysComponent implements OnInit, AfterViewInit, OnDestroy {
+  cantidad: number = 0;
 
   constructor() { }
 
@@ -35,4 +36,10 @@ export class EventBuysComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  cambiarCantidad(cambio: number): void {
+    this.cantidad += cambio;
+    if (this.cantidad < 0) {
+      this.cantidad = 0;
+    }
+  }
 }

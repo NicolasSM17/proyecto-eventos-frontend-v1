@@ -24,7 +24,7 @@ export class CategoryService {
     return this.httpClient.post<Category>(this.PATH_OF_API, category);
   }
 
-  update(id:number ,category: Category): Observable<Category>{
+  update(id:number, category: Category): Observable<Category>{
     return this.httpClient.put<Category>(this.PATH_OF_API + "/" + id, category);
   }
 

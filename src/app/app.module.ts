@@ -9,9 +9,9 @@ import { EventDetailComponent } from './pages/event-detail/event-detail.componen
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatGridListModule } from "@angular/material/grid-list";
-import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { ForbiddenComponent } from './pages/forbidden/forbidden.component';
 import { ViewInstitutionsComponent } from './admin/view-institutions/view-institutions.component';
 import { ViewCategoriesComponent } from './admin/view-categories/view-categories.component';
 import { EventBuysComponent } from './pages/event-buys/event-buys.component';
@@ -39,6 +39,9 @@ import { MyTournamentsComponent } from './pages/my-tournaments/my-tournaments.co
 import { AddNewTournamentComponent } from './pages/add-new-tournament/add-new-tournament.component';
 import { NgbPopoverModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { EditMyEventComponent } from './pages/edit-my-event/edit-my-event.component';
+import { OrganizerNavbarComponent } from './components/organizer-navbar/organizer-navbar.component';
+import { CustomNavbarComponent } from './components/custom-navbar/custom-navbar.component';
 
 registerLocaleData(localeEs, 'es');
 
@@ -70,11 +73,15 @@ registerLocaleData(localeEs, 'es');
     AddNewTournamentComponent,
 
   
+    EditMyEventComponent,
+    OrganizerNavbarComponent,
+    CustomNavbarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     SlickCarouselModule,
     HttpClientModule,
     BrowserAnimationsModule,

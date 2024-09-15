@@ -109,7 +109,7 @@ header .buttons {
     align-items: center;
     gap: 10px; /* Espacio entre botones */
     margin-left: auto; /* Alinea los botones a la derecha */
-    margin-right: -90px; /* Ajusta este valor según sea necesario para más espacio a la derecha */
+    margin-right: 30px; /* Ajusta este valor según sea necesario para más espacio a la derecha */
 }
 
 header a.btn.points {
@@ -170,6 +170,7 @@ div.dropdown ul.dropdown-menu li a:hover {
     word-wrap: break-word; /* Permite que el texto se ajuste a múltiples líneas */
     white-space: normal; /* Permite que el texto se ajuste a múltiples líneas */
     overflow-wrap: break-word; /* Asegura que las palabras largas se dividan */
+    left: -50px; /* Mueve el dropdown más a la izquierda */
 }
 
 div.dropdown ul.dropdown-menu li a.logout {
@@ -351,7 +352,7 @@ div.dropdown ul.dropdown-menu li a.logout {
 
 .login-btn:active,
 .login-btn:focus {
-    background-color: rgba(255, 81, 0, 0.5);
+    background-color: rgba(255, 81, 0, 0.5);;
     transition: background-color 0.3s ease;
     outline: none;
     box-shadow: none;

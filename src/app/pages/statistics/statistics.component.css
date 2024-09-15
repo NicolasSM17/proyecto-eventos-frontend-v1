@@ -1,0 +1,75 @@
+/* income.component.css */
+.income-container {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.main-content {
+    flex: 1;
+}
+
+h2 {
+    color: #666;
+    font-weight: normal;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin: 0;
+}
+
+.amount {
+    font-size: 3em;
+    font-weight: bold;
+}
+
+.chart-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 200px;
+    margin-top: 20px;
+}
+
+.bar-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30px;
+}
+
+.bar {
+    width: 100%;
+    background-color: #e91e63;
+    margin-bottom: 5px;
+}
+
+.month-label {
+    font-size: 0.8em;
+    color: #666;
+}
+
+.summary-card {
+    background-color: #4d4d4d;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+}
+
+.summary-card h3 {
+    margin-top: 0;
+}
+
+.summary-card table {
+    width: 100%;
+}
+
+.summary-card td {
+    padding: 5px 0;
+}
+
+.summary-card .total {
+    font-weight: bold;
+}

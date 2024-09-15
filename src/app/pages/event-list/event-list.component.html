@@ -28,8 +28,8 @@
                                         {{ evento.fecha | date:'EEEE dd \'de\' MMMM' }} - {{ evento.horaDate | date:'h:mm a' }}
                                     </p>
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <button class="btn btn-comprar">Comprar</button>
-                                        <p class="card-text">Desde S/{{ evento.precioEntrada }}</p>
+                                        <button class="btn btn-comprar">{{ evento.precioEntrada > 0 ? 'Comprar' : 'Inscribirme' }}</button>
+                                        <p class="card-text">{{ evento.precioEntrada > 0 ? ('Desde S/' + evento.precioEntrada) : 'Gratis' }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -51,7 +51,7 @@
                                     class="card-img-top" alt="Evento">
                                 <div class="card-body">
                                     <h5 class="card-title">Crea y vende tu evento</h5>
-                                    <p class="card-text">6M+ ENTRADAS VENDIDAS | 60k+ VENDEDORES | 8k+ ORGANIZADORES DE
+                                    <p class="card-text">6M+ ENTRADAS VENDIDAS | 8k+ ORGANIZADORES DE
                                         EVENTOS</p>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <button class="btn btn-info">Contactenos</button>
