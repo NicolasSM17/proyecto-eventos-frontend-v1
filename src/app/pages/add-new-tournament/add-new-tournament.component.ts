@@ -27,12 +27,11 @@ export class AddNewTournamentComponent implements OnInit {
   participants: string[] = []; // Almacena los participantes generados dinámicamente
 
   round1Matches = [
-    { player1: 'Player A', player2: 'Player B' },
-    { player1: 'Player C', player2: 'Player D' },
+   
   ];
 
   round2Matches = [
-    { player1: 'Winner 1', player2: 'Winner 2' }
+   
   ];
 
   round3Matches = [];
@@ -355,72 +354,84 @@ export class AddNewTournamentComponent implements OnInit {
   // BRACKETS
 
 
-  // Función para generar los brackets en función de la cantidad de jugadores
-  generateBracket(size: number) {
-    // Reiniciar las rondas
-    this.round1Matches = [];
-    this.round2Matches = [];
-    this.round3Matches = [];
-    this.round4Matches = [];
-    this.round5Matches = [];
-    this.finals = [];
+ // Función para generar los brackets en función de la cantidad de jugadores
+generateBracket(size: number) {
+  // Reiniciar las rondas
+  this.round1Matches = [];
+  this.round2Matches = [];
+  this.round3Matches = [];
+  this.round4Matches = [];
+  this.round5Matches = [];
+  this.finals = [];
 
-    // Generar la primera ronda de partidos
-    for (let i = 0; i < size; i += 2) {
-      const match = {
-        player1: this.participants[i],
-        player2: this.participants[i + 1] || 'BYE' // Si no hay un jugador, asignar 'BYE'
-      };
-      this.round1Matches.push(match);
-    }
-
-    // Generar la segunda ronda
-    if (size > 3) {
-      for (let i = 0; i < this.round1Matches.length / 2; i++) {
-        const match = {
-          player1: `Ganador del Partido ${i * 2 + 1}`,
-          player2: `Ganador del Partido ${(i * 2) + 2}`
-        };
-        this.round2Matches.push(match);
-      }
-    }
-
-    // Generar la tercera ronda
-    if (size > 4) {
-      for (let i = 0; i < this.round2Matches.length / 2; i++) {
-        const match = {
-          player1: `Ganador del Partido ${i * 2 + 1}`,
-          player2: `Ganador del Partido ${(i * 2) + 2}`
-        };
-        this.round3Matches.push(match);
-      }
-    }
-
-    // Generar la cuarta ronda
-    if (size > 8) {
-      for (let i = 0; i < this.round3Matches.length / 2; i++) {
-        const match = {
-          player1: `Ganador del Partido ${i * 2 + 1}`,
-          player2: `Ganador del Partido ${(i * 2) + 2}`
-        };
-        this.round4Matches.push(match);
-      }
-    }
-
-    // Generar la quinta ronda (final)
-    if (size > 16) {
-      for (let i = 0; i < this.round4Matches.length / 2; i++) {
-        const match = {
-          player1: `Ganador del Partido ${i * 2 + 1}`,
-          player2: `Ganador del Partido ${(i * 2) + 2}`
-        };
-        this.round5Matches.push(match);
-      }
-    }
-
-    // Actualizar la altura del SVG después de generar los partidos
-    this.updateSvgHeight();
+  let matchCounter = 1; // Contador para los números de los partidos
+  
+  // Generar la primera ronda de partidos
+  for (let i = 0; i < size; i += 2) {
+    const match = {
+      player1: this.participants[i],
+      player2: this.participants[i + 1] || 'BYE', // Si no hay un jugador, asignar 'BYE'
+      matchNumber: matchCounter // Asignar el número del partido
+    };
+    this.round1Matches.push(match);
+    matchCounter++; // Incrementar el contador de partidos
   }
+
+  // Generar la segunda ronda
+  if (size > 3) {
+    for (let i = 0; i < this.round1Matches.length / 2; i++) {
+      const match = {
+        player1: `Ganador del Partido ${this.round1Matches[i * 2].matchNumber}`,
+        player2: `Ganador del Partido ${this.round1Matches[(i * 2) + 1].matchNumber}`,
+        matchNumber: matchCounter // Asignar el número del partido
+      };
+      this.round2Matches.push(match);
+      matchCounter++; // Incrementar el contador de partidos
+    }
+  }
+
+  // Generar la tercera ronda
+  if (size > 4) {
+    for (let i = 0; i < this.round2Matches.length / 2; i++) {
+      const match = {
+        player1: `Ganador del Partido ${this.round2Matches[i * 2].matchNumber}`,
+        player2: `Ganador del Partido ${this.round2Matches[(i * 2) + 1].matchNumber}`,
+        matchNumber: matchCounter // Asignar el número del partido
+      };
+      this.round3Matches.push(match);
+      matchCounter++; // Incrementar el contador de partidos
+    }
+  }
+
+  // Generar la cuarta ronda
+  if (size > 8) {
+    for (let i = 0; i < this.round3Matches.length / 2; i++) {
+      const match = {
+        player1: `Ganador del Partido ${this.round3Matches[i * 2].matchNumber}`,
+        player2: `Ganador del Partido ${this.round3Matches[(i * 2) + 1].matchNumber}`,
+        matchNumber: matchCounter // Asignar el número del partido
+      };
+      this.round4Matches.push(match);
+      matchCounter++; // Incrementar el contador de partidos
+    }
+  }
+
+  // Generar la quinta ronda (final)
+  if (size > 16) {
+    for (let i = 0; i < this.round4Matches.length / 2; i++) {
+      const match = {
+        player1: `Ganador del Partido ${this.round4Matches[i * 2].matchNumber}`,
+        player2: `Ganador del Partido ${this.round4Matches[(i * 2) + 1].matchNumber}`,
+        matchNumber: matchCounter // Asignar el número del partido
+      };
+      this.round5Matches.push(match);
+      matchCounter++; // Incrementar el contador de partidos
+    }
+  }
+
+  // Actualizar la altura del SVG después de generar los partidos
+  this.updateSvgHeight();
+}
 
 
 
@@ -451,5 +462,25 @@ export class AddNewTournamentComponent implements OnInit {
     // Asignar la altura calculada al svg
     this.svgHeight = totalHeight;
   }
+
+
+  
+updateNextRound(currentRoundMatches, nextRoundMatches) {
+  nextRoundMatches.forEach((match, index) => {
+    const previousMatch1 = currentRoundMatches[index * 2];     // Match par
+    const previousMatch2 = currentRoundMatches[index * 2 + 1]; // Match impar
+
+    // Lógica para determinar ganadores (esto puede ser dinámico según los resultados reales)
+    match.player1 = this.getWinner(previousMatch1);
+    match.player2 = this.getWinner(previousMatch2);
+  });
+}
+
+
+getWinner(match) {
+  // Ejemplo estático de ganador basado en una condición (puede ser dinámico según resultados)
+  return match.score1 > match.score2 ? match.player1 : match.player2;
+}
+
 
 }
