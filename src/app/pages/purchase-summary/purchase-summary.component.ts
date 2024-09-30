@@ -1,34 +1,36 @@
-import { Component } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { TicketService } from 'src/app/services/ticket.service';
 
 @Component({
   selector: 'app-purchase-summary',
   templateUrl: './purchase-summary.component.html',
   styleUrls: ['./purchase-summary.component.css']
 })
-export class PurchaseSummaryComponent {
-  eventDetails = {
-    title: 'NOCHE DE COMEDIA - ENTRADA LIBRE',
-    date: '18 de setiembre de 2024',
-    time: '08:00 p.m'
-  };
+export class PurchaseSummaryComponent implements OnInit{
+  ticketId: string;
+  ticketDetails: any;
 
-  purchaseDetails = {
-    date: '17 de setiembre de 2024',
-    time: '12:41 p.m.',
-    token: '-',
-    transactionNumber: 'CCD255D5C607E3037013'
-  };
+  constructor(private activatedRoute: ActivatedRoute, private ticketService: TicketService) { }
 
-  customerDetails = {
-    name: 'Jesus Nicolas Segovia Matos',
-    email: 'segoviamatosjesusnicolas@gmail.com',
-    documentType: 'DNI',
-    documentNumber: '72724245'
-  };
+  ngOnInit(): void {
+    // Obtener el ticketId desde los queryParams
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.ticketId = params['ticketId'];
+      this.getTicketDetails();
+    });
+  }
 
-  ticketDetails = {
-    type: 'GRATIS',
-    quantity: 1,
-    price: 0.00
-  };
+  getTicketDetails() {
+    this.ticketService.getByCodigoTicket(this.ticketId).subscribe(
+      (response) => {
+        this.ticketDetails = response;
+        console.log('Detalles del ticket:', this.ticketDetails);
+      },
+      (error: HttpErrorResponse) => {
+        console.error('Error al obtener detalles del ticket:', error);
+      }
+    );
+  }
 }

@@ -59,7 +59,7 @@ const routes: Routes = [
   {path: 'mystatistics', component: StatisticsComponent, canActivate:[AuthGuard], data:{roles:['USER']}},
   {path: 'calendar', component: CalendarComponent, canActivate:[AuthGuard], data:{roles:['USER']}},
   {path: 'confirmationScreen', component: ConfirmationScreenComponent},
-  {path: 'purchaseSummary', component: PurchaseSummaryComponent},
+  /* {path: 'purchaseSummary', component: PurchaseSummaryComponent}, */
   {path: 'codeVerification', component: CodeVerificationComponent}
 ];
 

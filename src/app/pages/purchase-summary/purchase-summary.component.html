@@ -10,9 +10,8 @@
                 <div class="flex mb-6">
                     <img src="https://th.bing.com/th/id/R.1d2a835339a37755b688769a73047990?rik=IXnzGsm8%2bNs9WQ&pid=ImgRaw&r=0" alt="Event" class="object-cover rounded mr-6" width="168px" height="96px">
                     <div>
-                        <h2 class="text-2xl font-semibold text-emerald-600">{{ eventDetails.title }}</h2>
-                        <p class="text-gray-600">Fecha y hora del evento: {{ eventDetails.date }} | {{ eventDetails.time
-                            }}</p>
+                        <h2 class="text-2xl font-semibold text-emerald-600">{{ ticketDetails.evento.titulo }}</h2>
+                        <p class="text-gray-600">Fecha y hora del evento: {{ ticketDetails.evento.fecha }} | {{ ticketDetails.evento.hora }}</p>
                     </div>
                 </div>
 
@@ -21,12 +20,13 @@
 
                 <div class="grid grid-cols-2 gap-4 mb-6">
                     <div>
-                        <p><strong>Fecha de compra:</strong> {{ purchaseDetails.date }}</p>
-                        <p><strong>Token:</strong> {{ purchaseDetails.token }}</p>
+                        <p><strong>Fecha de compra:</strong> {{ ticketDetails.fechaCompra }}</p>
+                        <!-- <p><strong>Token:</strong> {{ ticketDetails..token }}</p> -->
+                        <p><strong>Token:</strong> - </p>
                     </div>
                     <div>
-                        <p><strong>Hora de compra:</strong> {{ purchaseDetails.time }}</p>
-                        <p><strong>Nº Transacción / Referencia:</strong> {{ purchaseDetails.transactionNumber }}</p>
+                        <p><strong>Hora de compra:</strong> {{ ticketDetails.horaCompra }}</p>
+                        <p><strong>Nº Transacción / Referencia:</strong> {{ ticketDetails.numeroTransaccion }}</p>
                     </div>
                 </div>
 
@@ -36,12 +36,13 @@
                 <h2 class="text-2xl font-semibold mb-4">Cliente:</h2>
                 <div class="grid grid-cols-2 gap-4 mb-6">
                     <div>
-                        <p><strong>Nombre:</strong> {{ customerDetails.name }}</p>
-                        <p><strong>Tipo de documento:</strong> {{ customerDetails.documentType }}</p>
+                        <p><strong>Nombre:</strong> {{ ticketDetails.usuario.nombre }} {{ticketDetails.usuario.apellido }}</p>
+                        <!-- <p><strong>Tipo de documento:</strong> {{ customerDetails.documentType }}</p> -->
+                        <p><strong>Tipo de documento:</strong> DNI</p>
                     </div>
                     <div>
-                        <p><strong>Correo:</strong> {{ customerDetails.email }}</p>
-                        <p><strong>Nº de documento:</strong> {{ customerDetails.documentNumber }}</p>
+                        <p><strong>Correo:</strong> {{ ticketDetails.usuario.email }}</p>
+                        <p><strong>Nº de documento:</strong> {{ ticketDetails.usuario.dni }}</p>
                     </div>
                 </div>
 

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-code-verification',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class CodeVerificationComponent {
 
+  verification(){
+    Swal.fire({
+      text: "Este codigo de evento es valido",
+      icon: "success"
+    });
+  }
 }

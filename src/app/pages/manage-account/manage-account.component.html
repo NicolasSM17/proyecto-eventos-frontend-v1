@@ -13,8 +13,10 @@
                 <nav>
                     <ul class="nav flex-column">
                         <li class="nav-item" *ngFor="let item of navItems">
-                            <a [ngClass]="{'nav-link': true, 'active': item === 'Información personal'}">{{
-                                item }}</a>
+                            <a class="nav-link" [ngClass]="{'active': selectedSection === item.id}"
+                                (click)="selectSection(item.id)">
+                                {{ item.name }}
+                            </a>
                         </li>
                     </ul>
                 </nav>
@@ -23,12 +25,16 @@
 
         <!-- Main content -->
         <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1>Información de mi cuenta</h1>
+            <div
+                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 *ngIf="selectedSection === 'informacion-personal'">Información de mi cuenta</h1>
+                <h1 *ngIf="selectedSection === 'contrasena-seguridad'">Contraseña y seguridad</h1>
+                <h1 *ngIf="selectedSection === 'mis-entradas'">Mis entradas</h1>
+                <h1 *ngIf="selectedSection === 'inicio'">Inicio</h1>
             </div>
 
             <!-- Personal Information -->
-            <section class="mb-4">
+            <section *ngIf="selectedSection === 'informacion-personal'" class="mb-4">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h2>Información personal</h2>
                     <button class="btn btn-outline-primary">Editar</button>
@@ -45,46 +51,76 @@
                 </div>
             </section>
 
-            <!-- Identity Document -->
-            <section class="mb-4">
+            <!-- Password and Security -->
+            <section *ngIf="selectedSection === 'contrasena-seguridad'" class="mb-4">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h2>Documento de identidad</h2>
+                    <h2>Cambiar contraseña</h2>
                     <button class="btn btn-outline-primary">Editar</button>
                 </div>
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="tipoDocumento" class="form-label">Tipo de documento</label>
-                        <select class="form-select" id="tipoDocumento">
-                            <option>DNI</option>
-                        </select>
+                        <label for="newPassword" class="form-label">Nueva contraseña</label>
+                        <input type="password" class="form-control" id="newPassword">
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="numeroDocumento" class="form-label">Número de documento</label>
-                        <input type="text" class="form-control" id="numeroDocumento" value="72724245" readonly>
+                        <label for="confirmPassword" class="form-label">Confirmar nueva contraseña</label>
+                        <input type="password" class="form-control" id="confirmPassword">
                     </div>
                 </div>
             </section>
 
-            <!-- Location -->
-            <section>
+            <!-- Tickets -->
+            <section *ngIf="selectedSection === 'mis-entradas'" class="mb-4">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h2>Ubicación</h2>
-                    <button class="btn btn-outline-primary">Editar</button>
+                    <h2>Mis entradas</h2>
                 </div>
                 <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="pais" class="form-label">País</label>
-                        <select class="form-select" id="pais">
-                            <option>Perú</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="ciudad" class="form-label">Ciudad</label>
-                        <select class="form-select" id="ciudad">
-                            <option>Lima</option>
-                        </select>
+                    <div class="col-md-12 mb-3">
+                        <p>Aquí se mostrarán las entradas que hayas comprado.</p>
+
+                        <div class="ticket-container">
+                            <div class="ticket">
+                                <!-- Logo and QR Code -->
+                                <div class="ticket-left">
+                                    <div class="ticket-logo">
+                                        <img src="assets/logoapp.png" alt="Logo">
+                                    </div>
+                                    <div class="ticket-qr">
+                                        <img src="assets/random.png" alt="QR Code">
+                                    </div>
+                                    <div class="ticket-type">
+                                        <p>ARGENTINAZO EN YIELD ROCK</p>
+                                    </div>
+                                </div>
+                        
+                                <!-- Ticket Information -->
+                                <div class="ticket-right">
+                                    <div class="ticket-info">
+                                        <p class="event-venue">JR CARABAYA 815</p>
+                                        <p class="event-title">ARGENTINAZO EN YIELD ROCK</p>
+                                        <p class="attendee-name">JESUS NICOLAS SEGOVIA MATOS</p>
+                                        <p class="attendee-dni">DNI 72724245</p>
+                                        <p class="event-date">02 DE OCTUBRE DEL 2024</p>
+                                        <p class="event-time">07:00 P.M</p>
+                                    </div>
+                                    <div class="ticket-footer">
+                                        <p class="ticket-type">Cortesía</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </section>
+
+            <!-- Home Page -->
+            <section *ngIf="selectedSection === 'inicio'" class="mb-4">
+                <p>Bienvenido a la página de inicio de tu cuenta.</p>
+            </section>
+
+            <!-- Logout -->
+            <section *ngIf="selectedSection === 'cerrar-sesion'" class="mb-4">
+                <p>Has cerrado sesión.</p>
             </section>
         </main>
     </div>

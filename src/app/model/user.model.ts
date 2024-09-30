@@ -5,6 +5,7 @@ export interface User {
     telefono: string;
     fechaNacimiento: Date;
     email: string;
+    dni: string;
     /*
     password: string;
     roles: Rol[];*/
