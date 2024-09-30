@@ -1,7 +1,7 @@
 
 
 .container-form {
-  margin-top: 120px;
+  margin-top: 60px;
   max-width: 1500px !important;
 }
 
@@ -568,18 +568,20 @@ mat-grid-tile{
 
 h2.display-6{
   font-weight: bold;
-  margin-bottom: 30px;
+  margin-bottom: 60px;
 }
 
 .tournament-bracket {
   max-width: 100%;
   overflow-x: auto;
   padding: 20px;
+  overflow: hidden; /* Oculta las barras de desplazamiento */
+  cursor: grab; /* Cambia el cursor a una mano de agarre */
+  position: relative;
 }
 
-.bracket-svg {
-
- 
+.tournament-bracket:active {
+  cursor: grabbing; /* Cambia el cursor cuando se mantiene presionado */
 }
 
 .bracket-match {
@@ -588,22 +590,88 @@ h2.display-6{
 }
 
 .player-box {
-  fill: #fff;
-  stroke: #000;
+  fill: #4a5970;
+  
 }
 
 .player-name {
   font-family: Arial, sans-serif;
   font-size: 14px;
-  fill: #070707;
+  fill: #312e2e;
 }
 
 line {
-  stroke: #000;
+  stroke: #4a5970;
   stroke-width: 2;
 }
 
+.match-number {
+  font-size: 16px;
+  fill: #413d3d; /* Color negro para el texto */
+}
+.tournament-bracket--relative {
+  position: relative;
 
+
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+
+svg.bracket-svg {
   
+  overflow: visible;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.bracket-svg {
+ 
+  user-select: none;   /* Evita la selección de texto en los elementos */
+  -webkit-user-drag: none; /* Desactiva el arrastre en navegadores Webkit como Chrome y Safari */
+  -moz-user-select: none; /* Para Firefox */
+  -ms-user-select: none; /* Para IE y Edge */
+
+ 
+  overflow: visible;
+}
+
+.bracket-placeholder {
+  position: absolute;
+  display: none;
+  min-height: 100vh;
+  min-width: 100%;
+}
+
+.tournament-bracket--scrollmask {
+  margin-bottom: -30px;
+  margin-right: -30px;
+  width: 1022px;
+}
   
 
+.tournament-bracket {
+  overflow: hidden;
+  width: 100%;
+}
+
+.full-screen-target {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+
+.tournament-bracket--scrollable {
+  width: 100%;
+  max-height: 100vh;
+  outline: 0;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+}
+
+#svg {
+  
+  top: 0;
+  left: 0;
+}

@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit,ElementRef, HostListener } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
@@ -24,15 +24,8 @@ export class AddNewTournamentComponent implements OnInit {
   selectedSize: number
   participants: string[] = []; // Almacena los participantes generados dinámicamente
 
-  round1Matches = [
-    { player1: 'Player A', player2: 'Player B' },
-    { player1: 'Player C', player2: 'Player D' },
-  ];
-
-  round2Matches = [
-    { player1: 'Winner 1', player2: 'Winner 2' }
-  ];
-
+  round1Matches = [];
+  round2Matches = [];
   round3Matches = [];
   round4Matches = [];
   round5Matches = [];
@@ -42,6 +35,7 @@ export class AddNewTournamentComponent implements OnInit {
   ];
 
   svgHeight: number;
+  viewBoxHeight = 500; 
   //////////////////////////////////////////////////////////////////////////////////
 
   splitParticipantsSingleElimination: boolean = false; // Toggle para Single Elimination
@@ -131,12 +125,18 @@ export class AddNewTournamentComponent implements OnInit {
   enteringSize: boolean = false;
   bracketSize: number = 0;
 
-
-
+  // Variables para controlar el arrastre
+  private isDragging = false;
+  private startX: number;
+  private startY: number;
+  private translateX: number;
+  private translateY: number;
 
   constructor(private eventService: EventService, private categoryService: CategoryService,
     private institutionService: InstitutionService, private sanitizer: DomSanitizer,
-    private activatedRoute: ActivatedRoute, private router: Router) { }
+    private activatedRoute: ActivatedRoute, private router: Router, private elementRef: ElementRef) {
+      
+     }
 
 
 
@@ -319,9 +319,37 @@ export class AddNewTournamentComponent implements OnInit {
     }
   }
 
+  @HostListener('mousedown', ['$event'])
+  onMouseDown(event: MouseEvent) {
+    this.isDragging = true;
+    this.elementRef.nativeElement.querySelector('#scrolleable-container').classList.add('-dragging');
+    this.startX = event.clientX;
+    this.startY = event.clientY;
+    this.translateX = this.elementRef.nativeElement.querySelector('#svg').style.transform ? parseFloat(this.elementRef.nativeElement.querySelector('#svg').style.transform.split(',')[0].replace('translateX(', '')) : 0;
+    this.translateY = this.elementRef.nativeElement.querySelector('#svg').style.transform ? parseFloat(this.elementRef.nativeElement.querySelector('#svg').style.transform.split(',')[1].replace('translateY(', '')) : 0;
+    
+  }
 
+  @HostListener('document:mousemove', ['$event'])
+  onMouseMove(event: MouseEvent) {
+    if (this.isDragging) {
+      const newX = event.clientX;
+      const newY = event.clientY;
+      const dx = newX - this.startX;
+      const dy = newY - this.startY;
+      this.translateX += dx;
+      this.translateY += dy;
+      this.elementRef.nativeElement.querySelector('#svg').style.transform = `translateX(${this.translateX}px) translateY(${this.translateY}px)`;
+      this.startX = newX;
+      this.startY = newY;
+    }
+  }
 
-
+  @HostListener('document:mouseup')
+  onMouseUp() {
+    this.isDragging = false;
+    this.elementRef.nativeElement.querySelector('#scrolleable-container').classList.remove('-dragging');
+  }
 
   //BRACKETS
   selectFormat(formatKey: string) {
@@ -334,6 +362,41 @@ export class AddNewTournamentComponent implements OnInit {
     this.generateParticipants(size); // Genera participantes con el tamaño seleccionado
     this.generateBracket(size); // Genera los brackets según el tamaño seleccionado
 
+    // Actualiza la altura de la viewBox según el tamaño seleccionado
+  switch (size) {
+    case 4:
+      this.viewBoxHeight = 5;
+      break;
+    case 8:
+      this.viewBoxHeight = 600;
+      break;
+    case 16:
+      this.viewBoxHeight = 1100;
+      break;
+    case 32:
+      this.viewBoxHeight = 2100;
+      break;
+    default:
+      this.viewBoxHeight = 500;
+      break;
+  }
+
+  }
+
+
+  getWidth(): number {
+    switch (this.selectedSize) {
+      case 4:
+        return 750;
+      case 8:
+        return 1200;
+      case 16:
+        return 1600;
+      case 32:
+        return 1900;
+      default:
+        return 400; // Valor por defecto
+    }
   }
 
 
@@ -364,23 +427,29 @@ export class AddNewTournamentComponent implements OnInit {
     this.round5Matches = [];
     this.finals = [];
 
+    let matchCounter = 1; // Contador para los números de los partidos
+
     // Generar la primera ronda de partidos
     for (let i = 0; i < size; i += 2) {
       const match = {
         player1: this.participants[i],
-        player2: this.participants[i + 1] || 'BYE' // Si no hay un jugador, asignar 'BYE'
+        player2: this.participants[i + 1] || 'BYE', // Si no hay un jugador, asignar 'BYE'
+        matchNumber: matchCounter // Asignar el número del partido
       };
       this.round1Matches.push(match);
+      matchCounter++; // Incrementar el contador de partidos
     }
 
     // Generar la segunda ronda
     if (size > 3) {
       for (let i = 0; i < this.round1Matches.length / 2; i++) {
         const match = {
-          player1: `Ganador del Partido ${i * 2 + 1}`,
-          player2: `Ganador del Partido ${(i * 2) + 2}`
+          player1: `Ganador del Partido ${this.round1Matches[i * 2].matchNumber}`,
+          player2: `Ganador del Partido ${this.round1Matches[(i * 2) + 1].matchNumber}`,
+          matchNumber: matchCounter // Asignar el número del partido
         };
         this.round2Matches.push(match);
+        matchCounter++; // Incrementar el contador de partidos
       }
     }
 
@@ -388,10 +457,12 @@ export class AddNewTournamentComponent implements OnInit {
     if (size > 4) {
       for (let i = 0; i < this.round2Matches.length / 2; i++) {
         const match = {
-          player1: `Ganador del Partido ${i * 2 + 1}`,
-          player2: `Ganador del Partido ${(i * 2) + 2}`
+          player1: `Ganador del Partido ${this.round2Matches[i * 2].matchNumber}`,
+          player2: `Ganador del Partido ${this.round2Matches[(i * 2) + 1].matchNumber}`,
+          matchNumber: matchCounter // Asignar el número del partido
         };
         this.round3Matches.push(match);
+        matchCounter++; // Incrementar el contador de partidos
       }
     }
 
@@ -399,21 +470,25 @@ export class AddNewTournamentComponent implements OnInit {
     if (size > 8) {
       for (let i = 0; i < this.round3Matches.length / 2; i++) {
         const match = {
-          player1: `Ganador del Partido ${i * 2 + 1}`,
-          player2: `Ganador del Partido ${(i * 2) + 2}`
+          player1: `Ganador del Partido ${this.round3Matches[i * 2].matchNumber}`,
+          player2: `Ganador del Partido ${this.round3Matches[(i * 2) + 1].matchNumber}`,
+          matchNumber: matchCounter // Asignar el número del partido
         };
         this.round4Matches.push(match);
+        matchCounter++; // Incrementar el contador de partidos
       }
     }
 
-    // Generar la quinta ronda (final)
+    // Generar la quinta ronda
     if (size > 16) {
       for (let i = 0; i < this.round4Matches.length / 2; i++) {
         const match = {
-          player1: `Ganador del Partido ${i * 2 + 1}`,
-          player2: `Ganador del Partido ${(i * 2) + 2}`
+          player1: `Ganador del Partido ${this.round4Matches[i * 2].matchNumber}`,
+          player2: `Ganador del Partido ${this.round4Matches[(i * 2) + 1].matchNumber}`,
+          matchNumber: matchCounter // Asignar el número del partido
         };
         this.round5Matches.push(match);
+        matchCounter++; // Incrementar el contador de partidos
       }
     }
 
@@ -440,15 +515,76 @@ export class AddNewTournamentComponent implements OnInit {
 
 
   updateSvgHeight() {
-    const round1Height = this.round1Matches.length * 130; // 130px por partido
-    const round2Height = this.round2Matches.length > 0 ? this.round2Matches.length * 260 + 62 : 0; // 260px por partido + padding
+    const roundHeights = [
+      this.round1Matches.length * 100, // 130px por partido
+      this.round2Matches.length > 0 ? (this.round2Matches.length === 1 ? 130 : this.round2Matches.length * 220 + 62) : 0, // 260px por partido + padding
+      this.round3Matches.length > 0 ? this.round3Matches.length * 250 + 104 : 0, // 390px por partido + padding
+      this.round4Matches.length > 0 ? this.round4Matches.length * 225 + 76 : 0, // 520px por partido + padding
+      this.round5Matches.length > 0 ? this.round5Matches.length * 135 + 46 : 0, // 650px por partido + padding
+    ];
+  
     const finalsHeight = this.finals.length > 0 ? 150 : 0; // Espacio reservado para la final
-
+  
     // Establecer la altura total sumando la altura de todas las rondas
-    const totalHeight = Math.max(round1Height, round2Height, finalsHeight) + 100; // +100 de margen extra
-
+    const totalHeight = Math.max(...roundHeights) + finalsHeight + 100; // +100 de margen extra
+  
     // Asignar la altura calculada al svg
     this.svgHeight = totalHeight;
   }
+
+
+
+  updateNextRound(currentRoundMatches, nextRoundMatches) {
+    nextRoundMatches.forEach((match, index) => {
+      const previousMatch1 = currentRoundMatches[index * 2];     // Match par
+      const previousMatch2 = currentRoundMatches[index * 2 + 1]; // Match impar
+
+      // Lógica para determinar ganadores (esto puede ser dinámico según los resultados reales)
+      match.player1 = this.getWinner(previousMatch1);
+      match.player2 = this.getWinner(previousMatch2);
+    });
+  }
+
+
+  getWinner(match) {
+    // Ejemplo estático de ganador basado en una condición (puede ser dinámico según resultados)
+    return match.score1 > match.score2 ? match.player1 : match.player2;
+  }
+
+
+  getPosicionGanador(): string {
+    let xPos: number;
+    let yPos: number;
+
+    // Cálculo de la posición horizontal en función del tamaño seleccionado
+    switch (this.selectedSize) {
+      case 4:
+        xPos = 590;
+        yPos = 71; // Valor dinámico para el eje Y
+        break;
+      case 8:
+        xPos = 870;
+        yPos = 201; // Valor dinámico para el eje Y
+        break;
+      case 16:
+        xPos = 1160;
+        yPos = 462; // Valor dinámico para el eje Y
+        break;
+      case 32:
+        xPos = 1450;
+        yPos = 983; // Valor dinámico para el eje Y
+        break;
+      default:
+        xPos = 0;  // Valor por defecto si no se selecciona un tamaño válido
+        yPos = 0;  // Valor por defecto para el eje Y
+    }
+
+    // Retornar la posición en formato `translate(x, y)`
+    return `${xPos}, ${yPos}`;
+  }
+
+ 
+
+
 
 }

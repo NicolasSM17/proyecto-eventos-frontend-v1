@@ -31,7 +31,8 @@ import { PurchaseSummaryComponent } from './pages/purchase-summary/purchase-summ
 const routes: Routes = [
   {path: "", redirectTo: "selectInstitution", pathMatch: 'full'},
   {path: "selectInstitution", component: SelectInstitutionComponent},
-  {path: "eventList/:institucionId", component: EventListComponent, resolve: {eventos: EventoResolveService}},
+  {path: "eventList/:institucionId", component: EventListComponent, resolve: {eventos: EventoResolveService},
+  },
   {path: "login", component: LoginComponent},
   {path: "register", component: RegisterComponent},
   {path: "eventDetail/:eventoId", component: EventDetailComponent, resolve: {eventos: EventoResolveService}},
