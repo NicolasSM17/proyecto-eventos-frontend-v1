@@ -26,6 +26,7 @@ import { StatisticsComponent } from './pages/statistics/statistics.component';
 import { CalendarComponent } from './pages/calendar/calendar.component';
 import { ConfirmationScreenComponent } from './pages/confirmation-screen/confirmation-screen.component';
 import { PurchaseSummaryComponent } from './pages/purchase-summary/purchase-summary.component';
+import { CodeVerificationComponent } from './pages/code-verification/code-verification.component';
 
 
 const routes: Routes = [
@@ -58,7 +59,8 @@ const routes: Routes = [
   {path: 'mystatistics', component: StatisticsComponent, canActivate:[AuthGuard], data:{roles:['USER']}},
   {path: 'calendar', component: CalendarComponent, canActivate:[AuthGuard], data:{roles:['USER']}},
   {path: 'confirmationScreen', component: ConfirmationScreenComponent},
-  {path: 'purchaseSummary', component: PurchaseSummaryComponent}
+  {path: 'purchaseSummary', component: PurchaseSummaryComponent},
+  {path: 'codeVerification', component: CodeVerificationComponent}
 ];
 
 @NgModule({
