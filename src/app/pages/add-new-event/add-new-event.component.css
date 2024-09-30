@@ -127,3 +127,13 @@ mat-grid-tile{
     color: black;
     cursor: pointer;
 }
+
+.category-container {
+    width: 30%;
+    align-items: center;
+}
+
+.main-content {
+    align-items: center;
+    display: grid;
+}

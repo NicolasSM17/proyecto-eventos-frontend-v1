@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit,ElementRef, HostListener } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
@@ -128,14 +128,16 @@ export class AddNewTournamentComponent implements OnInit {
 
   // Variables para controlar el arrastre
   private isDragging = false;
-  private startX = 0;
-  private startY = 0;
-  private translateX = 0;
-  private translateY = 0;
+  private startX: number;
+  private startY: number;
+  private translateX: number;
+  private translateY: number;
 
   constructor(private eventService: EventService, private categoryService: CategoryService,
     private institutionService: InstitutionService, private sanitizer: DomSanitizer,
-    private activatedRoute: ActivatedRoute, private router: Router) { }
+    private activatedRoute: ActivatedRoute, private router: Router, private elementRef: ElementRef) {
+      
+     }
 
 
 
@@ -318,9 +320,37 @@ export class AddNewTournamentComponent implements OnInit {
     }
   }
 
+  @HostListener('mousedown', ['$event'])
+  onMouseDown(event: MouseEvent) {
+    this.isDragging = true;
+    this.elementRef.nativeElement.querySelector('#scrolleable-container').classList.add('-dragging');
+    this.startX = event.clientX;
+    this.startY = event.clientY;
+    this.translateX = this.elementRef.nativeElement.querySelector('#svg').style.transform ? parseFloat(this.elementRef.nativeElement.querySelector('#svg').style.transform.split(',')[0].replace('translateX(', '')) : 0;
+    this.translateY = this.elementRef.nativeElement.querySelector('#svg').style.transform ? parseFloat(this.elementRef.nativeElement.querySelector('#svg').style.transform.split(',')[1].replace('translateY(', '')) : 0;
+    
+  }
 
+  @HostListener('document:mousemove', ['$event'])
+  onMouseMove(event: MouseEvent) {
+    if (this.isDragging) {
+      const newX = event.clientX;
+      const newY = event.clientY;
+      const dx = newX - this.startX;
+      const dy = newY - this.startY;
+      this.translateX += dx;
+      this.translateY += dy;
+      this.elementRef.nativeElement.querySelector('#svg').style.transform = `translateX(${this.translateX}px) translateY(${this.translateY}px)`;
+      this.startX = newX;
+      this.startY = newY;
+    }
+  }
 
-
+  @HostListener('document:mouseup')
+  onMouseUp() {
+    this.isDragging = false;
+    this.elementRef.nativeElement.querySelector('#scrolleable-container').classList.remove('-dragging');
+  }
 
   //BRACKETS
   selectFormat(formatKey: string) {
@@ -352,6 +382,22 @@ export class AddNewTournamentComponent implements OnInit {
       break;
   }
 
+  }
+
+
+  getWidth(): number {
+    switch (this.selectedSize) {
+      case 4:
+        return 750;
+      case 8:
+        return 1200;
+      case 16:
+        return 1600;
+      case 32:
+        return 1900;
+      default:
+        return 400; // Valor por defecto
+    }
   }
 
 
@@ -514,7 +560,7 @@ export class AddNewTournamentComponent implements OnInit {
     // Cálculo de la posición horizontal en función del tamaño seleccionado
     switch (this.selectedSize) {
       case 4:
-        xPos = 580;
+        xPos = 590;
         yPos = 71; // Valor dinámico para el eje Y
         break;
       case 8:
@@ -523,11 +569,11 @@ export class AddNewTournamentComponent implements OnInit {
         break;
       case 16:
         xPos = 1160;
-        yPos = 467; // Valor dinámico para el eje Y
+        yPos = 462; // Valor dinámico para el eje Y
         break;
       case 32:
-        xPos = 1460;
-        yPos = 993; // Valor dinámico para el eje Y
+        xPos = 1450;
+        yPos = 983; // Valor dinámico para el eje Y
         break;
       default:
         xPos = 0;  // Valor por defecto si no se selecciona un tamaño válido

@@ -90,7 +90,7 @@ registerLocaleData(localeEs, 'es');
     NgbModule,
     NgbPopoverModule
   ],
-  providers: [/*
+  providers: [
     {provide: LOCALE_ID, useValue: 'es'},
     AuthGuard,
     {
@@ -99,7 +99,7 @@ registerLocaleData(localeEs, 'es');
       multi: true
     },
     UserAuthService
-  */],
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
