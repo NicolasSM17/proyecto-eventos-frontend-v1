@@ -36,7 +36,8 @@ export class AddNewEventComponent implements OnInit{
     institucion: { id: null, nombre: "", imagenUrl: ""},
     categorias: [],
     organizador: null,
-    eventoImagenes:[]
+    eventoImagenes:[],
+    asistentes: []
   };
 
   constructor(private eventService: EventService, private categoryService: CategoryService,

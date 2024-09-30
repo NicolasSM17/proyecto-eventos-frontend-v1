@@ -129,7 +129,6 @@ export class EventListComponent implements OnInit, AfterViewInit {
     ).subscribe(
       (response: Evento[]) => {
         this.eventos = response;
-        console.log(response);
       },
       (error: HttpErrorResponse) => {
         console.log(error);

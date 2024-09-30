@@ -30,11 +30,10 @@ export class CustomNavbarComponent {
   selectedCategorias: string[] = [];
 
   constructor(private elementRef: ElementRef, private userAuthService: UserAuthService, 
-              private router: Router, private categoryService: CategoryService) {}
+              private router: Router) {}
 
   ngOnInit(): void {
     this.userId = this.userAuthService.getUserId();
-    this.getCategory();
   }
 
   ngAfterViewInit(): void {
@@ -255,18 +254,6 @@ export class CustomNavbarComponent {
     if (bootstrapModal) {
       bootstrapModal.hide();
     }
-  }
-
-  getCategory(){
-    this.categoryService.getCategory().subscribe(
-      (response: Category[]) => {
-        this.categorias = response;
-        console.log(response);
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error);
-      }
-    );
   }
 
   /* MODAL LOGIN */

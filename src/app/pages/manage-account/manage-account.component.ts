@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./manage-account.component.css']
 })
 export class ManageAccountComponent {
-
+  darkMode = true;
+  navItems = [
+    "Inicio", "Información personal", "Contraseña y seguridad", 
+    "Mis entradas", "Mis productos", "Mis eventos creados", "Mis códigos de canje", "Cerrar sesión"
+  ];
 }

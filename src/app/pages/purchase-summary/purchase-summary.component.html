@@ -1,0 +1,92 @@
+<app-custom-navbar></app-custom-navbar>
+
+<div class="min-h-screen bg-gray-100">
+    <div class="container mx-auto mt-8">
+        <div class="summary-container bg-black rounded-lg shadow relative overflow-hidden">
+            <div class="ticket-top"></div>
+            <div class="p-6">
+                <h1 class="text-3xl font-bold mb-6">Resumen de compra</h1>
+
+                <div class="flex mb-6">
+                    <img src="https://th.bing.com/th/id/R.1d2a835339a37755b688769a73047990?rik=IXnzGsm8%2bNs9WQ&pid=ImgRaw&r=0" alt="Event" class="object-cover rounded mr-6" width="168px" height="96px">
+                    <div>
+                        <h2 class="text-2xl font-semibold text-emerald-600">{{ eventDetails.title }}</h2>
+                        <p class="text-gray-600">Fecha y hora del evento: {{ eventDetails.date }} | {{ eventDetails.time
+                            }}</p>
+                    </div>
+                </div>
+
+                <!-- Línea divisora -->
+                <hr class="divider">
+
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <p><strong>Fecha de compra:</strong> {{ purchaseDetails.date }}</p>
+                        <p><strong>Token:</strong> {{ purchaseDetails.token }}</p>
+                    </div>
+                    <div>
+                        <p><strong>Hora de compra:</strong> {{ purchaseDetails.time }}</p>
+                        <p><strong>Nº Transacción / Referencia:</strong> {{ purchaseDetails.transactionNumber }}</p>
+                    </div>
+                </div>
+
+                <!-- Línea divisora -->
+                <hr class="divider">
+
+                <h2 class="text-2xl font-semibold mb-4">Cliente:</h2>
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <p><strong>Nombre:</strong> {{ customerDetails.name }}</p>
+                        <p><strong>Tipo de documento:</strong> {{ customerDetails.documentType }}</p>
+                    </div>
+                    <div>
+                        <p><strong>Correo:</strong> {{ customerDetails.email }}</p>
+                        <p><strong>Nº de documento:</strong> {{ customerDetails.documentNumber }}</p>
+                    </div>
+                </div>
+
+                <!-- Línea divisora -->
+                <hr class="divider">
+
+                <h2 class="text-2xl font-semibold mb-4">Datos de la compra:</h2>
+                <div class="mb-6">
+                    <h3 class="font-semibold mb-2">Entradas:</h3>
+                    <div class="flex justify-between">
+                        <span>{{ ticketDetails.type }}</span>
+                        <span>X{{ ticketDetails.quantity }}</span>
+                        <span>S/{{ ticketDetails.price.toFixed(2) }}</span>
+                    </div>
+                </div>
+
+                <!-- Línea divisora -->
+                <hr class="divider">
+
+                <h2 class="text-2xl font-semibold mb-4">Datos del pago:</h2>
+                <div class="mb-6">
+                    <p><strong>Método de pago</strong></p>
+                    <div class="flex justify-between">
+                        <span>Entradas</span>
+                        <span>S/ {{ ticketDetails.price.toFixed(2) }}</span>
+                    </div>
+                </div>
+
+                <!-- Línea divisora -->
+                <hr class="divider">
+
+                <div class="flex justify-between text-xl font-semibold">
+                    <span>Total</span>
+                    <span>S/{{ ticketDetails.price.toFixed(2) }}</span>
+                </div>
+
+                <div class="mt-8 text-center">
+                    <button class="bg-emerald-500 text-white px-6 py-2 rounded-full text-lg font-semibold">
+                        Descargar entradas
+                    </button>
+                </div>
+            </div>
+            <div class="ticket-bottom"></div>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>

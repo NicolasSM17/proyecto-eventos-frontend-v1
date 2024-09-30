@@ -99,17 +99,10 @@
 </div>
 
 
-<form #eventoForm="ngForm" (ngSubmit)="addEvento(eventoForm)">
+<form #eventoForm="ngForm" >
     <div class="container container-form">
 
         <div *ngIf="step == 3">
-
-            <div class="mb-3 mt-5">
-                <label for="anfitrion" class="form-label">Anfitrión</label>
-                <input type="text" class="form-control" id="anfitrion" placeholder="Indica el Anfitrión del torneo"
-                    name="anfitrion">
-            </div>
-
 
             <div class="mb-3 mt-5">
                 <label for="titulo" class="form-label">Título</label>
@@ -531,13 +524,13 @@
             <div class="col d-flex justify-content-between">
                 <button class="btn btn-outline-secondary" type="button" *ngIf="step >= 3"
                     (click)="previus()">Atrás</button>
-                <button class="btn btn-2" type="button" *ngIf="step >= 3 && step < 8" (click)="next()"
+
+                <button class="btn btn-2" type="button" *ngIf="step >= 3 && step < 11" (click)="next()"
                     [disabled]="step === 5 && (!selectedFormat || !selectedSize)">
                     Siguiente
                 </button>
 
-
-                <button class="btn btn-2" type="submit" *ngIf="step == 8">PUBLICAR TORNEO</button>
+                <button class="btn btn-2" type="submit" *ngIf="step == 11">PUBLICAR TORNEO</button>
             </div>
         </div>
     </div>

@@ -1,0 +1,76 @@
+:host {
+    display: block;
+    color: #e0e0e0;
+    min-height: 100vh;
+}
+
+.sidebar {
+    background-color: #121212;
+    padding: 20px;
+    height: 100vh;
+}
+
+.user-info {
+    text-align: center;
+}
+
+.user-avatar {
+    width: 64px;
+    height: 64px;
+    background-color: #f77d31;
+    border-radius: 50%;
+    margin: 0 auto 10px;
+}
+
+.user-name {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.user-id {
+    font-size: 0.9rem;
+    color: #888;
+}
+
+.nav-link {
+    color: #b0b0b0;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: #fff;
+    background-color: #f77d31;
+}
+
+main {
+    padding-top: 20px;
+}
+
+h1,
+h2 {
+    color: #fff;
+}
+
+.form-control,
+.form-select {
+    background-color: #333;
+    border-color: #444;
+    color: #e0e0e0;
+}
+
+.form-control:focus,
+.form-select:focus {
+    background-color: #444;
+    border-color: #f77d31;
+    color: #fff;
+}
+
+.btn-outline-primary {
+    color: #f77d31;
+    border-color: #f77d31;
+}
+
+.btn-outline-primary:hover {
+    background-color: #f77d31;
+    color: #fff;
+}

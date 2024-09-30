@@ -31,6 +31,7 @@ import { DragDirective } from './custom/directives/drag.directive';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { PaymentMethodsComponent } from './pages/payment-methods/payment-methods.component';
 import { AddPaymentMethodComponent } from './pages/add-payment-method/add-payment-method.component';
 import { ManageAccountComponent } from './pages/manage-account/manage-account.component';
@@ -38,10 +39,12 @@ import { PublicationsOrganizationComponent } from './pages/publications-organiza
 import { MyTournamentsComponent } from './pages/my-tournaments/my-tournaments.component';
 import { AddNewTournamentComponent } from './pages/add-new-tournament/add-new-tournament.component';
 import { NgbPopoverModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
 import { EditMyEventComponent } from './pages/edit-my-event/edit-my-event.component';
 import { OrganizerNavbarComponent } from './components/organizer-navbar/organizer-navbar.component';
 import { CustomNavbarComponent } from './components/custom-navbar/custom-navbar.component';
+import { ConfirmationScreenComponent } from './pages/confirmation-screen/confirmation-screen.component';
+import { PurchaseSummaryComponent } from './pages/purchase-summary/purchase-summary.component';
+import { CodeVerificationComponent } from './pages/code-verification/code-verification.component';
 
 registerLocaleData(localeEs, 'es');
 
@@ -71,11 +74,12 @@ registerLocaleData(localeEs, 'es');
     PublicationsOrganizationComponent,
     MyTournamentsComponent,
     AddNewTournamentComponent,
-
-  
     EditMyEventComponent,
     OrganizerNavbarComponent,
-    CustomNavbarComponent
+    CustomNavbarComponent,
+    ConfirmationScreenComponent,
+    PurchaseSummaryComponent,
+    CodeVerificationComponent
   ],
   imports: [
     BrowserModule,
@@ -88,18 +92,19 @@ registerLocaleData(localeEs, 'es');
     MatGridListModule,
     MatChipsModule,
     NgbModule,
-    NgbPopoverModule
+    NgbPopoverModule,
+    SweetAlert2Module
   ],
-  providers: [/*
+  providers: [
     {provide: LOCALE_ID, useValue: 'es'},
     AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
-     useClass: AuthInterceptor,
+      useClass: AuthInterceptor,
       multi: true
     },
     UserAuthService
-  */],
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

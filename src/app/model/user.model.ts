@@ -4,9 +4,8 @@ export interface User {
     apellido: string;
     telefono: string;
     fechaNacimiento: Date;
-    /*
     email: string;
+    /*
     password: string;
-    roles: Rol[];
-    */
+    roles: Rol[];*/
 }
