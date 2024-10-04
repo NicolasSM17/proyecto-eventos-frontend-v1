@@ -1,1 +1,548 @@
-.card-front,.card-holder,.submit-btn{box-sizing:border-box}@keyframes fadeIn{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:translateY(0)}}.logo-link{position:absolute;top:20px;left:62px;z-index:3;text-decoration:none}.payment-method-option,.payment-methods-container{width:100%;background-color:#fff;border-radius:10px;position:relative;z-index:1;flex-direction:column;display:flex}.logo{max-width:100px;height:auto;cursor:pointer}.payment-methods-container{max-width:1200px;margin:100px auto 0;padding:10px;box-shadow:0 4px 8px rgba(0,0,0,.1);animation:.7s ease-out forwards fadeIn;min-height:500px;justify-content:space-between}.add-payment-options{display:flex;flex-wrap:wrap;gap:20px;justify-content:flex-start}.payment-method-option{padding:20px;align-items:flex-start;gap:20px}.payment-method{padding:20px;border:1.5px solid #140d0d;border-radius:10px;background-color:#f9f9f9;display:flex;flex-direction:column;align-items:flex-start;gap:10px;cursor:pointer}.credit-card-preview,.modal-content{border-radius:10px;position:relative}h1{display:flex;font-size:22px;color:#070807;margin-bottom:20px;margin-left:0}.payment-method-title{font-size:18px;font-weight:700;color:#070807;margin-bottom:10px;text-align:center}.payment-method-icons{display:flex;justify-content:center;gap:10px}.method-icon{width:20px;height:20px}.add-icon{width:40px;height:40px}.header-container{margin-bottom:20px;border-bottom:1px solid #332927;width:100%}.back-link{display:flex;align-items:center;font-size:16px;color:#2e302e;text-decoration:none;margin-bottom:10px;font-weight:700;width:max-content}.back-link i{margin-right:8px;font-size:18px}.back-link:hover{color:#007bff}.modal{display:none;position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;overflow:hidden;background-color:rgba(0,0,0,.5);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;color:#000;display:flex;justify-content:center;align-items:center}.card-front,.modal-header{justify-content:space-between}.modal-content{background-color:#fff;margin:auto;padding:12px;width:90%;max-width:410px;height:600px;box-shadow:0 4px 10px rgba(0,0,0,.3);transform:translateY(-50px);top:1%;transition:.3s;display:block}.modal.show{display:block;opacity:1;visibility:visible}.modal.show .modal-content{transform:scale(1)}.modal-header{display:flex;align-items:center;border-bottom:1px solid #e6e6e6;padding:0 16px}.modal-header h5{font-size:18px;color:#4a4a4a}.modal-body{margin-top:10px}.btn-close{background-color:#b43636;border-radius:50%;border:none;width:24px;height:24px;display:flex;align-items:center;justify-content:center;flex-direction:row;cursor:pointer;margin-bottom:5px;outline:0}.btn-close i{font-size:13px;color:#fff;width:16px;height:16px;margin-top:2px}.credit-card-preview{margin:0 0 20px;background-color:#f9f9f9;height:180px;width:100%;perspective:1000px}.card-back,.card-front{background-image:-webkit-linear-gradient(0deg,#c7cbcf,#7d858d);height:100%;border-radius:10px;backface-visibility:hidden;transform-origin:50% 50% 0;transition:1.2s;top:0;padding:20px;left:0;width:100%;display:flex}.card-front{align-items:center;position:relative}.card-back,.card-back::after,.card-chip,.card-type{position:absolute}.card-back{justify-content:space-between;align-items:center}.card-back::after{content:'';top:20px;left:0;width:100%;height:40px;background-color:#000}.card-front,.credit-card-preview.flipped .card-back{transform:rotateY(0)}.card-back{transform:rotateY(180deg)}.credit-card-preview.flipped .card-front{transform:rotateY(-180deg)}.card-number{font-size:18px;font-weight:700;margin-right:10px;margin-bottom:20px;text-align:center;color:#fff}.card-chip{top:20px;left:20px;width:40px}.card-type{top:15px;right:15px;width:35px}.expiration-date,.valid-tru{top:-45px;position:absolute;color:#fff}.card-expiration{display:flex;align-items:center;font-size:14px;position:absolute;bottom:30px;right:20px;color:#fff}.valid-tru{font-size:8px;margin-right:10px;width:25px;left:-90px}.expiration-date{font-size:16px;font-weight:700;text-transform:uppercase;left:-55px}.card-cvv{position:absolute;right:40px}.cvv-title,.cvv-value{font-size:15px;color:#fff}.card-holder{position:absolute;bottom:20px;left:20px;font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;width:calc(100% - 40px);text-align:left;display:block;margin:0;color:#fff}.form-group{margin-bottom:15px}.form-inline,.form-nameApe{display:flex;justify-content:space-between}.form-read,[hidden=false]{display:block}.form-inline .form-group,.form-nameApe .form-group{width:48%}.form-group label{display:block;text-align:left;font-weight:600;margin-bottom:8px;font-size:12.5px}.form-read{margin-top:0;padding:8px;font-size:14px;color:#000;background-color:#f5f5f5;border-radius:4px;width:100%}.form-group input{width:100%;padding:10px;border:1px solid #ff2d55;border-radius:10px;font-size:13px}.form-group input.valid{border-color:#000}.form-group input::placeholder{font-size:13px;color:#a0a0a0;opacity:1}.modal-footer{margin-top:10px;width:100%;padding:0}.btn-confirm,.submit-btn{background-color:#e27734;color:#fff;padding:10px;cursor:pointer;width:100%;font-size:15px;font-weight:700;text-align:center}.submit-btn{border:none;border-radius:15px}.btn-confirm:hover,.submit-btn:hover{background-color:#f76307}.form-confirm,.form-container,.verify-alert-container{position:relative;width:100%}.btn-confirm{border:none;border-radius:15px;margin-top:31.5px}
+@keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+
+.logo-link {
+    position: absolute;
+    top: 20px;
+    left: 62px;
+    z-index: 3;
+    text-decoration: none;
+}
+
+.logo {
+    max-width: 100px;
+    height: auto;
+    cursor: pointer;
+}
+.payment-methods-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 100px auto 0 auto;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.7s ease-out forwards;
+    position: relative;
+    z-index: 1;
+    min-height: 500px; 
+    display: flex;
+    flex-direction: column; 
+    justify-content: space-between; 
+}
+
+
+.add-payment-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start; 
+    
+    
+}
+
+
+.payment-method-option {
+    width: 100%;
+    
+    
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    
+    
+    position: relative;
+    z-index: 1;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    
+}
+
+
+
+.payment-method {
+    padding: 20px;
+    border: 1.5px solid #140d0d; 
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+}
+
+h1 {
+    display: flex;
+    font-size: 22px;
+    color: #070807;
+    margin-bottom: 20px;
+    margin-left: 0;
+  }
+
+
+  .payment-method-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #070807;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.payment-method-icons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.method-icon {
+    width: 20px;
+    height: 20px;
+   
+}
+
+.add-icon {
+    width: 40px;
+    height: 40px;
+    
+   
+}
+
+.header-container {
+   
+    
+    margin-bottom: 20px; 
+    border-bottom: 1px solid #332927;
+    width: 100%;
+}
+
+.back-link {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    color: #2e302e;
+    text-decoration: none;
+    margin-bottom: 10px;
+    font-weight: bold;
+    width: max-content;
+}
+
+.back-link i {
+    margin-right: 8px; 
+    font-size: 18px; 
+}
+
+.back-link:hover {
+    color: #007bff;
+}
+
+
+
+/*MODAL*/
+
+.modal {
+  display: none; 
+  position: fixed;
+  z-index: 1000; 
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; 
+  background-color: rgba(0, 0, 0, 0.5); 
+  opacity: 0; 
+  visibility: hidden; 
+  transition: opacity 0.3s ease, visibility 0.3s ease; 
+  color: #000;
+
+  /* Añade estas líneas para mantener una altura constante */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: auto;
+  padding: 12px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 410px;
+  height: 600px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transform: translateY(-50px);
+  position: relative;
+  top: 1%;
+  transition: all 0.3s ease;
+  display: block;
+}
+
+.modal.show {
+  display: block;
+  opacity: 1; 
+  visibility: visible; 
+}
+
+.modal.show .modal-content {
+  transform: scale(1); 
+}
+
+
+
+
+
+  /* Estilos del encabezado */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #E6E6E6;
+  padding: 0 16px;
+}
+
+.modal-header h5 {
+  font-size: 18px;
+  color: #4a4a4a;
+}
+
+  
+  .modal-body {
+    margin-top: 10px;
+  }
+  
+  .btn-close {
+    
+    background-color: rgb(180, 54, 54);
+    border-radius: 50%;
+    border: none;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    cursor: pointer;
+    margin-bottom: 5px;
+    outline: none;
+}
+
+.btn-close i {
+  font-size: 13px; 
+  color: white; 
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+}
+
+/* Estilos de la tarjeta */
+.credit-card-preview {
+  margin: 0 0 20px 0;
+  
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  height: 180px;
+  width: 100%;
+  perspective: 1000px; 
+  position: relative;
+  
+  
+}
+
+.card-front {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-image: -webkit-linear-gradient(0deg, #c7cbcf, #7d858d);
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  backface-visibility: hidden;
+  transform-origin: 50% 50% 0;
+  transition: all 1.2s;
+  top: 0;
+  left: 0;
+  position: relative;
+  padding: 20px;
+  box-sizing: border-box;
+  
+  
+}
+
+.card-back {
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-image: -webkit-linear-gradient(0deg, #c7cbcf, #7d858d);
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  backface-visibility: hidden;
+  transform-origin: 50% 50% 0;
+  transition: all 1.2s;
+  top: 0;
+  left: 0;
+  position: absolute;
+  padding: 20px;
+}
+
+.card-back::after {
+  content: '';
+  position: absolute;
+  top: 20px; 
+  left: 0;
+  width: 100%;
+  height: 40px; 
+  background-color: #000; 
+  
+}
+
+.card-front {
+  transform: rotateY(0deg);
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+.credit-card-preview.flipped .card-front {
+  transform: rotateY(-180deg);
+}
+
+.credit-card-preview.flipped .card-back {
+  transform: rotateY(0deg);
+}
+
+
+
+.card-number {
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 10px; 
+  margin-bottom: 20px; 
+  text-align: center; 
+  color: #fff;
+}
+
+.card-chip {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 40px; 
+}
+
+.card-type {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 35px; 
+}
+
+
+.card-expiration {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  position: absolute;
+  bottom: 30px;
+  right: 20px;
+  color: #fff;
+}
+
+.valid-tru {
+  font-size: 8px;
+  margin-right: 10px; 
+  width: 25px;
+  color: #fff;
+  position: absolute;
+  top: -45px;
+  left: -90px; 
+}
+
+.expiration-date {
+  position: absolute;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  text-transform: uppercase;
+  top: -45px;
+  left: -55px; 
+}
+
+
+.card-cvv {
+  position: absolute;
+  right: 40px;
+}
+
+.cvv-title, .cvv-value {
+
+  font-size: 15px;
+  color: #fff;
+  
+}
+
+
+.card-holder {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  white-space: nowrap; 
+  overflow: hidden; 
+  
+  width: calc(100% - 40px);
+  text-align: left;
+  display: block; 
+  margin: 0; 
+  box-sizing: border-box; 
+  color: #fff; 
+}
+  
+  /* Estilos del formulario */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-inline {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-inline .form-group {
+  width: 48%;
+}
+
+.form-nameApe {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-nameApe .form-group {
+  width: 48%;
+}
+
+
+
+.form-group label {
+  display: block;
+    text-align: left;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 12.5px
+}
+
+.form-read {
+  display: block; /* Asegura que el contenedor esté en bloque */
+  margin-top: 0; /* Ajusta el margen superior si es necesario */
+  padding: 8px; /* Espacio interno opcional */
+  font-size: 14px; /* Tamaño de fuente opcional */
+  color: #000; /* Color de texto */
+  background-color: #f5f5f5; /* Color de fondo opcional para diferenciar */
+  border-radius: 4px; /* Bordes redondeados opcionales */
+  width: 100%;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #FF2D55;
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+.form-group input.valid {
+  border-color: black; 
+}
+
+.form-group input::placeholder {
+  font-size: 13px; 
+  color: #A0A0A0; 
+  opacity: 1; 
+}
+
+
+
+
+
+/* Estilo del botón de envío */
+
+.modal-footer {
+  margin-top: 10px;
+  width: 100%;
+  padding: 0;
+}
+.submit-btn {
+  background-color: #e27734;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 15px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  box-sizing: border-box;
+ 
+}
+
+.submit-btn:hover {
+  background-color: #f76307;
+}
+
+
+
+.form-container,
+.form-confirm,
+.verify-alert-container {
+  /* Añadir estilos comunes aquí */
+  /* Asegúrate de que todos los contenedores compartan las mismas propiedades de posición, tamaño, margen, etc. */
+  position: relative;
+  width: 100%; /* Ajusta según sea necesario */
+  /* Otros estilos aquí */
+}
+
+
+.btn-confirm {
+  background-color: #e27734;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 15px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 31.5px;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+}
+
+
+.btn-confirm:hover {
+  background-color: #f76307;
+}
+
+
+/* Mostrar contenedores adicionales cuando se envía el formulario */
+[hidden="false"] {
+  display: block;
+}
+
+
+
+
+

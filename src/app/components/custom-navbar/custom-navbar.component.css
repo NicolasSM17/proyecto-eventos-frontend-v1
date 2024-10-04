@@ -1,1 +1,391 @@
-header,header .container-fluid{padding:0;display:flex;width:100%}header{height:80px;justify-content:center;align-items:center;position:sticky;top:0;z-index:1000;background-color:#0a0a0a}header .container-fluid{justify-content:flex-start;align-items:center;max-width:1200px}header .logo{flex-shrink:0;margin-right:20px}header .logo img{height:100px}header .search-container.expanded-search{display:flex;flex-direction:column;align-items:flex-start;flex:0 1 auto;margin-right:220px;margin-top:20px}header .search-container.expanded-search .search-bar{position:relative;width:180%;max-width:600px;margin:0 auto 20px;display:flex;align-items:center}header .search-container.expanded-search .search-bar input{width:100%;padding:10px 40px 10px 20px;border-radius:25px;color:#fff;background-color:#0e0d0d;font-size:16px;box-shadow:0 2px 5px rgba(0,0,0,.1);transition:.3s}header .search-container.expanded-search .search-bar input:focus,header .search-container.expanded-search .search-bar input:not(:placeholder-shown){border-color:#faf5f5;background-color:#f7f7f7;color:#181717;box-shadow:0 2px 8px rgba(0,123,255,.3);outline:0}header .search-container.expanded-search .search-bar input:hover{background-color:#f7f7f7;color:#181717;border-color:#e6f7ff}header .search-bar input::placeholder{color:#bbb;font-style:italic}.points,div.dropdown ul.dropdown-menu li a{color:#fff}header .search-bar .search-icon{position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:1.2rem;color:#bbb;pointer-events:none}header .buttons{display:flex;align-items:center;gap:10px;margin-left:auto;margin-right:30px}header a.btn.points{color:#fff;font-size:28px;margin-right:20px}.container{margin-top:50px;position:relative}main{opacity:0;transition:opacity 1s ease-in-out}main.loaded{opacity:1}.dropdown{position:relative;display:inline-block}.btn-round{border-radius:20px}.icon-text-container{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}.icon-text-container h2{font-size:3em}div.dropdown ul.dropdown-menu li a:hover{color:#000}.drop-dos .dropdown-menu{max-width:270px;word-wrap:break-word;white-space:normal;overflow-wrap:break-word;left:-50px}div.dropdown ul.dropdown-menu li a.logout{color:red!important}.points{font-size:28px}.dropdown-menu.custom-dropdown .custom-delete-filter{display:flex;align-items:center;position:relative;top:-20px;color:red}.dropdown-menu.custom-dropdown .custom-delete-filter i,.validation-message svg{margin-right:5px}.dropdown-menu.custom-dropdown .custom-apply-btn{background-color:#004080;display:flex;align-items:center;justify-content:center}.btn.btn-outline-white{background-color:#1e1e1e;color:#fff;border:1px solid #444}.btn.selected,.login-btn:hover{background-color:#bb5d22}.btn.btn-outline-white:hover{background-color:#bb7c55;color:#fff;border:1px solid #bb7c55}.btn.btn-outline-white.selected,.btn.btn-outline-white:focus{color:#fff;outline:0;box-shadow:none}.btn.dropdown-toggle:focus,.btn.points:focus{box-shadow:none!important}.btn.selected{color:#fff;box-shadow:none}.close-icon{position:absolute;top:10px;right:10px;font-size:24px;cursor:pointer;z-index:10}.modal-content{background-color:transparent;border:none;box-shadow:none}.general-container{position:relative;z-index:2;background-color:rgba(36,35,35,.961);padding:60px;box-sizing:border-box;border-radius:4px;box-shadow:0 0 10px rgba(0,0,0,.5);max-width:440px;width:100%;height:85%;flex-direction:column;margin-top:70px;animation:.5s ease-in-out fadeIn}.login-form{display:flex;flex-direction:column;align-items:center}.login-form h2{align-self:flex-start;margin-bottom:30px;font-size:32px}.input-group{position:relative;width:100%;margin-bottom:20px}.input-group input:focus{border-color:#dbdddf;outline:0}.input-group input.filled+label,.input-group input:focus+label,.input-group input:not(:placeholder-shown)+label{top:5px;font-size:12px;color:#ada9aa}.input-group label{position:absolute;top:15px;left:14.5px;color:rgba(226,218,218,.5);font-size:15px;pointer-events:none;transition:.3s}.input-group input::placeholder{opacity:0}.validation-message{display:none;color:rgba(255,0,0,.8);display:flex;align-items:center;margin-top:10px;font-size:12px}.login-btn{background-color:#f77d31;color:#fff;padding:15px;border:none;border-radius:5px;font-size:18px;cursor:pointer;transition:background-color .3s;width:100%;margin-top:10px}.login-btn:active,.login-btn:focus{background-color:rgba(255,81,0,.5);transition:background-color .3s;outline:0;box-shadow:none}.custom-modal-content{background-color:#221f1f;max-width:480px;margin:0 auto}.custom-modal-content .modal-header{justify-content:center;text-align:center}.custom-modal-content .modal-title{text-align:center;width:100%}.custom-modal-content .modal-footer{justify-content:center}.modal-dialog-centered{display:flex;align-items:center;min-height:calc(100% - 1rem)}.modal-dialog{top:-90px}
+/* Estilos existentes */
+
+header {
+    display: flex;
+    height: 80px; /* Ajusta según la altura de tu header */
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: #0a0a0a;
+    width: 100%;
+    padding: 0; /* Espacio superior e inferior */
+}
+
+header .container-fluid {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px; /* Limitar el ancho del contenedor principal */
+    padding: 0; /* Espacio a los lados */
+}
+
+header .logo {
+    flex-shrink: 0; /* Evitar que el logo se encoja */
+    margin-right: 20px; /* Espacio entre el logo y el siguiente elemento */
+}
+
+header .logo img {
+    height: 100px; /* Ajustar según tu logo */
+}
+
+
+/*BARRA DE BUSQUEDA*/
+
+
+
+header .search-container.expanded-search {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Alinear la barra de búsqueda a la izquierda */
+    flex: 0 1 auto; /* Permitir que el contenedor se ajuste a su contenido */
+    margin-right: 220px; /* Espacio entre la barra de búsqueda y el botón "Points" */
+    margin-top: 20px;
+   
+}
+
+header .search-container.expanded-search .search-bar {
+    position: relative;
+    width: 180%; 
+    max-width: 600px; /* Limitar el ancho máximo */
+    margin: 0 auto; /* Centra la barra de búsqueda */
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+header .search-container.expanded-search .search-bar input {
+    width: 100%;
+    padding: 10px 40px 10px 20px; 
+    border-radius: 25px;
+    color: white;
+    background-color: #0e0d0d; 
+    font-size: 16px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: all 0.3s ease; /* Transición suave para todos los cambios */
+}
+
+header .search-container.expanded-search .search-bar input:focus,
+header .search-container.expanded-search .search-bar input:not(:placeholder-shown){
+    border-color: #faf5f5; /* Color de borde al enfocar */
+    background-color: #f7f7f7; /* Color de fondo al enfocar */
+    color: #181717; /* Color del texto al enfocar */
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3); /* Sombra azul suave */
+    outline: none; /* Eliminar el borde de enfoque predeterminado */
+}
+
+header .search-container.expanded-search .search-bar input:hover {
+    background-color: #f7f7f7; /* Color de fondo al pasar el cursor */
+    color: #181717; /* Color del texto al pasar el cursor */
+    border-color: #e6f7ff; /* Color del borde al pasar el cursor */
+}
+
+header .search-bar input::placeholder {
+    color: #bbb; /* Color del texto del marcador de posición */
+    font-style: italic; /* Estilo cursiva */
+}
+
+header .search-bar .search-icon {
+    position: absolute;
+    right: 20px; /* Posición del ícono a la derecha */
+    top: 50%;
+    transform: translateY(-50%); /* Centrar verticalmente */
+    font-size: 1.2rem;
+    color: #bbb;
+    pointer-events: none; /* Hacer el ícono no clicable */
+}
+
+
+
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////// */
+
+
+
+header .buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espacio entre botones */
+    margin-left: auto; /* Alinea los botones a la derecha */
+    margin-right: 30px; /* Ajusta este valor según sea necesario para más espacio a la derecha */
+}
+
+header a.btn.points {
+    color: white; /* Asegurarse de que el ícono sea visible */
+    font-size: 28px; /* Ajustar tamaño del ícono */
+    margin-right: 20px; /* Espacio entre elementos */
+    
+}
+
+
+.container {
+    margin-top: 50px;
+    position: relative; 
+}
+
+main {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+main.loaded {
+    opacity: 1;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+
+.btn-round {
+    border-radius: 20px;
+}
+
+.icon-text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.icon-text-container h2 {
+    font-size: 3em; /* Tamaño de fuente más grande */
+}
+
+div.dropdown ul.dropdown-menu li a {
+    color: white;
+    font: bold;
+}
+
+div.dropdown ul.dropdown-menu li a:hover {
+    color: black;
+}
+
+.drop-dos .dropdown-menu {
+    max-width: 270px; /* Ajusta el ancho máximo según tus necesidades */
+    word-wrap: break-word; /* Permite que el texto se ajuste a múltiples líneas */
+    white-space: normal; /* Permite que el texto se ajuste a múltiples líneas */
+    overflow-wrap: break-word; /* Asegura que las palabras largas se dividan */
+    left: -50px; /* Mueve el dropdown más a la izquierda */
+}
+
+div.dropdown ul.dropdown-menu li a.logout {
+    color: red !important;
+}
+
+.points {
+    color: white;
+    font-size: 28px;
+}
+
+/* Estilo para el botón de eliminar filtro */
+.dropdown-menu.custom-dropdown .custom-delete-filter {
+    display: flex;
+    align-items: center;
+    position: relative;
+    top: -20px; /* Ajusta este valor según sea necesario */
+    color: red; /* Asegúrate de que el color esté definido aquí si es necesario */
+}
+
+.dropdown-menu.custom-dropdown .custom-delete-filter i {
+    margin-right: 5px;
+}
+
+/* Estilo para el botón de aplicar */
+.dropdown-menu.custom-dropdown .custom-apply-btn {
+    background-color: #004080; /* Azul oscuro */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Estilo para los botones de categorías en estado normal */
+.btn.btn-outline-white {
+    background-color: #1e1e1e;
+    color: white;
+    border: 1px solid #444;
+  }
+
+  /* Estilo para los botones de categorías en estado hover */
+.btn.btn-outline-white:hover {
+    background-color: #bb7c55;
+    color: white;
+    border: 1px solid #bb7c55;
+  }
+
+  /* Estilo para los botones de categorías en estado focus */
+.btn.btn-outline-white:focus,
+.btn.btn-outline-white.selected {
+  color: white;
+  outline: none;
+  box-shadow: none;
+}
+
+.btn.points:focus {
+    box-shadow: none !important;
+}
+
+/* Quitar box-shadow del botón con clase .dropdown-toggle */
+.btn.dropdown-toggle:focus {
+    box-shadow: none !important;
+}
+
+.btn.selected{
+    background-color: #bb5d22;
+    color: white;
+    box-shadow: none;
+  }
+
+/* MODAL LOGIN */
+
+.close-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 10; /* Asegura que esté por encima de otros elementos */
+}
+
+.modal-content {
+    background-color: transparent; /* Fondo transparente */
+    border: none; /* Elimina bordes si es necesario */
+    box-shadow: none; /* Elimina sombras si es necesario */
+}
+
+.general-container {
+    position: relative;
+    z-index: 2;
+    background-color: rgba(36, 35, 35, 0.961);
+    padding: 60px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    max-width: 440px;
+    width: 100%;
+    height: 85%;
+    flex-direction: column;
+    margin-top: 70px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-form h2 {
+    align-self: flex-start;
+    margin-bottom: 30px;
+    font-size: 32px;
+}
+
+.input-group {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+
+
+.input-group input:focus {
+    border-color: rgb(219, 221, 223);
+    outline: none;
+}
+
+.input-group input:focus + label,
+.input-group input.filled + label,
+.input-group input:not(:placeholder-shown) + label {
+    top: 5px;
+    font-size: 12px;
+    color: #ada9aa;
+}
+
+.input-group label {
+    position: absolute;
+    top: 15px;
+    left: 14.5px;
+    color: rgba(226, 218, 218, 0.5);
+    font-size: 15px;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.input-group input::placeholder {
+    opacity: 0;
+}
+
+.validation-message {
+    display: none;
+    color: rgba(255, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.validation-message svg {
+    margin-right: 5px;
+}
+
+.login-btn {
+    background-color: #f77d31;
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.login-btn:hover {
+    background-color: #bb5d22;
+}
+
+.login-btn:active,
+.login-btn:focus {
+    background-color: rgba(255, 81, 0, 0.5);;
+    transition: background-color 0.3s ease;
+    outline: none;
+    box-shadow: none;
+}
+
+/* Estilos para el modal de cerrar sesión */
+.custom-modal-content {
+    background-color: #221f1f;
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.custom-modal-content .modal-header {
+    justify-content: center;
+    text-align: center;
+}
+
+.custom-modal-content .modal-title {
+    text-align: center;
+    width: 100%;
+}
+
+.custom-modal-content .modal-footer {
+    justify-content: center;
+}
+
+/* Para centrar el modal verticalmente */
+.modal-dialog-centered {
+    display: flex;
+    align-items: center;
+    min-height: calc(100% - 1rem);
+}
+
+.modal-dialog {
+    top: -90px; /* Ajusta este valor según sea necesario para subir el modal */
+}
