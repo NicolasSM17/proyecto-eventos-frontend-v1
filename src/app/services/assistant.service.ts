@@ -9,7 +9,7 @@ import { Asistente } from '../model/asistente.model';
 export class AssistantService {
 
   PATH_OF_API = "http://localhost:8080/api/v1/asistente";
-  PATH_OF_API_PROD = "http://proyecto-eventos-backend-v1-production.up.railway.app/api/v1/asistente";
+  PATH_OF_API_PROD = "https://proyecto-eventos-backend-v1-production.up.railway.app/api/v1/asistente";
 
   constructor(private httpClient: HttpClient) { }
 
