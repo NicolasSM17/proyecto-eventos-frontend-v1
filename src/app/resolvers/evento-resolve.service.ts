@@ -39,7 +39,8 @@ export class EventoResolveService implements Resolve<Evento>{
       institucion: null,
       categorias: [],
       organizador: null,
-      eventoImagenes: []
+      eventoImagenes: [],
+      asistentes: []
     };
   }
 }

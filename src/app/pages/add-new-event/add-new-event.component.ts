@@ -37,7 +37,8 @@ export class AddNewEventComponent implements OnInit{
     institucion: { id: null, nombre: "", imagenUrl: "", selected: false},
     categorias: [],
     organizador: null,
-    eventoImagenes:[]
+    eventoImagenes:[],
+    asistentes: []
   };
 
   aceptarTerminos: boolean = false;

@@ -1,3 +1,205 @@
 <app-custom-navbar></app-custom-navbar>
 
-<p>manage-account works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <aside class="col-md-3 col-lg-2 d-md-block sidebar">
+            <div class="sidebar-sticky">
+                <div class="user-info mb-4">
+                    <div class="user-avatar"></div>
+                    <h2 class="user-name">Jesus Nicolas</h2>
+                    <p class="user-id">(Cuenta ID: J4691134)</p>
+                </div>
+                <nav>
+                    <ul class="nav flex-column">
+                        <li class="nav-item" *ngFor="let item of navItems">
+                            <a class="nav-link" [ngClass]="{'active': selectedSection === item.id}"
+                                (click)="selectSection(item.id)">
+                                {{ item.name }}
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main content -->
+        <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <div
+                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 *ngIf="selectedSection === 'informacion-personal'">Información de mi cuenta</h1>
+                <h1 *ngIf="selectedSection === 'contrasena-seguridad'">Contraseña y seguridad</h1>
+                <h1 *ngIf="selectedSection === 'mis-entradas'">Mis entradas</h1>
+                <h1 *ngIf="selectedSection === 'inicio'">Inicio</h1>
+            </div>
+
+            <!-- Personal Information -->
+            <section *ngIf="selectedSection === 'informacion-personal'" class="mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2>Información personal</h2>
+                    <button class="btn btn-outline-primary">Editar</button>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="nombres" class="form-label">Nombres</label>
+                        <input type="text" class="form-control" id="nombres" value="Jesus Nicolas" readonly>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="apellidos" class="form-label">Apellidos</label>
+                        <input type="text" class="form-control" id="apellidos" value="Segovia Matos" readonly>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Password and Security -->
+            <section *ngIf="selectedSection === 'contrasena-seguridad'" class="mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2>Cambiar contraseña</h2>
+                    <button class="btn btn-outline-primary">Editar</button>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="newPassword" class="form-label">Nueva contraseña</label>
+                        <input type="password" class="form-control" id="newPassword">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="confirmPassword" class="form-label">Confirmar nueva contraseña</label>
+                        <input type="password" class="form-control" id="confirmPassword">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tickets -->
+            <section *ngIf="selectedSection === 'mis-entradas'" class="mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2>Mis entradas</h2>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <p>Aquí se mostrarán las entradas que hayas comprado.</p>
+
+                        <div class="ticket-f-content-jn">
+                            <div class="f-ticket">
+                                <div class="f-ticket__decor" style="background: rgba(0, 0, 0, 0.1);"></div>
+                                <div class="f-ticket__qr">
+                                    <div class="f-ticket__qr_imgs">
+                                        <div style="height: 40px;">
+                                            <img src="assets/logoapp.png" alt="jn" style="height: 40px; max-width: 100%;">
+                                        </div>
+                                        <div class="f-ticket__qr_qr">
+                                            <div style="font-size: 13px; margin-bottom: 3px; font-weight: bold; color: red;">
+                                                <!---->
+                                            </div> <img width="95" src="https://qr.joinnus.com/qr.png?size=130&amp;body=8V2wSv3N" alt="qr">
+                                            <span style="font-size: 10px;">8V2wSv3N</span>
+                                        </div>
+                                    </div>
+                                    <div class="f-ticket__qr_title">
+                                        TRIBUTO A COLDPLAY A CARGO DE: THE BLUE ROOM
+                                    </div>
+                                    <div class="f-ticket__qr_vs">
+                                        <div><b>Jr Carabaya 815</b></div> <span>
+                                            03 de Octubre del 2024 - 09:00 p.m</span>
+                                    </div>
+                                    <div class="f-ticket__qr_tribuna">
+                                        <div><small>Tipo de entrada</small> <b>Gratis para entrar antes de las 9 pm</b></div>
+                                        <!---->
+                                    </div>
+                                    <div class="f-ticket__qr_sector"></div>
+                                    <div class="f-ticket__qr_info"><b>*Recuerda</b>
+                                        tu código QR es lo más importante de tu entrada Joinnus.
+                                        Cuídalo como oro, no lo publiques y no lo compartas con nadie.
+                                    </div>
+                                </div>
+                                <div class="f-ticket__body"><span class="f-ticket__body_ruc">
+                                        ORGANIZADO POR:
+                                        <span>Yield Rock Eventos</span> <span> - 31661507</span></span> <small class="f-ticket__body_sure">
+                                        <div>* Solo para mayores de 18 años.</div>
+                                    </small>
+                                    <div class="f-ticket__body_content">
+                                        <div class="f-ticket__body_head">
+                                            <div class="f-ticket__body_date">
+                                                <div class="ft-upper"><b>Jr Carabaya 815</b></div>
+                                            </div>
+                                        </div>
+                                        <div class="f-ticket__body_vs">
+                                            <div class="f-ticket-vs">
+                                                <div class="f-ticket-vs__body">
+                                                    <div class="f-ticket-vs__vs" style="gap: 8px;">
+                                                        <!---->
+                                                        <div class="f-ticket-vs__title">
+                                                            TRIBUTO A COLDPLAY A CARGO DE: THE BLUE ROOM
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="f-ticket__body_tribune">
+                                            <div style="max-width: 45%; width: 100%;">
+                                                <div>
+                                                    <div><b>Jesus Nicolas Segovia Matos</b></div>
+                                                    <div>DNI <b>72724245</b></div>
+                                                </div>
+                                            </div>
+                                            <div class="ft-body-sector">
+                                                <div style="overflow: hidden; max-height: 40px;">
+                                                    <b>Gratis para entrar antes de las 9 pm</b><span></span>
+                                                </div>
+                                                <div>
+                                                    <b>03 de Octubre del 2024</b> <span></span>
+                                                </div>
+                                                <div>
+                                                    <b><span>09:00 p.m </span></b> <span></span>
+                                                </div>
+                                                <div>
+                                                    <div><span>Cortesía</span></div> <b></b>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="f-ticket__body_logos">
+                                            <div></div>
+                                            <div>
+                                                <img src="assets/logoapp.png"height="40" alt="jn" class="ft-jn">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="f-ticket__barcode">
+                                    <div class="f-ticket__barcode_body">
+                                        <div class="f-ticket__barcode_head">
+                                            <div class="f-ticket__barcode_data">
+                                                Jesus Nicolas Segovia Matos
+                                                <br> <span> DNI: 72724245 </span> <span>&nbsp;</span>
+                                            </div>
+                                            <div class="f-ticket__barcode_price">
+                                                <div> Cortesía </div>
+                                            </div>
+                                        </div>
+                                        <div class="f-ticket__barcode_footer">
+                                            <div><small>Tipo de entrada</small>
+                                                Gratis para entrar antes de las 9 pm
+                                            </div>
+                                            <div>
+                                                <img src="https://www.joinnus.com/activity/ticket/8V2wSv3N/barcode?t=2&amp;h=22" alt="barcode1" height="22" width="100">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Home Page -->
+            <section *ngIf="selectedSection === 'inicio'" class="mb-4">
+                <p>Bienvenido a la página de inicio de tu cuenta.</p>
+            </section>
+
+            <!-- Logout -->
+            <section *ngIf="selectedSection === 'cerrar-sesion'" class="mb-4">
+                <p>Has cerrado sesión.</p>
+            </section>
+        </main>
+    </div>
+</div>

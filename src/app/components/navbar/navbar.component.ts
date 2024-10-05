@@ -262,7 +262,6 @@ export class NavbarComponent implements AfterViewInit, OnInit {
     this.categoryService.getCategory().subscribe(
       (response: Category[]) => {
         this.categorias = response;
-        console.log(response);
       },
       (error: HttpErrorResponse) => {
         console.log(error);
@@ -274,7 +273,6 @@ export class NavbarComponent implements AfterViewInit, OnInit {
   login(loginForm: NgForm) {
     this.userAuthService.login(loginForm.value).subscribe(
       (response: any) => {
-        console.log(response);
         this.userAuthService.setRoles(response.usuario.roles)
         this.userAuthService.setToken(response.token);
 

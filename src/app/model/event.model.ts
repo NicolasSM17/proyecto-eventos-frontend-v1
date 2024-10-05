@@ -1,3 +1,4 @@
+import { Asistente } from "./asistente.model";
 import { Category } from "./category.model";
 import { FileHandle } from "./file-handle.model";
 import { Institution } from "./institution.model";
@@ -17,4 +18,5 @@ export interface Evento{
     categorias: Category[];
     organizador: User;
     eventoImagenes: FileHandle[];
+    asistentes: Asistente[];
 }

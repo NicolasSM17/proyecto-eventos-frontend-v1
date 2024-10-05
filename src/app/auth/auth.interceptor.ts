@@ -48,7 +48,7 @@ export class AuthInterceptor implements HttpInterceptor {
             Authorization: `Bearer ${token}`
         }
     });
-}
+  }
 }
 
 

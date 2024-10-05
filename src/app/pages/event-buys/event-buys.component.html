@@ -1,44 +1,174 @@
-<app-custom-navbar></app-custom-navbar>
+<div class="checkout-page">
+    <app-custom-navbar></app-custom-navbar>
 
-<main class="compra-evento-container">
-    <div class="evento-info">
-        <button class="btn-atras" routerLink="/eventDetail">
-            <i class="fas fa-arrow-left"></i> Atrás
-        </button>
-        <h1>Comprar Entrada</h1>
-    </div>
-
-    <div class="contenedor-general">
-        <div class="lugar-info">
-            <img src="https://shop.feidofficial.com/cdn/shop/files/DownloadDigitalCover_Feid_Vol1Mor_1.png?v=1682704845" alt="Imagen del lugar">
-            <div>
-                <p><b>EVENTO PRUEBA</b></p>
+    <main class="main-content">
+        <div class="event-header">
+            <i class="fas fa-arrow-left back-icon" data-bs-toggle="modal" data-bs-target="#cancelarModal"></i>
+            <div class="event-info">
+                
+                <h1 class="event-title">{{ evento?.titulo }}</h1>
+                <div class="event-details">
+                    <img [src]="evento?.eventoImagenes[0].url" alt="evento" class="mx-3 rounded" height="66px" width="101px">
+                    <i class="far fa-calendar"></i>
+                    <span>{{ evento?.fecha | date:'EEEE dd \'de\' MMMM' }}</span>
+                    <i class="far fa-clock"></i>
+                    <span>{{ evento?.horaDate | date:'h:mm a' }}</span>
+                </div>
             </div>
+            <div class="countdown">{{ countdown }}</div>
         </div>
 
-        <div class="contenedor-principal">
-            <div class="categoria-compra">
-                <button class="categoria active">ENTRADAS</button>
-            </div>
+        <div class="progress-bar">
+            <div class="progress" [style.width.%]="progressPercentage"></div>
+        </div>
 
-            <div class="compra-options">
-                <div class="opcion">
-                    <img src="https://th.bing.com/th/id/R.6f9525f5a79159ce43b6b4fb81615b0f?rik=ep17tgMWWwPPQQ&pid=ImgRaw&r=0" alt="entrada 1" height="150px" width="150px">
-                    <h3>ENTRADA GENERAL</h3>
-                    <p>Acceso a todas las actividades del evento.</p>
-                    <p>S/ 58.00</p>
+        <div class="step-indicator">
+            Paso {{ step }} de {{ evento?.precioEntrada === 0 ? 1 : 2 }}
+        </div>
 
-                    <div class="cantidad">
-                        <button (click)="cambiarCantidad(-1)" [disabled]="cantidad <= 0">-</button>
-                        <span>{{ cantidad }}</span>
-                        <button (click)="cambiarCantidad(1)">+</button>
+        <div class="checkout-content">
+            <div class="main-section">
+                <div *ngIf="step === 1" class="purchase-options">
+                    <div class="form-container">
+                        <h2 class="section-title">
+                            {{ evento?.precioEntrada === 0 ? 'Datos requeridos para poder inscribirse' : 'Datos requeridos para poder comprar' }}
+                        </h2>
+                        
+                        <!-- Nombres Completos (Bloqueado y Autocompletado) -->
+                        <div class="form-group">
+                            <label for="name">Nombre completo</label>
+                            <input type="text" id="name" class="form-control" [(ngModel)]="formData.name" readonly>
+                        </div>
+                        
+                        <!-- Correo Electrónico (Bloqueado y Autocompletado) -->
+                        <div class="form-group">
+                            <label for="email">Correo electrónico</label>
+                            <input type="email" id="email" class="form-control" [(ngModel)]="formData.email" readonly>
+                        </div>
+                        
+                        <!-- Agrupar Teléfono y DNI en una sola fila -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="phone">Teléfono</label>
+                                <input type="tel" id="phone" class="form-control" [(ngModel)]="formData.phone" readonly>
+                            </div>
+                        
+                            <div class="col-md-6">
+                                <label for="dni">DNI <span class="text-danger">*</span></label>
+                                <input type="text" id="dni" class="form-control" [(ngModel)]="formData.dni" maxlength="8" pattern="\d*"
+                                    required (keypress)="validateDniInput($event)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="step === 2 && evento?.precioEntrada > 0" class="payment-methods">
+                    <h2 class="section-title">Elige tu método de pago</h2>
+                    <div class="payment-options">
+                        <label class="payment-option" [class.selected]="selectedMethod === 'yape'">
+                            <input type="radio" name="paymentMethod" value="yape"
+                                [checked]="selectedMethod === 'yape'" (change)="setSelectedMethod('yape')">
+                                <div>
+                                    <div>Yape</div>
+                                    <div class="payment-description mx-3">
+                                        Paga escaneando el codigo QR
+                                    </div>
+                                </div>
+                        </label>
+
+                        <!-- <label class="payment-option" [class.selected]="selectedMethod === 'tarjeta'">
+                            <input type="radio" name="paymentMethod" value="tarjeta"
+                                [checked]="selectedMethod === 'tarjeta'" (change)="setSelectedMethod('tarjeta')">
+                            <div>
+                                <div>Tarjeta</div>
+                                <div class="payment-description mx-3">
+                                    Paga con tarjeta de débito/crédito.
+                                </div>
+                            </div>
+                        </label> -->
+
                     </div>
                 </div>
             </div>
+
+            <div class="order-summary">
+                <div class="summary-card">
+                    <h2 class="summary-title">{{ evento?.titulo }}</h2>
+                    <div class="summary-details mt-3">
+                        <i class="far fa-calendar"></i>
+                        <span>{{ evento?.fecha | date:'EEEE dd \'de\' MMMM' }}</span>
+                        <i class="far fa-clock" style="margin-left: 30px;"></i>
+                        <span>{{ evento?.horaDate | date:'h:mm a' }}</span>
+                    </div>
+                    <div class="summary-venue">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>{{ evento?.direccion }}</span>
+                    </div>
+                    <h3 class="summary-subtitle">Mi compra</h3>
+                    <div class="summary-item">
+                        <span>Entrada general</span>
+                        <div class="ticket-counter">
+                            <button class="counter-btn" (click)="decreaseQuantity()">-</button>
+                            <span>{{ quantity }}</span>
+                            <button class="counter-btn" (click)="increaseQuantity()">+</button>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-total">
+                        <span>Total ({{ quantity }})</span>
+                        <span>S/ {{ (evento?.precioEntrada * quantity).toFixed(2) }}</span>
+                    </div>
+                    <div class="terms-check">
+                        <input type="checkbox" id="terms" [(ngModel)]="termsAccepted" (change)="updateButtonState()">
+                        <label for="terms">Te informamos que tus datos personales serán compartidos con el organizador del evento.</label>
+                    </div>
+                    <button class="action-button" [disabled]="!isFormValid()" (click)="handleContinue()">
+                        {{ evento?.precioEntrada === 0 ? 'Inscribirme' : (step === 1 ? 'Continuar' : 'Pagar') }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!----------------------------------------- Modal Cancelar Compra ---------------------------------------------->
+<div class="modal fade" id="cancelarModal" tabindex="-1" aria-labelledby="cancelarModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 480px;">
+        <div class="modal-content custom-modal-content" style="background-color: #221f1f;">
+            <div class="modal-header">
+                <i class="fa-solid fa-xmark ms-auto" data-bs-dismiss="modal" aria-label="Close" style="cursor: pointer;"></i>
+            </div>
+            <div class="modal-body justify-content-center">
+                <h4 class="modal-title text-center fw-bold" id="cancelarModalLabel">¿Estás seguro que deseas salir de esta página?</h4>
+                <p class="mt-3">Si sales de esta página se perderan tus datos que ya habias completado y se cancelará tu compra</p>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" id="boton-naranja" class="btn btn-secondary" (click)="cancelarCompra()">Si, salir</button>
+                <button type="button" class="btn boton-naranja" data-bs-dismiss="modal">No quiero salir</button>
+            </div>
+            <!-- Mensaje de cancelación colocado debajo de los botones -->
+            <div class="text-center mt-2">
+                <p class="text-danger fw-bold" *ngIf="cancelled">Su compra fue cancelada</p>
+            </div>
         </div>
     </div>
+</div>
 
-    <button class="btn-compra">Continuar comprando</button>
-</main>
+<!-- Modal para el pago -->
+<div *ngIf="isPaymentModalOpen" class="payment-modal">
+    <div class="modal-contentt justify-content-center">
+        <img src="assets/yapeqr.png" alt="QR de Yape">
+        <h3 class="mt-4">Nombre del titular: Juan Prueba</h3>
+        <p class="mt-3 mb-5">Número de teléfono: 987987987</p>
+
+        <label for="comprobante">Subir comprobante de pago:</label>
+        <input type="file" id="comprobante" (change)="uploadProofOfPayment($event)">
+
+        <div class="modal-footer justify-content-center mt-5">
+            <button type="button" id="boton-naranja" class="btn boton">Enviar pago</button>
+            <a class="btn btn-secondary" (click)="closePaymentModal()">Cerrar</a>
+        </div>
+    </div>
+</div>
 
 <app-footer></app-footer>

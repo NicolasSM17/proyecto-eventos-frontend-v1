@@ -47,7 +47,7 @@
             <div class="right-panel-content mt-3 mb-5" [ngSwitch]="seccionSeleccionada">
                 <div *ngSwitchCase="'asistentes'" class="scrollable-content">
                     <h2>LISTA DE ASISTENTES</h2>
-                    <table class="table table-dark table-hover">
+                    <table class="table table-dark table-hover" id="table-data">
                         <thead>
                             <tr>
                                 <th>CODIGO DE TICKET</th>
@@ -57,8 +57,12 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let asistente of asistentes">
-                                <td>{{ asistente.codigoTicket }}</td>
-                                <td>{{ asistente.nombreCompleto }}</td>
+                                <td>
+                                    <ng-container *ngFor="let ticket of asistente.tickets">
+                                        {{ ticket.codigo }}<br>------------------<br>
+                                    </ng-container>
+                                </td>
+                                <td>{{ asistente.nombresCompletos }}</td>
                                 <td>{{ asistente.dni }}</td>
                             </tr>
                         </tbody>

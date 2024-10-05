@@ -7,6 +7,8 @@ import { Evento } from 'src/app/model/event.model';
 import { EventService } from 'src/app/services/event.service';
 import { ImageProcessingService } from 'src/app/services/image-processing.service';
 import { UserAuthService } from 'src/app/services/user-auth.service';
+import Swal from 'sweetalert2';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-edit-my-event',
@@ -18,23 +20,8 @@ export class EditMyEventComponent implements OnInit{
   eventoId: number;
   editEventForm: FormGroup;
   seccionSeleccionada: string = 'asistentes';
-  asistentes = [
-    { codigoTicket: 'TK001', nombreCompleto: 'Juan Pérez', dni: '12345678' },
-    { codigoTicket: 'TK002', nombreCompleto: 'María García', dni: '87654321' },
-    { codigoTicket: 'TK001', nombreCompleto: 'Juan Pérez', dni: '12345678' },
-    { codigoTicket: 'TK002', nombreCompleto: 'María García', dni: '87654321' },
-    { codigoTicket: 'TK001', nombreCompleto: 'Juan Pérez', dni: '12345678' },
-    { codigoTicket: 'TK002', nombreCompleto: 'María García', dni: '87654321' },
-    { codigoTicket: 'TK001', nombreCompleto: 'Juan Pérez', dni: '12345678' },
-    { codigoTicket: 'TK002', nombreCompleto: 'María García', dni: '87654321' },
-    { codigoTicket: 'TK001', nombreCompleto: 'Juan Pérez', dni: '12345678' },
-    { codigoTicket: 'TK002', nombreCompleto: 'María García', dni: '87654321' },
-    { codigoTicket: 'TK001', nombreCompleto: 'Juan Pérez', dni: '12345678' },
-    { codigoTicket: 'TK002', nombreCompleto: 'María García', dni: '87654321' },
-    { codigoTicket: 'TK001', nombreCompleto: 'Juan Pérez', dni: '12345678' },
-    { codigoTicket: 'TK002', nombreCompleto: 'María García', dni: '87654321' },
-    // Agrega más asistentes según lo necesites
-  ];
+  fileName = "ExcelSheet.xlsx";
+  asistentes = [];
 
   constructor(private activatedRoute: ActivatedRoute, private eventoService: EventService,
               private imageProcessingService: ImageProcessingService, private router: Router,
@@ -74,6 +61,8 @@ export class EditMyEventComponent implements OnInit{
     ).subscribe(
       (evento: Evento) => {
         this.evento = evento;
+        this.asistentes = evento.asistentes || [];  // Llenar el array de asistentes con los datos del evento
+        console.log(evento);
         this.editEventForm.patchValue({
           titulo: evento.titulo || '',
           descripcion: evento.descripcion || '',
@@ -94,28 +83,14 @@ export class EditMyEventComponent implements OnInit{
     this.seccionSeleccionada = seccion;
   }
 
-  updateEvento(eventoId: number, evento: Evento) {
-    // Convierte el campo horaDate a una cadena en formato HH:mm
-    if (evento.horaDate) {
-      const horas = evento.horaDate.getHours().toString().padStart(2, '0');
-      const minutos = evento.horaDate.getMinutes().toString().padStart(2, '0');
-      evento.hora = `${horas}:${minutos}`; // Actualiza el campo hora con el formato HH:mm
-    }
-
-    this.eventoService.update(eventoId, evento).subscribe(
-      (response: Evento) => {
-        console.log(response);
-        console.log("Se ha actualizado el evento");
-        this.getEventoInfo();
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error);
-      }
-    );
-  }
-
   exportarAExcel(){
-    
+    let data = document.getElementById("table-data");
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(data);
+
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    XLSX.writeFile(wb, this.fileName);
   }
 
   deleteEvento(eventoId){
@@ -137,10 +112,16 @@ export class EditMyEventComponent implements OnInit{
       
       this.eventoService.update(this.eventoId, updatedEvent).subscribe(
         response => {
-          console.log('Evento actualizado con éxito');
-          console.log(response);
+          Swal.fire({
+            text: "Evento actualizado con exito",
+            icon: "success"
+          });
         },
         error => {
+          Swal.fire({
+            text: "Error al actualizar el evento",
+            icon: "error"
+          });
           console.error('Error al actualizar el evento', error);
         }
       );

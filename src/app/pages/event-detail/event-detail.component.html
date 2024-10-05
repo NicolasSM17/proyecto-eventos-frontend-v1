@@ -60,6 +60,6 @@
     </div>
     <div class="barra-fija">
         <span><b>{{ evento?.titulo | uppercase }}</b></span>
-        <button class="btn-comprar" routerLink="/eventBuys"><b>Comprar ahora</b></button>
+        <button class="btn-comprar" [routerLink]="['/eventBuys']" [queryParams]="{ eventoId: evento.id }"><b>Comprar ahora</b></button>
     </div>
 </div>

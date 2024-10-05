@@ -4,9 +4,9 @@ export interface User {
     apellido: string;
     telefono: string;
     fechaNacimiento: Date;
-    /*
     email: string;
+    dni: string;
+    /*
     password: string;
-    roles: Rol[];
-    */
+    roles: Rol[];*/
 }

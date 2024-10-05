@@ -19,8 +19,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-new-tournament.component.css']
 })
 export class AddNewTournamentComponent implements OnInit {
-
-
   // BRACKETS
   step: number = 1; // Controla los pasos
   selectedSize: number
@@ -84,7 +82,8 @@ export class AddNewTournamentComponent implements OnInit {
     institucion: { id: null, nombre: "", imagenUrl: "", selected: false},
     categorias: [],
     organizador: null,
-    eventoImagenes: []
+    eventoImagenes: [],
+    asistentes: []
   };
 
   tournamentFormats = [

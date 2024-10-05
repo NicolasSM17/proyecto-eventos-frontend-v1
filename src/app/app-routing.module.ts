@@ -24,6 +24,9 @@ import { AddNewTournamentComponent } from './pages/add-new-tournament/add-new-to
 import { EditMyEventComponent } from './pages/edit-my-event/edit-my-event.component';
 import { StatisticsComponent } from './pages/statistics/statistics.component';
 import { CalendarComponent } from './pages/calendar/calendar.component';
+import { ConfirmationScreenComponent } from './pages/confirmation-screen/confirmation-screen.component';
+import { PurchaseSummaryComponent } from './pages/purchase-summary/purchase-summary.component';
+import { CodeVerificationComponent } from './pages/code-verification/code-verification.component';
 
 
 const routes: Routes = [
@@ -54,7 +57,10 @@ const routes: Routes = [
   {path: 'manageAccount', component: ManageAccountComponent, canActivate:[AuthGuard], data:{roles:['USER']}},
   {path: 'editMyEvent/:eventoId', component: EditMyEventComponent, canActivate:[AuthGuard], data:{roles:['USER']}},
   {path: 'mystatistics', component: StatisticsComponent, canActivate:[AuthGuard], data:{roles:['USER']}},
-  {path: 'calendar', component: CalendarComponent, canActivate:[AuthGuard], data:{roles:['USER']}}
+  {path: 'calendar', component: CalendarComponent, canActivate:[AuthGuard], data:{roles:['USER']}},
+  {path: 'confirmationScreen', component: ConfirmationScreenComponent},
+  /* {path: 'purchaseSummary', component: PurchaseSummaryComponent}, */
+  {path: 'codeVerification', component: CodeVerificationComponent}
 ];
 
 @NgModule({
