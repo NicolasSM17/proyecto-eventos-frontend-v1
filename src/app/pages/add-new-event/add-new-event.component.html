@@ -50,7 +50,7 @@
 
 
 
-<form #eventoForm="ngForm" (ngSubmit)="addEvento(eventoForm)">
+<form #eventoForm="ngForm" >
 
 
 
@@ -341,15 +341,14 @@
                 </div>
                 <div class="col-md-6 mt-5 mb-5">
                     <h2 class="display-4" style="margin-bottom: 100px;">Proveedores</h2>
-                   
-                   
+                
+                
                 </div>
             </div>
 
-           
         </div>
 
-      
+    
         <div *ngIf="step == 9">
             <div class="d-flex flex-column align-items-center justify-content-center vh-90 mt-5">
               <div class="col-md-6">
@@ -373,19 +372,21 @@
                       </button>
                   </div>
 
-                  <div class="col-md-12">
-                    <div *ngFor="let combo of combos; let i = index">
-                      <div class="card combo-card">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ combo.nombre }}</h5>
-                            <p class="card-text descripcion">{{ combo.descripcion }}</p>
-                            <img src="{{ combo.imagen }}" alt="Imagen del combo" class="imagen-combo">
-                            <p class="card-text">Precio: S/{{ combo.precio }}</p>
-                          </div>
-                      </div>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div *ngFor="let combo of combos; let i = index" class="col-md-4 mb-4">
+                            <div class="card combo-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ combo.nombre }}</h5>
+                                    <p class="card-text descripcion">{{ combo.descripcion }}</p>
+                                    <img src="{{ combo.imagen }}" alt="Imagen del combo" class="imagen-combo">
+                                    <p class="card-text">Precio: S/{{ combo.precio }}</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                  
+                </div>
+                
                 </div>
               </div>
             </div>

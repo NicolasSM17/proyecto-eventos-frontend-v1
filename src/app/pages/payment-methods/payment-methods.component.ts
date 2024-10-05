@@ -1,5 +1,8 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit  } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Card } from 'src/app/model/card.model';
+import { CardService } from 'src/app/services/card.service';
 
 
 @Component({
@@ -9,14 +12,20 @@ import { Router } from '@angular/router';
 })
 export class PaymentMethodsComponent implements OnInit {
 
-  creditCards = [
-    { imageUrl: 'https://th.bing.com/th/id/OIP.xVREsbEnxpFwYsgl4hNO7QHaDA?rs=1&pid=ImgDetMain', name: 'ITALO LINARES', expiry: '12/27', id: 1 },
-    { imageUrl: 'https://th.bing.com/th/id/OIP.xVREsbEnxpFwYsgl4hNO7QHaDA?rs=1&pid=ImgDetMain', name: 'ITALO LINARES', expiry: '25/28', id: 2 }
-  ];
+  usuarioId: number;
+  tarjetas: Card[] = [];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private activatedRoute: ActivatedRoute,
+              private cardService: CardService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.activatedRoute.queryParams.subscribe(
+      params => {
+        this.usuarioId = +params['userId'];
+        this.getTarjetasDelUsuario();
+      }
+    );
+  }
 
   onSelectPaymentMethod(paymentMethodId: number) {
     console.log('Selected Payment Method ID:', paymentMethodId);
@@ -25,5 +34,16 @@ export class PaymentMethodsComponent implements OnInit {
 
   openAddPaymentMethod() {
     this.router.navigate(['/add-payment-method']);
+  }
+
+  getTarjetasDelUsuario(){
+    this.cardService.getTarjetaByIdUsuario(this.usuarioId).subscribe(
+      (response: Card[]) => {
+        this.tarjetas = response;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+      }
+    );
   }
 }

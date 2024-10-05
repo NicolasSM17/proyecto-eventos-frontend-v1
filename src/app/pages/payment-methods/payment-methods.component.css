@@ -69,6 +69,7 @@
     justify-content: space-between;
     transition: transform 0.3s;
     min-height: 150px; 
+    color: #f77d31;
 }
 
 .card:hover {
