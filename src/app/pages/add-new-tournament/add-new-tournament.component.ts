@@ -79,7 +79,7 @@ export class AddNewTournamentComponent implements OnInit {
     direccion: "",
     direccionUrl: "",
     precioEntrada: 0,
-    institucion: { id: null, nombre: "", imagenUrl: "" },
+    institucion: { id: null, nombre: "", imagenUrl: "", selected: false},
     categorias: [],
     organizador: null,
     eventoImagenes: [],

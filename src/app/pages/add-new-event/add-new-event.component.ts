@@ -20,6 +20,7 @@ import { UserAuthService } from 'src/app/services/user-auth.service';
 })
 export class AddNewEventComponent implements OnInit{
   step: any = 1;
+  subStep: any = 1;
   selectedCategoriaIds: number[] = [];
   institutions: Institution[] = [];
   isNewEvento = true;
@@ -33,12 +34,23 @@ export class AddNewEventComponent implements OnInit{
     direccion: "",
     direccionUrl: "",
     precioEntrada: 0,
-    institucion: { id: null, nombre: "", imagenUrl: ""},
+    institucion: { id: null, nombre: "", imagenUrl: "", selected: false},
     categorias: [],
     organizador: null,
     eventoImagenes:[],
     asistentes: []
   };
+
+  aceptarTerminos: boolean = false;
+
+  combos = [
+    {
+      nombre: 'Combo 1',
+      descripcion: 'Combo básico para matar el hambre',
+      imagen: 'https://png.pngtree.com/png-clipart/20231013/original/pngtree-classic-burger-and-crispy-fries-delicious-combo-png-image_13295935.png',
+      precio: 30
+    }
+  ];
 
   constructor(private eventService: EventService, private categoryService: CategoryService,
               private institutionService: InstitutionService, private sanitizer: DomSanitizer,
@@ -54,7 +66,18 @@ export class AddNewEventComponent implements OnInit{
     if(this.evento && this.evento.id){
       this.isNewEvento = false;
     }*/
+      this.institutionService.getInstitution().subscribe((institutions) => {
+        this.institutions = institutions.map((institution) => ({ ...institution, selected: false }));
+      });
+      
   }
+
+
+  
+
+  selectPoint(institution: any) {
+    institution.selected = !institution.selected;
+}
 
   addEvento(eventoForm: NgForm){
     const organizadorId = this.userAuthService.getUserId();
@@ -83,6 +106,11 @@ export class AddNewEventComponent implements OnInit{
   next(){
     this.step = this.step + 1;
   }
+
+  specialNext(){
+    this.step = 10;
+  }
+
   cancel(): void {
     
     this.router.navigate(['/selectInstitution']); 
@@ -91,6 +119,16 @@ export class AddNewEventComponent implements OnInit{
   previus(){
     this.step = this.step - 1;
   }
+
+  specialPrevius(){
+    this.step = 7;
+  }
+
+  omitir() {
+    
+    
+    this.step = 10;
+}
 
   getInstituciones(){
     this.institutionService.getInstitution().subscribe(
@@ -155,4 +193,28 @@ export class AddNewEventComponent implements OnInit{
   fileDropped(fileHandle: FileHandle){
     this.evento.eventoImagenes.push(fileHandle);
   }
+
+
+  agregarProveedores() {
+    this.step = 8;
+}
+
+continuarSinProveedores() {
+  this.step = 9;
+}
+
+agregarCombo() {
+  const nuevoCombo = {
+    nombre: `Combo ${this.combos.length + 1}`,
+    descripcion: '',
+    imagen: '',
+    precio: 0
+  };
+  this.combos.push(nuevoCombo);
+  if (this.combos.length >= 5) {
+    // Deshabilitar el botón para agregar combos
+  }
+}
+
+ 
 }
