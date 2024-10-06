@@ -52,7 +52,14 @@ export class AddNewEventComponent implements OnInit{
 
   combos = [];
 
-  imagenes = ['imagen1.jpg', 'imagen2.jpg', 'imagen3.jpg'];
+  imagenesPredefinidas = [
+    'https://png.pngtree.com/png-clipart/20231013/original/pngtree-classic-burger-and-crispy-fries-delicious-combo-png-image_13295935.png',
+    'https://ejemplo.com/imagen2.png',
+    'https://ejemplo.com/imagen3.png',
+    'https://ejemplo.com/imagen4.png',
+    'https://ejemplo.com/imagen5.png',
+    'https://ejemplo.com/imagen6.png'
+  ];
 
 
   @ViewChild('content') modalContent: TemplateRef<any>;
@@ -247,6 +254,10 @@ guardarCambios() {
 
 cerrarModal() {
   this.modalRef.dismiss('Cross click');
+}
+
+seleccionarImagen(imagen: string) {
+  this.comboEditado.imagen = imagen;
 }
  
 }

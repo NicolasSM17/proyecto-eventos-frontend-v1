@@ -417,20 +417,32 @@
                                             <!-- Contenido de la ventana modal -->
                                             <form>
                                                 <div class="form-group">
-                                                    <label for="nombre" style="color: black;">Nombre del
-                                                        combo</label>
+                                                    <label for="nombre" style="color: black;">Nombre</label>
                                                     <input type="text" class="form-control" id="nombre" name="nombre"
                                                         [(ngModel)]="comboEditado.nombre">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="descripcion" style="color: black;">Descripción del
-                                                        combo</label>
+                                                    <label for="descripcion" style="color: black;">Descripción</label>
                                                     <textarea class="form-control" id="descripcion" name="descripcion"
                                                         [(ngModel)]="comboEditado.descripcion"></textarea>
                                                 </div>
+
+                                                <div class="form-group mt-3">
+                                                    <label for="imagen" style="color: black;">Imagen</label>
+                                                    <div class="d-flex flex-wrap">
+                                                      <div *ngFor="let img of imagenesPredefinidas; let i = index" class="m-2">
+                                                        <img [src]="img" 
+                                                             [class.selected]="comboEditado.imagen === img"
+                                                             (click)="seleccionarImagen(img)" 
+                                                             alt="Opción de imagen {{i+1}}" 
+                                                             style="width: 200px; height: 200px; object-fit: cover; cursor: pointer; border: 2px solid transparent;"
+                                                             [style.border-color]="comboEditado.imagen === img ? 'blue' : 'transparent'">
+                                                      </div>
+                                                    </div>
+                                                  </div>
+
                                                 <div class="form-group">
-                                                    <label for="precio" style="color: black;">Precio del
-                                                        combo</label>
+                                                    <label for="precio" style="color: black;">Precio</label>
                                                     <input type="number" class="form-control" id="precio" name="precio"
                                                         [(ngModel)]="comboEditado.precio">
                                                 </div>
