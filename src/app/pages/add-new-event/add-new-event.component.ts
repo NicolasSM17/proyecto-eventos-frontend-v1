@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild   } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
@@ -12,6 +12,9 @@ import { EventService } from 'src/app/services/event.service';
 import { InstitutionService } from 'src/app/services/institution.service';
 import { Router } from '@angular/router';
 import { UserAuthService } from 'src/app/services/user-auth.service';
+import { ComboService } from 'src/app/services/combo.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-add-new-event',
@@ -40,26 +43,30 @@ export class AddNewEventComponent implements OnInit{
     eventoImagenes:[],
     asistentes: []
   };
+  isMaxCombosReached = false;
+  modalRef: any;
+  
+  comboEditado: any = {};
 
   aceptarTerminos: boolean = false;
 
-  combos = [
-    {
-      nombre: 'Combo 1',
-      descripcion: 'Combo básico para matar el hambre',
-      imagen: 'https://png.pngtree.com/png-clipart/20231013/original/pngtree-classic-burger-and-crispy-fries-delicious-combo-png-image_13295935.png',
-      precio: 30
-    }
-  ];
+  combos = [];
+
+  imagenes = ['imagen1.jpg', 'imagen2.jpg', 'imagen3.jpg'];
+
+
+  @ViewChild('content') modalContent: TemplateRef<any>;
 
   constructor(private eventService: EventService, private categoryService: CategoryService,
               private institutionService: InstitutionService, private sanitizer: DomSanitizer,
-              private userAuthService: UserAuthService, private router: Router){}
+              private userAuthService: UserAuthService, private router: Router, private comboService: ComboService,
+              private modalService: NgbModal) { }
   
   ngOnInit(): void {
     this.getCategory();
     this.getInstituciones();
-
+    
+    this.combos = this.comboService.getCombos();
     /*
     this.evento = this.activatedRoute.snapshot.data['evento'];
 
@@ -211,10 +218,35 @@ agregarCombo() {
     precio: 0
   };
   this.combos.push(nuevoCombo);
-  if (this.combos.length >= 5) {
-    // Deshabilitar el botón para agregar combos
+  if (this.combos.length >= 6) {
+    this.isMaxCombosReached = true;
   }
 }
 
+eliminarCombo(combo: any) {
+  // Lógica para eliminar el elemento "Combo" seleccionado
+  this.combos = this.combos.filter(c => c !== combo);
+  if (this.combos.length < 6) {
+    this.isMaxCombosReached = false;
+  }
+}
+
+modificarCombo(combo: any) {
+  this.comboEditado = {...combo};  // Crea una copia del combo
+  this.modalRef = this.modalService.open(this.modalContent);
+}
+
+guardarCambios() {
+  const index = this.combos.findIndex(c => c.id === this.comboEditado.id);
+  if (index !== -1) {
+    this.combos[index] = {...this.comboEditado};
+    this.comboService.updateCombo(this.comboEditado);
+  }
+  this.modalRef.close();
+}
+
+cerrarModal() {
+  this.modalRef.dismiss('Cross click');
+}
  
 }

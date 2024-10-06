@@ -45,6 +45,7 @@ import { CustomNavbarComponent } from './components/custom-navbar/custom-navbar.
 import { ConfirmationScreenComponent } from './pages/confirmation-screen/confirmation-screen.component';
 import { PurchaseSummaryComponent } from './pages/purchase-summary/purchase-summary.component';
 import { CodeVerificationComponent } from './pages/code-verification/code-verification.component';
+import { ComboService } from 'src/app/services/combo.service';
 
 registerLocaleData(localeEs, 'es');
 
@@ -96,6 +97,7 @@ registerLocaleData(localeEs, 'es');
     SweetAlert2Module
   ],
   providers: [
+    ComboService,
     {provide: LOCALE_ID, useValue: 'es'},
     AuthGuard,
     {
