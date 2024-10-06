@@ -12,23 +12,14 @@
             <span class="button-text">Agregar método de pago</span>
         </button>
 
-        <div class="card credit-card" *ngFor="let card of creditCards">
+        <div class="card credit-card" *ngFor="let tarjeta of tarjetas">
             <div class="card-content">
-                <img [src]="card.imageUrl" alt="Credit Card" width="150px" height="100px"/>
-                <p>{{ card.name }}</p>
-                <p>{{ card.expiry }}</p>
+                <img src="assets/visa-icon-11679.png" alt="Credit Card" width="150px" height="150px"/>
+                <p>{{ tarjeta.nombreTitular }} {{ tarjeta.apellidoTitular }}</p>
+                <p>{{ tarjeta.fechaExpiracion }}</p>
             </div>
             <input type="radio" name="paymentMethod" />
         </div>
-        <div class="card paypal">
-            <img src="https://th.bing.com/th/id/R.c01292cdd7f51d3520c75031fc479c2b?rik=0qZxmR9AXGhBdw&pid=ImgRaw&r=0" alt="PayPal" width="150px" height="100px"/>
-            <p>PayPal</p>
-            <input type="radio" name="paymentMethod" />
-        </div>
-        <div class="card cash">
-            <img src="cash-icon.png" alt="Cash" />
-            <p>Efectivo</p>
-            <input type="radio" name="paymentMethod" />
-        </div>
+        
     </div>
 </div>

@@ -1,30 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Card } from 'src/app/model/card.model';
+import { CardService } from 'src/app/services/card.service';
+import { UserAuthService } from 'src/app/services/user-auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-payment-method',
   templateUrl: './add-payment-method.component.html',
   styleUrls: ['./add-payment-method.component.css']
 })
-export class AddPaymentMethodComponent {
-
+export class AddPaymentMethodComponent implements OnInit{
+  userId: number;
   firstName: string = '';
   lastName: string = '';
   expirationDate: string = '';
   cardNumber: string = '';
   cvv: string = '';
   formSubmitted: boolean = false;
-  
-
-  constructor() {}
-
-
   showModal = false;
-
-  
   showFormContainer: boolean = true;
   showFormConfirm: boolean = false;
   
+  constructor(private cardService: CardService, private userAuthService: UserAuthService) {}
 
+  ngOnInit(): void {
+    this.userId = this.userAuthService.getUserId();
+  }
 
   openModal() {
     this.showModal = true;
@@ -87,7 +88,7 @@ export class AddPaymentMethodComponent {
     
     let detectedCardType = '';
     let formattedValue = '';
-    let maxLength = 19; // Configuración por defecto, puede ajustarse
+    let maxLength = 16; // Configuración por defecto, puede ajustarse
 
     // Detectar la marca de la tarjeta
     if (/^(?!4005550000000001|4012888888881881|4111111111111111|4444333322221111|4539105011539664|4555400000555123|4564456445644564|4544182174537267|4716914706534228|4916541713757159|4916615639346972|4917610000000000)(4)/.test(value)) {
@@ -289,16 +290,31 @@ updateCardBackground(cardType: string): void {
     input.classList.toggle('valid', this.cvv.length >= 3 && this.cvv.length <= 4);
   }
 
-
- 
-
   submitForm(): void {
     if (this.isFormValid()) {
 
-    
+      const newCard: Card = {
+        id: null, // Este campo puede ser opcional si el backend lo asigna automáticamente
+        numeroTarjeta: this.cardNumber,
+        nombreTitular: this.firstName,
+        apellidoTitular: this.lastName,
+        fechaExpiracion: this.expirationDate,
+        cvv: this.cvv
+      };
 
-
-      this.formSubmitted = true; // Cambia el estado para mostrar los contenedores adicionales
+      // Llamada al servicio para guardar la tarjeta
+      this.cardService.save(newCard).subscribe(
+        (response) => {
+          Swal.fire({
+            text: "Tarjeta agregada con exito",
+            icon: "success"
+          });
+          this.formSubmitted = true;
+        },
+        (error) => {
+          console.error('Error al guardar la tarjeta:', error);
+        }
+      );
     }
   }
 
@@ -314,5 +330,3 @@ updateCardBackground(cardType: string): void {
   }
 
 }
-
- 

@@ -7,16 +7,22 @@
             <div class="sidebar-sticky">
                 <div class="user-info mb-4">
                     <div class="user-avatar"></div>
-                    <h2 class="user-name">Jesus Nicolas</h2>
-                    <p class="user-id">(Cuenta ID: J4691134)</p>
+                    <h2 class="user-name">{{ nombres }}</h2>
+                    <!-- <p class="user-id">(Cuenta ID: J4691134)</p> -->
                 </div>
                 <nav>
                     <ul class="nav flex-column">
                         <li class="nav-item" *ngFor="let item of navItems">
-                            <a class="nav-link" [ngClass]="{'active': selectedSection === item.id}"
+                            <!-- Si es cerrar sesión, usa el modal -->
+                            <a class="nav-link" [ngClass]="{'active': selectedSection === item.id}" *ngIf="!item.modal; else logoutLink"
                                 (click)="selectSection(item.id)">
                                 {{ item.name }}
                             </a>
+                            <ng-template #logoutLink>
+                                <a class="nav-link logout" data-bs-toggle="modal" data-bs-target="#ModalCerrarSesion">
+                                    {{ item.name }}
+                                </a>
+                            </ng-template>
                         </li>
                     </ul>
                 </nav>
@@ -34,7 +40,7 @@
             </div>
 
             <!-- Personal Information -->
-            <section *ngIf="selectedSection === 'informacion-personal'" class="mb-4">
+            <section *ngIf="selectedSection === 'informacion-personal'" class="mb-4 mt-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h2>Información personal</h2>
                     <button class="btn btn-outline-primary">Editar</button>
@@ -42,11 +48,38 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="nombres" class="form-label">Nombres</label>
-                        <input type="text" class="form-control" id="nombres" value="Jesus Nicolas" readonly>
+                        <input type="text" class="form-control" id="nombres" [value]="nombres" readonly>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="apellidos" class="form-label">Apellidos</label>
-                        <input type="text" class="form-control" id="apellidos" value="Segovia Matos" readonly>
+                        <input type="text" class="form-control" id="apellidos" [value]="apellidos" readonly>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mb-3 mt-5">
+                    <h2>Dirección de correo electrónico</h2>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-md-9 mb-3">
+                        <label for="email" class="form-label">Correo electrónico</label>
+                        <input type="text" class="form-control" id="email" [value]="email" readonly>
+                    </div>
+                    <div class="col-md-3 d-flex justify-content-start">
+                        <button class="btn btn-outline-secondary me-2" (click)="editEmail()">Editar</button>
+                        <button class="btn btn-outline-secondary" (click)="verifyEmail()">Verificar</button>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mb-3 mt-5">
+                    <h2>Número de teléfono</h2>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-md-4 mb-3">
+                        <label for="telefono" class="form-label">Teléfono</label>
+                        <input type="text" class="form-control" id="telefono" [value]="telefono" readonly>
+                    </div>
+                    <div class="col-md-4 d-flex justify-content-start">
+                        <button class="btn btn-outline-secondary" (click)="verifyPhone()">Verificar</button>
                     </div>
                 </div>
             </section>
@@ -196,10 +229,24 @@
                 <p>Bienvenido a la página de inicio de tu cuenta.</p>
             </section>
 
-            <!-- Logout -->
-            <section *ngIf="selectedSection === 'cerrar-sesion'" class="mb-4">
-                <p>Has cerrado sesión.</p>
-            </section>
         </main>
+    </div>
+
+    <!-- Modal Cerrar Sesión -->
+    <div class="modal fade" id="ModalCerrarSesion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 480px;">
+            <div class="modal-content custom-modal-content" style="background-color: #221f1f;">
+                <div class="modal-header justify-content-center">
+                    <h4 class="modal-title text-center" id="exampleModalLabel">¿Desea cerrar su sesión?</h4>
+                    <i class="fa-solid fa-xmark" data-bs-dismiss="modal" aria-label="Close" style="cursor: pointer;"></i>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <!-- Llamada al método logout -->
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="logout()">Cerrar
+                        sesión</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

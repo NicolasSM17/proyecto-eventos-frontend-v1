@@ -1,7 +1,5 @@
 <a routerLink="/" class="logo-link">
-  <img
-    src="https://static.vecteezy.com/system/resources/thumbnails/012/986/755/small/abstract-circle-logo-icon-free-png.png"
-    alt="Logo de tu página" class="logo">
+  <img src="assets/logoapp.png" alt="Logo de tu página" class="logo">
 </a>
 <div class="overlay"></div>
 <div class="payment-methods-container">
@@ -9,7 +7,7 @@
   <div class="add-payment-options">
     <div class="payment-method-option">
       <div class="header-container">
-        <a routerLink="/paymentMethods" class="back-link">
+        <a [routerLink]="['/paymentMethods']" [queryParams]="{userId}" class="back-link">
           <i class="fas fa-arrow-left"></i>
           Métodos de pago
         </a>
@@ -88,31 +86,31 @@
       <div class="form-container" [hidden]="formSubmitted">
         <div class="form-group">
           <label for="card-number">Número de la tarjeta</label>
-          <input id="card-number" type="text" placeholder="Número de la tarjeta" [(ngModel)]="cardNumber"
-            (input)="validateCardNumber($event)">
+          <input id="card-number" type="text" placeholder="Número de la tarjeta" maxlength="16" [(ngModel)]="cardNumber"
+            (input)="validateCardNumber($event)" name="numeroTarjeta">
         </div>
         <div class="form-nameApe">
           <div class="form-group">
             <label for="first-name">Nombre</label>
             <input id="first-name" type="text" placeholder="Nombre" [(ngModel)]="firstName"
-              (input)="validateName($event)" minlength="3">
+              (input)="validateName($event)" minlength="3" name="nombreTitular">
           </div>
           <div class="form-group">
             <label for="last-name">Apellido</label>
             <input id="last-name" type="text" placeholder="Apellido" [(ngModel)]="lastName"
-              (input)="validateName($event)" minlength="3">
+              (input)="validateName($event)" minlength="3" name="apellidoTitular">
           </div>
         </div>
         <div class="form-inline">
           <div class="form-group">
             <label for="expiration-date">Fecha de expiración</label>
             <input id="expiration-date" type="text" maxlength="5" placeholder="MM/AA" [(ngModel)]="expirationDate"
-              (input)="validateExpirationDate($event)">
+              (input)="validateExpirationDate($event)" name="fechaExpiracion">
           </div>
           <div class="form-group">
             <label for="cvv">Código CVV</label>
-            <input id="cvv" type="text" maxlength="4" placeholder="CVV" [(ngModel)]="cvv" (input)="validateCVV($event)"
-              (focus)="onCVVFocus()" (blur)="onCVVBlur()">
+            <input id="cvv" type="text" maxlength="3" placeholder="CVV" [(ngModel)]="cvv" (input)="validateCVV($event)"
+              (focus)="onCVVFocus()" (blur)="onCVVBlur()" name="cvv">
           </div>
         </div>
 
@@ -150,7 +148,7 @@
           <div class="verify-alert-container">
             <i class="iconf-shield"></i>
           </div>
-          <button class="btn btn-confirm primary-button-filled">Confirmar</button>
+          <button class="btn btn-confirm primary-button-filled" (click)="closeModal()">Cerrar</button>
         </div>
       </div>
 

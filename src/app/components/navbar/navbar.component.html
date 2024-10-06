@@ -51,7 +51,7 @@
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" *ngIf="isUser()" routerLink="/manageAccount">Administrar cuenta</a></li>
                     <li><a class="dropdown-item" *ngIf="isAdmin()" routerLink="/adminPanel">Panel de Administrador</a></li>
-                    <li><a class="dropdown-item" *ngIf="isUser()" routerLink="/paymentMethods">Agregar metodo de pago</a></li>
+                    <li><a class="dropdown-item" *ngIf="isUser()" [routerLink]="['/paymentMethods']" [queryParams]="{userId}">Agregar metodo de pago</a></li>
                     <li><a class="dropdown-item" *ngIf="isUser()" routerLink="/publicationsOrganization">Modo Organizador</a></li>
                     <li><a class="dropdown-item logout" data-bs-toggle="modal" data-bs-target="#exampleModal">Cerrar Sesion</a></li>
                 </ul>

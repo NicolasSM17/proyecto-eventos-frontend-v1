@@ -24,7 +24,7 @@
                     </li>
                     <li><a class="dropdown-item" *ngIf="isAdmin()" routerLink="/adminPanel">Panel de Administrador</a>
                     </li>
-                    <li><a class="dropdown-item" *ngIf="isUser()" routerLink="/paymentMethods">Agregar metodo de
+                    <li><a class="dropdown-item" *ngIf="isUser()" [routerLink]="['/paymentMethods']" [queryParams]="{userId}">Agregar metodo de
                             pago</a></li>
                     <li><a class="dropdown-item" *ngIf="isUser()" routerLink="/">Volver al modo Usuario</a></li>
                     <li><a class="dropdown-item logout" data-bs-toggle="modal" data-bs-target="#exampleModal">Cerrar
