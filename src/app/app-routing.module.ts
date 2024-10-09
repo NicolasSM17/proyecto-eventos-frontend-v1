@@ -27,6 +27,7 @@ import { CalendarComponent } from './pages/calendar/calendar.component';
 import { ConfirmationScreenComponent } from './pages/confirmation-screen/confirmation-screen.component';
 import { PurchaseSummaryComponent } from './pages/purchase-summary/purchase-summary.component';
 import { CodeVerificationComponent } from './pages/code-verification/code-verification.component';
+import { ViewSportsComponent } from './admin/view-sports/view-sports.component';
 
 
 const routes: Routes = [
@@ -41,6 +42,7 @@ const routes: Routes = [
   {path: "myEvents", component: MyEventsComponent, canActivate:[AuthGuard], data:{roles:['USER']}},
   {path: "viewInstitutions", component: ViewInstitutionsComponent, canActivate:[AuthGuard], data:{roles:['ADMIN']}},
   {path: "viewCategories", component: ViewCategoriesComponent, canActivate:[AuthGuard], data:{roles:['ADMIN']}},
+  {path: "viewSports", component: ViewSportsComponent, canActivate:[AuthGuard], data:{roles:['ADMIN']}},
   {path: "adminPanel", component: PanelComponent, canActivate:[AuthGuard], data:{roles:['ADMIN']}},
   {path: 'eventBuys', component: EventBuysComponent },
   {path: 'addNewEvent', component: AddNewEventComponent, data:{roles:['USER']}},
