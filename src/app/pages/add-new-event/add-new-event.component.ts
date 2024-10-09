@@ -12,6 +12,7 @@ import { EventService } from 'src/app/services/event.service';
 import { InstitutionService } from 'src/app/services/institution.service';
 import { Router } from '@angular/router';
 import { UserAuthService } from 'src/app/services/user-auth.service';
+import { Combo } from 'src/app/model/combo.model';
 
 @Component({
   selector: 'app-add-new-event',
@@ -38,19 +39,16 @@ export class AddNewEventComponent implements OnInit{
     categorias: [],
     organizador: null,
     eventoImagenes:[],
-    asistentes: []
+    asistentes: [],
+    combos: [], // Add combos here
+    boost: false,
+    terminosAceptados: false
   };
 
   aceptarTerminos: boolean = false;
 
-  combos = [
-    {
-      nombre: 'Combo 1',
-      descripcion: 'Combo básico para matar el hambre',
-      imagen: 'https://png.pngtree.com/png-clipart/20231013/original/pngtree-classic-burger-and-crispy-fries-delicious-combo-png-image_13295935.png',
-      precio: 30
-    }
-  ];
+  // Add Combo array
+  combos: Combo[] = [];
 
   constructor(private eventService: EventService, private categoryService: CategoryService,
               private institutionService: InstitutionService, private sanitizer: DomSanitizer,
@@ -66,27 +64,37 @@ export class AddNewEventComponent implements OnInit{
     if(this.evento && this.evento.id){
       this.isNewEvento = false;
     }*/
-      this.institutionService.getInstitution().subscribe((institutions) => {
-        this.institutions = institutions.map((institution) => ({ ...institution, selected: false }));
+      this.institutionService.getInstitution().subscribe(
+        (institutions) => {
+        this.institutions = institutions.map(
+          (institution) => ({ ...institution, selected: false }));
       });
-      
   }
 
-
+  selectPoint(institution: Institution) {
+    // Unselect all institutions
+    this.institutions.forEach(inst => inst.selected = false);
+    
+    // Select the clicked institution
+    institution.selected = true;
   
-
-  selectPoint(institution: any) {
-    institution.selected = !institution.selected;
-}
+    // Assign the selected institution to the evento object
+    this.evento.institucion = institution;
+  }
 
   addEvento(eventoForm: NgForm){
     const organizadorId = this.userAuthService.getUserId();
 
-    this.evento.categorias = this.selectedCategoriaIds.map(
-      id => this.categorias.find(
-        cat => cat.id === id
-      )
-    );
+    // Assign selected institution to evento object
+    const selectedInstitution = this.institutions.find(inst => inst.selected);
+    if (selectedInstitution) {
+      this.evento.institucion = selectedInstitution;
+    }
+
+    // Add selected combos to the event object
+    this.evento.combos = this.combos;
+
+    this.evento.terminosAceptados = this.aceptarTerminos;
 
     const eventoFormData = this.prepareFormData(this.evento);
 
@@ -112,9 +120,8 @@ export class AddNewEventComponent implements OnInit{
   }
 
   cancel(): void {
-    
     this.router.navigate(['/selectInstitution']); 
-}
+  }
 
   previus(){
     this.step = this.step - 1;
@@ -125,10 +132,8 @@ export class AddNewEventComponent implements OnInit{
   }
 
   omitir() {
-    
-    
     this.step = 10;
-}
+  }
 
   getInstituciones(){
     this.institutionService.getInstitution().subscribe(
@@ -197,24 +202,21 @@ export class AddNewEventComponent implements OnInit{
 
   agregarProveedores() {
     this.step = 8;
-}
-
-continuarSinProveedores() {
-  this.step = 9;
-}
-
-agregarCombo() {
-  const nuevoCombo = {
-    nombre: `Combo ${this.combos.length + 1}`,
-    descripcion: '',
-    imagen: '',
-    precio: 0
-  };
-  this.combos.push(nuevoCombo);
-  if (this.combos.length >= 5) {
-    // Deshabilitar el botón para agregar combos
   }
-}
 
- 
+  continuarSinProveedores() {
+    this.step = 9;
+  }
+
+  agregarCombo() {
+    const nuevoCombo: Combo = {
+      titulo: `Combo ${this.combos.length + 1}`,
+      descripcion: '',
+      precio: 0
+    };
+    this.combos.push(nuevoCombo);
+    if (this.combos.length >= 5) {
+      // Deshabilitar el botón para agregar combos
+    }
+  }
 }

@@ -16,10 +16,10 @@ export class TicketService {
   constructor(private httpClient: HttpClient) { }
 
   getByCodigoTicket(codigo): Observable<Ticket>{
-    return this.httpClient.get<Ticket>(`${this.PATH_OF_API_PROD}/getTicketByCodigo/${codigo}`);
+    return this.httpClient.get<Ticket>(`${this.PATH_OF_API}/getTicketByCodigo/${codigo}`);
   }
 
   generateTicket(ticketRequest: TicketRequest): Observable<Ticket>{
-    return this.httpClient.post<Ticket>(`${this.PATH_OF_API_PROD}/comprar`, ticketRequest);
+    return this.httpClient.post<Ticket>(`${this.PATH_OF_API}/comprar`, ticketRequest);
   }
 }

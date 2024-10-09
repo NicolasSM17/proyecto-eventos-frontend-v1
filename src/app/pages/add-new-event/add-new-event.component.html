@@ -317,7 +317,7 @@
                 </div>
                 <div class="col-md-6 mt-5 mb-5">
                     <h2 class="display-4" style="margin-bottom: 100px;">¿Como deseas agregar tus combos?</h2>
-                   
+    
                     <div class="d-flex flex-column align-items-center">
                         <button class="btn btn-2 btn-lg mb-5" (click)="agregarProveedores()">Con Proveedores Recomendados</button>
                         <button class="btn btn-primary btn-lg" (click)="continuarSinProveedores()">Sin Proveedores</button>
@@ -325,7 +325,6 @@
                 </div>
             </div>
 
-           
         </div>
 
         <div *ngIf="step == 8">
@@ -351,46 +350,48 @@
     
         <div *ngIf="step == 9">
             <div class="d-flex flex-column align-items-center justify-content-center vh-90 mt-5">
-              <div class="col-md-6">
-                <h2 class="display-4">Vender sin Proveedores</h2>
-                <p class="mt-2 text-left">
-                  En este apartado podrás decidir si vas a querer vender Combos de consumibles para tu evento. Te
-                  brindamos
-                  los proveedores disponibles para que puedas adaptar las necesidades requeridas para tu evento en
-                  el apartado
-                  de venta de adicionales.</p>
-              </div>
-              <div class="mt-5 mb-5 mt-5" style="width: 100%;">
-                <div class="row">
-                  <div class="col-md-12" style="margin-bottom: 30px;">
-                    <h2>Combos</h2>
-                    <button class="btn btn-primary" (click)="agregarCombo()">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48" style="margin-right: 5px;">
-                          <path fill="#2f88ff" stroke="#000" stroke-linejoin="round" stroke-width="4" d="M30 4H18V18H4V30H18V44H30V30H44V18H30V4Z"/>
-                        </svg>
-                        Añadir Combo
-                      </button>
-                  </div>
-
-                <div class="col-md-12">
+                <div class="col-md-6">
+                    <h2 class="display-4">Vender sin Proveedores</h2>
+                    <p class="mt-2 text-left">
+                        En este apartado podrás decidir si vas a querer vender Combos de consumibles para tu evento. Te
+                        brindamos
+                        los proveedores disponibles para que puedas adaptar las necesidades requeridas para tu evento en
+                        el apartado
+                        de venta de adicionales.</p>
+                </div>
+                <div class="mt-5 mb-5 mt-5" style="width: 100%;">
                     <div class="row">
-                        <div *ngFor="let combo of combos; let i = index" class="col-md-4 mb-4">
-                            <div class="card combo-card">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ combo.nombre }}</h5>
-                                    <p class="card-text descripcion">{{ combo.descripcion }}</p>
-                                    <img src="{{ combo.imagen }}" alt="Imagen del combo" class="imagen-combo">
-                                    <p class="card-text">Precio: S/{{ combo.precio }}</p>
+                        <div class="col-md-12" style="margin-bottom: 30px;">
+                            <h2>Combos</h2>
+                            <button class="btn btn-primary" (click)="agregarCombo()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48"
+                                    style="margin-right: 5px;">
+                                    <path fill="#2f88ff" stroke="#000" stroke-linejoin="round" stroke-width="4"
+                                        d="M30 4H18V18H4V30H18V44H30V30H44V18H30V4Z" />
+                                </svg>
+                                Añadir Combo
+                            </button>
+                        </div>
+        
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div *ngFor="let combo of combos; let i = index" class="col-md-4 mb-4">
+                                    <div class="card combo-card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ combo.titulo }}</h5>
+                                            <p class="card-text descripcion">{{ combo.descripcion }}</p>
+                                            <img src="" alt="Imagen del combo" class="imagen-combo">
+                                            <p class="card-text">Precio: S/{{ combo.precio }}</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+        
                     </div>
                 </div>
-                
-                </div>
-              </div>
             </div>
-          </div>
+        </div>
 
 
 
@@ -418,7 +419,6 @@
                 </div>
             </div>
 
-           
         </div>
 
 
@@ -435,16 +435,15 @@
 
                 <button class="btn btn-link" type="button" *ngIf="step == 7" (click)="omitir()">Omitir</button>
                 
-                 <!-- BOTONES ESPECIALES -->
-
+                <!-- BOTONES ESPECIALES -->
                  <button class="btn btn-outline-secondary" type="button" *ngIf="step >= 8 &&  step <= 10"
                     (click)="specialPrevius()">Atrás</button>
                 
                 <button class="btn btn-2" type="button" *ngIf="step >= 8  && step < 10"
                     (click)="specialNext()">Siguiente</button>
 
-                 <!--  -->
-                 <button class="btn btn-2" type="submit" *ngIf="step == 10">PUBLICAR EVENTO</button>
+                <!--  -->
+                 <button class="btn btn-2" type="submit" [disabled]="!aceptarTerminos" *ngIf="step == 10">PUBLICAR EVENTO</button>
             </div>
         </div>
     </div>

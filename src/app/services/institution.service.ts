@@ -14,22 +14,22 @@ export class InstitutionService {
   constructor(private httpClient: HttpClient) { }
 
   getInstitution(): Observable<Institution[]>{
-    return this.httpClient.get<Institution[]>(this.PATH_OF_API_PROD + "/listar");
+    return this.httpClient.get<Institution[]>(this.PATH_OF_API + "/listar");
   }
 
   getByIdInstitution(id: number): Observable<Institution>{
-    return this.httpClient.get<Institution>(this.PATH_OF_API_PROD + "/" + id);
+    return this.httpClient.get<Institution>(this.PATH_OF_API + "/" + id);
   }
 
   save(institution: Institution): Observable<Institution>{
-    return this.httpClient.post<Institution>(this.PATH_OF_API_PROD, institution);
+    return this.httpClient.post<Institution>(this.PATH_OF_API, institution);
   }
 
   update(id:number, institution: Institution): Observable<Institution>{
-    return this.httpClient.put<Institution>(this.PATH_OF_API_PROD + "/" + id, institution);
+    return this.httpClient.put<Institution>(this.PATH_OF_API + "/" + id, institution);
   }
 
   delete(id: number): Observable<void>{
-    return this.httpClient.delete<void>(`${this.PATH_OF_API_PROD}/${id}`);
+    return this.httpClient.delete<void>(`${this.PATH_OF_API}/${id}`);
   }
 }

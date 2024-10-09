@@ -1,5 +1,6 @@
 import { Asistente } from "./asistente.model";
 import { Category } from "./category.model";
+import { Combo } from "./combo.model";
 import { FileHandle } from "./file-handle.model";
 import { Institution } from "./institution.model";
 import { User } from "./user.model";
@@ -19,4 +20,7 @@ export interface Evento{
     organizador: User;
     eventoImagenes: FileHandle[];
     asistentes: Asistente[];
+    combos: Combo[];
+    boost: boolean;
+    terminosAceptados: boolean;
 }
