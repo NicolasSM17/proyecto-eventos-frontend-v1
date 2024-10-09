@@ -15,7 +15,7 @@ export interface Evento{
     direccion: string;
     direccionUrl: string;
     precioEntrada: number;
-    institucion: Institution;
+    instituciones: Institution[];
     categorias: Category[];
     organizador: User;
     eventoImagenes: FileHandle[];

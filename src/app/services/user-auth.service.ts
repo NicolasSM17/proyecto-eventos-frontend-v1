@@ -15,11 +15,11 @@ export class UserAuthService {
   constructor(private httpClient: HttpClient) { }
 
   public register(registerData){
-    return this.httpClient.post(this.PATH_OF_API + 'auth/register', registerData);
+    return this.httpClient.post(this.PATH_OF_API_PROD + 'auth/register', registerData);
   }
 
   public login(loginData){
-    return this.httpClient.post(this.PATH_OF_API+ "auth/authenticate", loginData, {headers: this.requestHeader}).pipe(
+    return this.httpClient.post(this.PATH_OF_API_PROD+ "auth/authenticate", loginData, {headers: this.requestHeader}).pipe(
       tap((response: AuthenticationResponse) => {
           localStorage.setItem('user', JSON.stringify(response.usuario));
         }

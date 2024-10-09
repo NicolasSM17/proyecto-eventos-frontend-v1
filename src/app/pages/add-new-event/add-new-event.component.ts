@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild   } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
@@ -13,6 +13,9 @@ import { InstitutionService } from 'src/app/services/institution.service';
 import { Router } from '@angular/router';
 import { UserAuthService } from 'src/app/services/user-auth.service';
 import { Combo } from 'src/app/model/combo.model';
+import { ComboService } from 'src/app/services/combo.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-add-new-event',
@@ -35,7 +38,7 @@ export class AddNewEventComponent implements OnInit{
     direccion: "",
     direccionUrl: "",
     precioEntrada: 0,
-    institucion: { id: null, nombre: "", imagenUrl: "", selected: false},
+    instituciones: [],
     categorias: [],
     organizador: null,
     eventoImagenes:[],
@@ -44,20 +47,37 @@ export class AddNewEventComponent implements OnInit{
     boost: false,
     terminosAceptados: false
   };
+  isMaxCombosReached = false;
+  modalRef: any;
+  
+  comboEditado: any = {};
 
   aceptarTerminos: boolean = false;
 
-  // Add Combo array
-  combos: Combo[] = [];
+  combos = [];
+
+  imagenesPredefinidas = [
+    'https://png.pngtree.com/png-clipart/20231013/original/pngtree-classic-burger-and-crispy-fries-delicious-combo-png-image_13295935.png',
+    'https://ejemplo.com/imagen2.png',
+    'https://ejemplo.com/imagen3.png',
+    'https://ejemplo.com/imagen4.png',
+    'https://ejemplo.com/imagen5.png',
+    'https://ejemplo.com/imagen6.png'
+  ];
+
+
+  @ViewChild('content') modalContent: TemplateRef<any>;
 
   constructor(private eventService: EventService, private categoryService: CategoryService,
               private institutionService: InstitutionService, private sanitizer: DomSanitizer,
-              private userAuthService: UserAuthService, private router: Router){}
+              private userAuthService: UserAuthService, private router: Router, private comboService: ComboService,
+              private modalService: NgbModal, private cdr: ChangeDetectorRef) { }
   
   ngOnInit(): void {
     this.getCategory();
     this.getInstituciones();
-
+    
+    this.combos = this.comboService.getCombos();
     /*
     this.evento = this.activatedRoute.snapshot.data['evento'];
 
@@ -72,23 +92,24 @@ export class AddNewEventComponent implements OnInit{
   }
 
   selectPoint(institution: Institution) {
-    // Unselect all institutions
-    this.institutions.forEach(inst => inst.selected = false);
-    
-    // Select the clicked institution
-    institution.selected = true;
+    // Cambia el estado de selección de la institución (toggle)
+    institution.selected = !institution.selected;
   
-    // Assign the selected institution to the evento object
-    this.evento.institucion = institution;
+    // Actualiza el array de instituciones seleccionadas en el evento
+    this.evento.instituciones = this.institutions.filter(inst => inst.selected);
   }
 
   addEvento(eventoForm: NgForm){
     const organizadorId = this.userAuthService.getUserId();
 
-    // Assign selected institution to evento object
-    const selectedInstitution = this.institutions.find(inst => inst.selected);
-    if (selectedInstitution) {
-      this.evento.institucion = selectedInstitution;
+    // Asignar la(s) instituciones seleccionadas al objeto evento
+    const selectedInstitutions = this.institutions.filter(inst => inst.selected);
+    if (selectedInstitutions.length > 0) {
+        this.evento.instituciones = selectedInstitutions; // Ahora esto es un array
+    } else {
+        // Puedes manejar el caso donde no se seleccionó ninguna institución, si es necesario
+        console.error('No se ha seleccionado ninguna institución.');
+        return; // O manejarlo como desees
     }
 
     // Add selected combos to the event object
@@ -215,8 +236,43 @@ export class AddNewEventComponent implements OnInit{
       precio: 0
     };
     this.combos.push(nuevoCombo);
-    if (this.combos.length >= 5) {
-      // Deshabilitar el botón para agregar combos
+    if (this.combos.length >= 6) {
+      this.isMaxCombosReached = true;
     }
+  }
+
+  eliminarCombo(combo: any) {
+    // Lógica para eliminar el elemento "Combo" seleccionado
+    this.combos = this.combos.filter(c => c !== combo);
+    if (this.combos.length < 6) {
+      this.isMaxCombosReached = false;
+    }
+  }
+
+  modificarCombo(combo: any) {
+    this.comboEditado = {...combo};  // Crea una copia del combo
+    this.modalRef = this.modalService.open(this.modalContent);
+  }
+
+  guardarCambios() {
+    const index = this.combos.findIndex(c => c.id === this.comboEditado.id);
+    if (index !== -1) {
+      this.combos[index] = {...this.comboEditado};
+      this.comboService.updateCombo(this.comboEditado);
+    }
+    this.modalRef.close();
+  }
+
+  cerrarModal() {
+    this.modalRef.dismiss('Cross click');
+  }
+
+  seleccionarImagen(imagen: string) {
+    this.comboEditado.imagen = imagen;
+  } 
+
+  onCheckboxChange() {
+    this.aceptarTerminos = !this.aceptarTerminos;
+    this.cdr.detectChanges(); // Forzar la detección de cambios si es necesario
   }
 }
