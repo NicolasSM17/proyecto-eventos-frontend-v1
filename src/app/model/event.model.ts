@@ -20,7 +20,9 @@ export interface Evento{
     organizador: User;
     eventoImagenes: FileHandle[];
     asistentes: Asistente[];
-    combos: Combo[];
+    
+    combosRegulares: Combo[];
+    combosConProveedores: Combo[];
     boost: boolean;
     terminosAceptados: boolean;
 }

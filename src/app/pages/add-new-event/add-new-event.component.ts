@@ -54,8 +54,9 @@ export class AddNewEventComponent implements OnInit {
 
     instituciones: [],
     
-
-    combos: [], // Add combos here
+    combosRegulares:[],
+    combosConProveedores:[],
+    
     boost: false,
     terminosAceptados: false
   };
@@ -67,7 +68,7 @@ export class AddNewEventComponent implements OnInit {
   aceptarTerminos: boolean = false;
 
 
-  combos: ComboWithState[] = [];
+  combos: [];
   combosRegulares: ComboWithState[] = [];
   combosConProveedores: ComboWithState[] = [];
 
@@ -96,7 +97,7 @@ export class AddNewEventComponent implements OnInit {
     this.getCategory();
     this.getInstituciones();
 
-    this.combos = this.comboService.getCombos().map(combo => ({ ...combo, state: 'active' as const }));
+    
 
     this.combosRegulares = this.comboService.getCombos().map(combo => ({ ...combo, state: 'active' as const }));
     this.combosConProveedores = this.comboService.getCombos(true).map(combo => ({ ...combo, state: 'active' as const }));
@@ -149,7 +150,8 @@ export class AddNewEventComponent implements OnInit {
     }
 
     // Add selected combos to the event object
-    this.evento.combos = this.combos;
+    this.evento.combosRegulares = this.combosRegulares;
+    this.evento.combosConProveedores = this.combosConProveedores;
 
     this.evento.terminosAceptados = this.aceptarTerminos;
 
