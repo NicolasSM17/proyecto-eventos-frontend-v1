@@ -1,0 +1,116 @@
+<app-navbar></app-navbar>
+<div class="container my-5" id="main-container">
+    <h1>Mantenimiento de Deportes</h1>
+
+    <a class="btn btn-primary my-4" (click)="onOpenModal(null, 'add')">Agregar</a>
+    <table class="table table-dark table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>NOMBRE</th>
+                <th>ACCIONES</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let deporte of deportes">
+                <th>{{ deporte.id }}</th>
+                <td>{{ deporte.nombre }}</td>
+                <td>
+                    <a class="btn btn-success mx-3" (click)="onOpenModal(deporte, 'edit')" data-original-title="Edit">Editar</a>
+                    <a class="btn btn-danger" (click)="onOpenModal(deporte, 'delete')" data-original-title="Delete">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Add Categoria Modal -->
+    <div class="modal fade" id="addSportModal" tabindex="-1" role="dialog" aria-labelledby="addSportModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: black;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addSportModalLabel">Añadir Categoria</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form #addForm="ngForm" (ngSubmit)="onAddDeporte(addForm)" id="add-sport-form">
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" ngModel name="nombre" class="form-control" id="nombre" placeholder="Nombre"
+                                required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="add-employee-form" class="btn btn-secondary"
+                                data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" id="cerrar">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Categoria -->
+    <div class="modal fade" id="updateSportModal" tabindex="-1" role="dialog" aria-labelledby="updateSportModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: black;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateSportModalLabel">Editar Categoria {{editDeportes?.nombre}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form #editForm="ngForm" id="edit-category-form">
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" ngModel="{{editDeportes?.nombre}}" name="nombre" class="form-control" id="name"
+                                aria-describedby="emailHelp" placeholder="Name">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                            <button (click)="onUpdateDeporte(editDeportes.id, editForm.value)" data-dismiss="modal"
+                                class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Categoria -->
+    <div class="modal fade" id="deleteSportModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: black;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteSportModalLabel">Eliminar Deporte</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Estas seguro de eliminar deporte: {{deleteDeportes?.nombre}}?</p>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                        <button (click)="onDeleteDeporte(deleteDeportes?.id)" class="btn btn-danger"
+                            data-dismiss="modal">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Notification for no Categorias -->
+    <div *ngIf="deportes?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+        <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">NO HAY DEPORTES!</h4>
+            <p>No se encontraron Deportes.</p>
+        </div>
+    </div>
+</div>
+

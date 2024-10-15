@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, TemplateRef, ViewChild, ElementRef, ViewChildren, QueryList, ChangeDetectorRef, NgZone, Renderer2 } from '@angular/core';
+
 import { NgForm } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Category } from 'src/app/model/category.model';
@@ -11,6 +12,7 @@ import { EventService } from 'src/app/services/event.service';
 import { InstitutionService } from 'src/app/services/institution.service';
 import { Router } from '@angular/router';
 import { UserAuthService } from 'src/app/services/user-auth.service';
+
 import { ComboService } from 'src/app/services/combo.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Combo } from '../../model/combo.model';
@@ -44,11 +46,18 @@ export class AddNewEventComponent implements OnInit {
     direccion: "",
     direccionUrl: "",
     precioEntrada: 0,
-    institucion: { id: null, nombre: "", imagenUrl: "", selected: false },
+    
     categorias: [],
     organizador: null,
     eventoImagenes: [],
-    asistentes: []
+    asistentes: [],
+
+    instituciones: [],
+    
+
+    combos: [], // Add combos here
+    boost: false,
+    terminosAceptados: false
   };
 
   modalRef: any;
@@ -57,8 +66,8 @@ export class AddNewEventComponent implements OnInit {
 
   aceptarTerminos: boolean = false;
 
-  combos: ComboWithState[] = [];
 
+  combos: ComboWithState[] = [];
   combosRegulares: ComboWithState[] = [];
   combosConProveedores: ComboWithState[] = [];
 
@@ -115,7 +124,11 @@ export class AddNewEventComponent implements OnInit {
 
 
   selectPoint(institution: any) {
-    institution.selected = !institution.selected;
+   // Cambia el estado de selección de la institución (toggle)
+   institution.selected = !institution.selected;
+  
+   // Actualiza el array de instituciones seleccionadas en el evento
+   this.evento.instituciones = this.institutions.filter(inst => inst.selected);
   }
   onCheckboxClick(event: MouseEvent, institution: any) {
     event.stopPropagation();
@@ -125,11 +138,20 @@ export class AddNewEventComponent implements OnInit {
   addEvento(eventoForm: NgForm) {
     const organizadorId = this.userAuthService.getUserId();
 
-    this.evento.categorias = this.selectedCategoriaIds.map(
-      id => this.categorias.find(
-        cat => cat.id === id
-      )
-    );
+    // Asignar la(s) instituciones seleccionadas al objeto evento
+    const selectedInstitutions = this.institutions.filter(inst => inst.selected);
+    if (selectedInstitutions.length > 0) {
+        this.evento.instituciones = selectedInstitutions; // Ahora esto es un array
+    } else {
+        // Puedes manejar el caso donde no se seleccionó ninguna institución, si es necesario
+        console.error('No se ha seleccionado ninguna institución.');
+        return; // O manejarlo como desees
+    }
+
+    // Add selected combos to the event object
+    this.evento.combos = this.combos;
+
+    this.evento.terminosAceptados = this.aceptarTerminos;
 
     const eventoFormData = this.prepareFormData(this.evento);
 
@@ -298,6 +320,11 @@ export class AddNewEventComponent implements OnInit {
       }
     });
   });
+}
+
+onCheckboxChange() {
+  this.aceptarTerminos = !this.aceptarTerminos;
+  this.cdr.detectChanges(); // Forzar la detección de cambios si es necesario
 }
 
 

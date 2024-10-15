@@ -826,7 +826,7 @@
                 <div class="col-md-6 mt-5 mb-5">
                     <label for="institucion">Institución:</label>
                     <select id="institucion" class="form-control" name="institucion"
-                        [(ngModel)]="evento.institucion.id">
+                        [(ngModel)]="evento.instituciones">
                         <option selected value="">Seleccione una opción</option>
                         <option *ngFor="let institucion of institutions" [value]="institucion.id">{{ institucion.nombre
                             }}</option>

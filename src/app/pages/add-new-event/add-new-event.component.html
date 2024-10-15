@@ -50,7 +50,7 @@
 
 
 
-<form #eventoForm="ngForm">
+<form #eventoForm="ngForm" (ngSubmit)="addEvento(eventoForm)">
     <div class="container mt-5">
 
         <!--PASO 2 y 3 unidos-->
@@ -255,9 +255,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
                 </div>
             </div>
 
@@ -319,7 +316,7 @@
                 </div>
                 <div class="col-md-6 mt-5 mb-5">
                     <h2 class="display-4" style="margin-bottom: 100px;">¿Como deseas agregar tus combos?</h2>
-
+    
                     <div class="d-flex flex-column align-items-center">
                         <button class="btn btn-2 btn-lg mb-5" (click)="agregarProveedores()">Con Proveedores
                             Recomendados</button>
@@ -328,7 +325,6 @@
                     </div>
                 </div>
             </div>
-
 
         </div>
 
@@ -484,9 +480,6 @@
 
                 </div>
             </div>
-
-
-
         </div>
 
 
@@ -508,14 +501,13 @@
                 </div>
                 <div class="mt-5 mb-5">
                     <div class="form-check mt-3">
-                        <input class="form-check-input" type="checkbox" id="terminos-y-condiciones"
-                            [(ngModel)]="aceptarTerminos" style="width: 22px; height: 22px;">
+                        <input class="form-check-input" type="checkbox" id="terminos-y-condiciones" name="terminosAceptados"
+                            [(ngModel)]="aceptarTerminos" (change)="onCheckboxChange()" style="width: 22px; height: 22px;">
                         <label class="form-check-label" for="terminos-y-condiciones" style="font-size: 18px;">He leído
                             los Terminos y Condiciones de la página</label>
                     </div>
                 </div>
             </div>
-
 
         </div>
 
@@ -532,17 +524,16 @@
                     (click)="next()">Siguiente</button>
 
                 <button class="btn btn-link" type="button" *ngIf="step == 7" (click)="omitir()">Omitir</button>
-
+                
                 <!-- BOTONES ESPECIALES -->
-
-                <button class="btn btn-outline-secondary" type="button" *ngIf="step >= 8 &&  step <= 10"
+                 <button class="btn btn-outline-secondary" type="button" *ngIf="step >= 8 &&  step <= 10"
                     (click)="specialPrevius()">Atrás</button>
 
                 <button class="btn btn-2" type="button" *ngIf="step >= 8  && step < 10"
                     (click)="specialNext()">Siguiente</button>
 
                 <!--  -->
-                <button class="btn btn-2" type="submit" *ngIf="step == 10">PUBLICAR EVENTO</button>
+                 <button class="btn btn-2" type="submit" [disabled]="!aceptarTerminos" *ngIf="step == 10">PUBLICAR EVENTO</button>
             </div>
         </div>
     </div>

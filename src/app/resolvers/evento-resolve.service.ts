@@ -36,11 +36,14 @@ export class EventoResolveService implements Resolve<Evento>{
       direccion: "",
       direccionUrl: "",
       precioEntrada: 0,
-      institucion: null,
+      instituciones: [],
       categorias: [],
       organizador: null,
       eventoImagenes: [],
-      asistentes: []
+      asistentes: [],
+      combos: [], // Add combos here
+      boost: false,
+      terminosAceptados: false
     };
   }
 }
