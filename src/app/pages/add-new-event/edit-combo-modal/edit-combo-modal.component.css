@@ -1,0 +1,76 @@
+.modal-wrapper {
+   
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1050;
+  }
+  
+  .modal-backdrop {
+   
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(12 11 11 / 70%);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    z-index: 1060;
+  }
+  
+  .modal-content {
+   
+    background-color: rgb(12 11 11 / 70%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    z-index: 1070;
+    width: 100%;
+    max-width: 600px;
+    
+    border-radius: 10px;
+  }
+  
+  .modal-header,
+  .modal-footer {
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  .modal-body {
+    color: #333;
+  }
+  
+  .form-control {
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+  }
+  
+  .form-control:focus {
+    background-color: #fff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    border: none;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
+  .btn-secondary {
+    background-color: #6c757d;
+    border: none;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #545b62;
+  }
+
+  label {
+    color: aliceblue;
+  }
