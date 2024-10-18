@@ -42,7 +42,9 @@ export class EventoResolveService implements Resolve<Evento>{
       organizador: null,
       eventoImagenes: [],
       asistentes: [],
-      combos: [], // Add combos here
+      combos: [], 
+      combosRegulares:[],
+      combosConProveedores:[],
       boost: false,
       terminosAceptados: false
     };

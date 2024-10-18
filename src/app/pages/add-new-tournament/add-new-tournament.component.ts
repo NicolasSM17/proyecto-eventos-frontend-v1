@@ -85,7 +85,9 @@ export class AddNewTournamentComponent implements OnInit {
     organizador: null,
     eventoImagenes: [],
     asistentes: [],
-    combos: [], // Add combos here
+    
+    combosRegulares:[],
+    combosConProveedores:[],
     boost: false,
     terminosAceptados: false
   };

@@ -247,13 +247,17 @@
                                     </div>
 
                                     <p draggable="false" style="margin-top: 10px;"><b>{{ institution.nombre }}</b></p>
+                                    <div class="checkbox-container">
+                                        <input type="checkbox" [checked]="institution.selected"
+                                            (click)="onCheckboxClick($event, institution)">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
 
         </div>
 
@@ -292,7 +296,7 @@
                     </div>
                 </div>
             </div>
-            
+
 
         </div>
 
@@ -325,18 +329,49 @@
         </div>
 
         <div *ngIf="step == 8">
-            <div class="row">
-                <div class="col-md-6 d-flex flex-column align-items-center justify-content-center vh-90 mt-5">
+            <div class="row proveedores-combos-container">
+                <div class="col-lg-8 d-flex flex-column align-items-center justify-content-center vh-90 mt-5">
                     <h2 class="display-4">Vender con Proveedores recomendados</h2>
                     <p class="mt-2">
                         Aquí podras escoger los combos patrocinados por nuestros Proveedores.<br>
                         Se te facilita un catologo del cual podras escoger las multiples opciones de las cuales podras
                         escoger la querer
-                        más se adapte a lo que necesita tu evento</p>
-                    <img src="https://cdn-icons-png.flaticon.com/512/1940/1940180.png" alt="icono de subir imagen"
-                        class="imagen-paso4" style="width: 50%; margin-top: -20px;">
+                        más se adapte a lo que necesita tu evento
+                    </p>
+                    <div class="combos-proveedor-container">
+                        <ng-container *ngIf="combosConProveedores.length > 0; else noCombosProveedores">
+                            <div class="combos-proveedor-grid">
+                                <div *ngFor="let combo of combosConProveedores; let i = index; trackBy: trackByCombo"
+                                    class="combo-proveedor-item" 
+                                    #comboItemProveedor>
+                                    <div class="combo-proveedor-card">
+                                        
+                                        <div class="combo-proveedor-body">
+                                            <h5 class="combo-proveedor-title">{{ combo.name }}</h5>
+                                            <p class="combo-proveedor-descripcion">{{ combo.descripcion }}</p>
+                                            <img [src]="combo.imagen" alt="Imagen del combo" class="combo-proveedor-imagen">
+                                            <p class="combo-proveedor-precio">Precio: S/{{ combo.precio }}</p>
+                                            <p class="combo-proveedor-proveedor">Proveedor: {{ combo.proveedor }}</p>
+                                        </div>
+                                        <div class="combo-proveedor-delete">
+                                            <button class="btn btn-danger btn-deleteCombo" (click)="eliminarCombo(combo, true)">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em"
+                                                        viewBox="0 0 256 256">
+                                                        <path fill="currentColor"
+                                                            d="M216 48h-36V36a28 28 0 0 0-28-28h-48a28 28 0 0 0-28 28v12H40a12 12 0 0 0 0 24h4v136a20 20 0 0 0 20 20h128a20 20 0 0 0 20-20V72h4a12 12 0 0 0 0-24M100 36a4 4 0 0 1 4-4h48a4 4 0 0 1 4 4v12h-56Zm88 168H68V72h120Zm-72-100v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0m48 0v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0" />
+                                                    </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <ng-template #noCombosProveedores>
+                            <p>No hay combos con proveedores disponibles.</p>
+                        </ng-template>
+                    </div>
                 </div>
-                <div class="col-md-6 mt-5 mb-5">
+                <div class="col-lg-4 mt-5 mb-5">
                     <h2 class="display-4" style="margin-bottom: 100px;">Proveedores</h2>
 
 
@@ -364,94 +399,83 @@
             <div class="mt-5 mb-5 mt-5" style="width: 100%;">
                 <div class="row">
                     <div class="col-md-12" style="margin-bottom: 30px;">
-                        <h2>Combos</h2>
-                        <button class="btn btn-primary" [disabled]="isMaxCombosReached" (click)="agregarCombo()">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48"
+                        <h2></h2>
+                        <button class="btn btn-primary btn-addCombo" [disabled]="isMaxCombosRegularesReached" (click)="agregarCombo()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 48 48"
                                 style="margin-right: 5px;">
                                 <path fill="#2f88ff" stroke="#000" stroke-linejoin="round" stroke-width="4"
                                     d="M30 4H18V18H4V30H18V44H30V30H44V18H30V4Z" />
                             </svg>
                             Añadir Combo
                         </button>
-                        <div *ngIf="isMaxCombosReached">
+                        <div *ngIf="isMaxCombosRegularesReached">
                             <small style="color: red;">Cantidad máxima de combos alcanzada</small>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div *ngFor="let combo of combos; let i = index" class="col-md-4">
-                            <div class="card combo-card">
-                                <div class="card-header float-right">
-                                    <button class="btn btn-primary" (click)="modificarCombo(combo)">Modificar
-                                    </button>
-                                </div>
-                                <div class="card-body">
 
 
-                                    <h5 class="card-title">{{ combo.nombre }}</h5>
-                                    <p class="card-text descripcion">{{ combo.descripcion }}</p>
-                                    <img src="{{ combo.imagen }}" alt="Imagen del combo" class="imagen-combo">
-                                    <p class="card-text">Precio: S/{{ combo.precio }}</p>
-                                    <div class="float-right">
-                                        <button class="btn btn-danger" (click)="eliminarCombo(combo)">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em"
-                                                viewBox="0 0 256 256">
-                                                <path fill="currentColor"
-                                                    d="M216 48h-36V36a28 28 0 0 0-28-28h-48a28 28 0 0 0-28 28v12H40a12 12 0 0 0 0 24h4v136a20 20 0 0 0 20 20h128a20 20 0 0 0 20-20V72h4a12 12 0 0 0 0-24M100 36a4 4 0 0 1 4-4h48a4 4 0 0 1 4 4v12h-56Zm88 168H68V72h120Zm-72-100v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0m48 0v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0" />
-                                            </svg>
+                        <ng-container *ngIf="combosRegulares.length > 0; else noCombos">
+                            <div class="combo-container">
+                                <div *ngFor="let combo of combosRegulares; let i = index; trackBy: trackByCombo"
+                                    class="combo-item col-md-4" 
+                                    
+                                    #comboItem>
+                                    <div class="card combo-card">
+                                        <div class="combo-config float-right">
+                                            <button class="btn btn-primary btn-edit"
+                                                (click)="modificarCombo(combo)">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="20" stroke-dashoffset="20" d="M3 21h18"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.2s" values="20;0"/></path><path stroke-dasharray="48" stroke-dashoffset="48" d="M7 17v-4l10 -10l4 4l-10 10h-4"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.2s" dur="0.6s" values="48;0"/></path><path stroke-dasharray="8" stroke-dashoffset="8" d="M14 6l4 4"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.8s" dur="0.2s" values="8;0"/></path></g></svg>
+                                            </button>
+                                        </div>
+                                        <div class="card-body combo-body">
+                                            
+                                            <h5 class="card-title">{{ combo.name }}</h5>
+                                            <p class="card-text descripcion">{{ combo.descripcion }}</p>
+                                            <img [src]="combo.imagen" alt="Imagen del combo" class="imagen-combo">
+                                            <p class="card-text">Precio: S/{{ combo.precio }}</p>
+                                            
+                                        </div>
 
-                                        </button>
+                                        <div class="combo-delete float-right">
+                                                <button class="btn btn-danger" (click)="eliminarCombo(combo)">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em"
+                                                        viewBox="0 0 256 256">
+                                                        <path fill="currentColor"
+                                                            d="M216 48h-36V36a28 28 0 0 0-28-28h-48a28 28 0 0 0-28 28v12H40a12 12 0 0 0 0 24h4v136a20 20 0 0 0 20 20h128a20 20 0 0 0 20-20V72h4a12 12 0 0 0 0-24M100 36a4 4 0 0 1 4-4h48a4 4 0 0 1 4 4v12h-56Zm88 168H68V72h120Zm-72-100v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0m48 0v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0" />
+                                                    </svg>
+                                                </button>
+                                            </div>
                                     </div>
-
-                                    <!-- Ventana modal -->
-                                    <ng-template #content>
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Modificar Combo</h5>
-
-                                        </div>
-                                        <div class="modal-body">
-                                            <!-- Contenido de la ventana modal -->
-                                            <form>
-                                                <div class="form-group">
-                                                    <label for="nombre" style="color: black;">Nombre</label>
-                                                    <input type="text" class="form-control" id="nombre" name="nombre"
-                                                        [(ngModel)]="comboEditado.nombre">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="descripcion" style="color: black;">Descripción</label>
-                                                    <textarea class="form-control" id="descripcion" name="descripcion"
-                                                        [(ngModel)]="comboEditado.descripcion"></textarea>
-                                                </div>
-
-                                                <div class="form-group mt-3">
-                                                    <label for="imagen" style="color: black;">Imagen</label>
-                                                    <div class="d-flex flex-wrap">
-                                                        <div *ngFor="let img of imagenesPredefinidas; let i = index" class="m-2">
-                                                            <img [src]="img" [class.selected]="comboEditado.imagen === img" (click)="seleccionarImagen(img)"
-                                                                alt="Opción de imagen {{i+1}}"
-                                                                style="width: 200px; height: 200px; object-fit: cover; cursor: pointer; border: 2px solid transparent;"
-                                                                [style.border-color]="comboEditado.imagen === img ? 'blue' : 'transparent'">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="precio" style="color: black;">Precio</label>
-                                                    <input type="number" class="form-control" id="precio" name="precio"
-                                                        [(ngModel)]="comboEditado.precio">
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                (click)="cerrarModal()">Cancelar</button>
-                                            <button type="button" class="btn btn-primary"
-                                                (click)="guardarCambios()">Guardar cambios</button>
-                                        </div>
-                                    </ng-template>
                                 </div>
                             </div>
-                        </div>
+                        </ng-container>
+
+                        <ng-template #noCombos>
+                            <div class="row justify-content-center" [@noCombosAnimation]>
+                                <div class="col-md-8 col-lg-6">
+                                    <div class="add-combo-container d-flex justify-content-center align-items-center">
+                                        <h2 class="add-combo-text mb-0 me-4">Agregue un Combo</h2>
+                                        <button class="btn-add-combo" (click)="agregarCombo()">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="3em" height="3em"
+                                                viewBox="0 0 24 24">
+                                                <g fill="none" fill-rule="evenodd">
+                                                    <path
+                                                        d="m12.594 23.258l-.012.002l-.071.035l-.02.004l-.014-.004l-.071-.036q-.016-.004-.024.006l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.016-.018m.264-.113l-.014.002l-.184.093l-.01.01l-.003.011l.018.43l.005.012l.008.008l.201.092q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.003-.011l.018-.43l-.003-.012l-.01-.01z" />
+                                                    <path fill="currentColor"
+                                                        d="M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v4h4a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-4v4a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2v-4H5a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h4zm4 0h-2v5a1 1 0 0 1-1 1H5v2h5a1 1 0 0 1 1 1v5h2v-5a1 1 0 0 1 1-1h5v-2h-5a1 1 0 0 1-1-1z" />
+                                                </g>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+
+                      
+
+
                     </div>
 
                 </div>
