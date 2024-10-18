@@ -10,11 +10,24 @@
         <div class="evento-descripcion">
             <h2><strong>Información general</strong></h2><br>
             <p>{{ evento?.descripcion }}</p><br>
+
             <h2><strong>Categorias</strong></h2><br>
             <div class="categorias-container">
                 <mat-chip-listbox>
                     <mat-chip color="accent" *ngFor="let categoria of evento?.categorias">{{ categoria.nombre }}</mat-chip>
                 </mat-chip-listbox>
+            </div>
+
+            <!-- Sección de Código Autogenerado (Visible solo para el creador) -->
+            <div *ngIf="esCreador" class="codigoEvento-container mt-5">
+                <h2>
+                    <strong>Código Autogenerado</strong>
+                    <i class="fa-solid fa-circle-info mx-3" title="El codigo solo es visible para el creador del evento"></i>
+                </h2>
+                
+                <div class="codigo-container" (click)="copiarCodigo(evento?.codigoAutogenerado)">
+                    <p style="cursor: pointer;">{{ evento?.codigoAutogenerado }}</p>
+                </div>
             </div>
         </div>
         <div class="evento-adicionales">
@@ -60,6 +73,8 @@
     </div>
     <div class="barra-fija">
         <span><b>{{ evento?.titulo | uppercase }}</b></span>
-        <button class="btn-comprar" [routerLink]="['/eventBuys']" [queryParams]="{ eventoId: evento.id }"><b>Comprar ahora</b></button>
+        <button class="action-button btn-comprar" [disabled]="esCreador" [routerLink]="['/eventBuys']" [queryParams]="{ eventoId: evento.id }">
+            <b>Comprar ahora</b>
+        </button>
     </div>
 </div>

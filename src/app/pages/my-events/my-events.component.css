@@ -24,3 +24,36 @@ img{
 .arrow-cell:hover .arrow-icon {
     opacity: 1; /* Muestra la flecha cuando el cursor está sobre el td */
 }
+
+.arrow-cell svg:hover{
+    fill: #f77d31;
+}
+
+.modal-content{
+    background: rgba(0, 0, 0);
+}
+
+.btn-close{
+    background-color: white;
+}
+
+.modal-img img{
+    width: 60%;
+    height: 60%;;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.modal-body svg{
+    height: 100px;
+    width: 100px;
+}
+
+.app-icon {
+    position: absolute;
+    top: -30px;
+    left: -100px;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}

@@ -1,7 +1,18 @@
 <app-custom-navbar></app-custom-navbar>
 
-<h1 class="mt-5 mb-5">Bienvenido Distribuidor</h1>
+<div class="container">
+    <h1 class="mt-5 mb-5">Bienvenido Distribuidor</h1>
 
-<p class="mt-5">Ingresa aqui el codigo de evento:</p>
-<input type="text"><br>
-<button class="btn btn-success mt-3" (click)="verification()">Verificar</button>
+    <div class="div-form">
+        <p class="mt-5">Ingresa aquí el código de evento:</p>
+        <input type="text" class="form-control w-25 mb-3" [(ngModel)]="codigoEvento" maxlength="8" style="margin-left: 37%;">
+        <button class="btn btn-success mt-3 mb-5" (click)="verification()">Verificar</button>
+    </div>
+
+    <div class="alert alert-warning d-flex align-items-center mt-5" role="alert">
+        <i class="fa-solid fa-triangle-exclamation mx-3"></i>
+        <div>
+            Los codigos autogenerados de los eventos solo se podrán consultar 1 vez.
+        </div>
+    </div>
+</div>

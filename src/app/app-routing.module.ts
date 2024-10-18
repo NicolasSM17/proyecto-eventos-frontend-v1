@@ -28,6 +28,8 @@ import { ConfirmationScreenComponent } from './pages/confirmation-screen/confirm
 import { PurchaseSummaryComponent } from './pages/purchase-summary/purchase-summary.component';
 import { CodeVerificationComponent } from './pages/code-verification/code-verification.component';
 import { ViewSportsComponent } from './admin/view-sports/view-sports.component';
+import { BoostRequestsComponent } from './admin/boost-requests/boost-requests.component';
+import { TicketRequestsComponent } from './admin/ticket-requests/ticket-requests.component';
 
 
 const routes: Routes = [
@@ -43,6 +45,8 @@ const routes: Routes = [
   {path: "viewInstitutions", component: ViewInstitutionsComponent, canActivate:[AuthGuard], data:{roles:['ADMIN']}},
   {path: "viewCategories", component: ViewCategoriesComponent, canActivate:[AuthGuard], data:{roles:['ADMIN']}},
   {path: "viewSports", component: ViewSportsComponent, canActivate:[AuthGuard], data:{roles:['ADMIN']}},
+  {path: "boostRequests", component: BoostRequestsComponent, canActivate:[AuthGuard], data:{roles:['ADMIN']}},
+  {path: "ticketRequests", component: TicketRequestsComponent, canActivate:[AuthGuard], data:{roles:['ADMIN']}},
   {path: "adminPanel", component: PanelComponent, canActivate:[AuthGuard], data:{roles:['ADMIN']}},
   {path: 'eventBuys', component: EventBuysComponent },
   {path: 'addNewEvent', component: AddNewEventComponent, data:{roles:['USER']}},
@@ -62,7 +66,7 @@ const routes: Routes = [
   {path: 'calendar', component: CalendarComponent, canActivate:[AuthGuard], data:{roles:['USER']}},
   {path: 'confirmationScreen', component: ConfirmationScreenComponent},
   /* {path: 'purchaseSummary', component: PurchaseSummaryComponent}, */
-  {path: 'codeVerification', component: CodeVerificationComponent}
+  {path: 'codeVerification', component: CodeVerificationComponent, canActivate:[AuthGuard], data:{roles:['DISTRIBUIDOR']}}
 ];
 
 @NgModule({

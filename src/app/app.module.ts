@@ -47,6 +47,8 @@ import { PurchaseSummaryComponent } from './pages/purchase-summary/purchase-summ
 import { CodeVerificationComponent } from './pages/code-verification/code-verification.component';
 import { ComboService } from 'src/app/services/combo.service';
 import { ViewSportsComponent } from './admin/view-sports/view-sports.component';
+import { BoostRequestsComponent } from './admin/boost-requests/boost-requests.component';
+import { TicketRequestsComponent } from './admin/ticket-requests/ticket-requests.component';
 
 registerLocaleData(localeEs, 'es');
 
@@ -82,7 +84,9 @@ registerLocaleData(localeEs, 'es');
     ConfirmationScreenComponent,
     PurchaseSummaryComponent,
     CodeVerificationComponent,
-    ViewSportsComponent
+    ViewSportsComponent,
+    BoostRequestsComponent,
+    TicketRequestsComponent
   ],
   imports: [
     BrowserModule,

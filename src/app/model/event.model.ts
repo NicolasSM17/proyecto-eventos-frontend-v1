@@ -7,6 +7,7 @@ import { User } from "./user.model";
 
 export interface Evento{
     id: number;
+    codigoAutogenerado: string;
     titulo: string;
     descripcion: string;
     fecha: string;

@@ -15,6 +15,7 @@ export class EventDetailComponent implements OnInit{
   evento: Evento;
   eventoId: number;
   institucionId: number;
+  esCreador: boolean = false; // Bandera para saber si es el creador
   eventosSimilares: Evento[] = [];
 
   constructor(private activatedRoute: ActivatedRoute, private eventoService: EventService,
@@ -39,6 +40,8 @@ export class EventDetailComponent implements OnInit{
     // Optionally, you can add animation logic here on component initialization
     const eventoInfo = document.querySelector('.evento-info');
     eventoInfo?.classList.add('visible');
+
+    
   }
   
   loadData(): void {
@@ -52,6 +55,10 @@ export class EventDetailComponent implements OnInit{
         (evento: Evento) => {
           const [hours, minutes] = evento.hora.split(':');
           evento.horaDate = new Date(0, 0, 0, +hours, +minutes);
+
+          // Verificar si el usuario logueado es el creador del evento
+          const user = JSON.parse(localStorage.getItem('user'));
+          this.esCreador = user.id && +user.id === evento.organizador.id;
 
           return this.imageProcessingService.createImages(evento);
         }
@@ -86,6 +93,13 @@ export class EventDetailComponent implements OnInit{
       (error: HttpErrorResponse) => {
         console.log(error);
       }
+    );
+  }
+
+  copiarCodigo(codigo: string): void {
+    navigator.clipboard.writeText(codigo).then(
+      () => alert('¡Código copiado al portapapeles!'),
+      (error) => console.error('Error al copiar el código:', error)
     );
   }
 }

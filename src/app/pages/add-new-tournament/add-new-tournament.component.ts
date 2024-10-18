@@ -72,6 +72,7 @@ export class AddNewTournamentComponent implements OnInit {
   categorias: Category[] = [];
   evento: Evento = {
     id: null,
+    codigoAutogenerado: "",
     titulo: "",
     descripcion: "",
     fecha: "",

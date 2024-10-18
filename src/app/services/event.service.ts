@@ -25,6 +25,10 @@ export class EventService {
     return this.httpClient.get<Evento[]>(`${this.PATH_OF_API_PROD}/eventosPorInstitucionId/${institucionId}`);
   }
 
+  getEventoByCodigoAutogenerado(codigoEvento): Observable<Evento>{
+    return this.httpClient.get<Evento>(`${this.PATH_OF_API_PROD}/eventoPorCodigoAutogenerado/${codigoEvento}`);
+  }
+
   getByIdEvento(eventoId): Observable<Evento>{
     return this.httpClient.get<Evento>(this.PATH_OF_API_PROD + "/getEventById/" + eventoId);
   }
