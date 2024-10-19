@@ -1,5 +1,5 @@
 import { ComboService } from 'src/app/services/combo.service';
-
+import { Component, OnInit, TemplateRef, ViewChild, ElementRef, ViewChildren, QueryList, ChangeDetectorRef, NgZone, Renderer2 } from '@angular/core';
 import { Combo } from '../../model/combo.model';
 
 interface ComboWithState extends Combo {
@@ -14,7 +14,20 @@ interface ComboWithState extends Combo {
 })
 export class AddNewEventComponent implements OnInit {
 
-  combos: ComboWithState[] = [];
+  combos: [];
+  combosRegulares: ComboWithState[] = [];
+  combosConProveedores: ComboWithState[] = [];
+
+  isMaxCombosRegularesReached = false;
+  isMaxCombosProveedoresReached = false;
+  readonly MAX_COMBOS = 10;
+
+  get showNoCombos(): boolean {
+    return this.combosConProveedores.length === 0 && this.combosRegulares.length === 0;
+  }
+
+  @ViewChildren('comboItem') comboItems!: QueryList<ElementRef>;
+  @ViewChildren('comboItemProveedor') comboItemsProveedores: QueryList<ElementRef>;
 
 constructor(
   private sanitizer: DomSanitizer,
@@ -25,7 +38,10 @@ constructor(
   ngOnInit(): void {
   
 
-    this.combos = this.comboService.getCombos().map(combo => ({ ...combo, state: 'active' as const }));
+    this.combosRegulares = this.comboService.getCombos().map(combo => ({ ...combo, state: 'active' as const }));
+    this.combosConProveedores = this.comboService.getCombos(true).map(combo => ({ ...combo, state: 'active' as const }));
+    this.updateMaxCombosReached();
+    this.updateShowNoCombos();
   
 
   }
@@ -33,28 +49,41 @@ constructor(
   isMaxCombosReached = false;
 
 
-  agregarCombo() {
+  agregarCombo(esComboConProveedor: boolean = false) {
+    const listaObjetivo = esComboConProveedor ? this.combosConProveedores : this.combosRegulares;
+    const isMaxReached = esComboConProveedor ? this.isMaxCombosProveedoresReached : this.isMaxCombosRegularesReached;
+  
+    if (isMaxReached) {
+      console.warn(`No se pueden agregar más combos ${esComboConProveedor ? 'con proveedores' : 'regulares'}. Límite alcanzado.`);
+      return;
+    }
+  
     const nuevoCombo: Omit<ComboWithState, 'id'> = {
-      name: `Combo ${this.combos.length + 1}`,
+      name: `Combo ${listaObjetivo.length + 1}${esComboConProveedor ? ' (Proveedor)' : ''}`,
       descripcion: 'Descripción básica',
-      imagen: 'https://png.pngtree.com/png-clipart/20231013/original/pngtree-classic-burger-and-crispy-fries-delicious-combo-png-image_13295935.png',
+      imagen: '',
       precio: 0,
       state: 'active'
     };
   
-    this.ngZone.run(() => {
-      this.comboService.addCombo(nuevoCombo);
-      this.combos = this.comboService.getCombos().map(combo => ({ ...combo, state: 'active' as const }));
-      this.isMaxCombosReached = this.combos.length >= 6;
+    if (esComboConProveedor) {
+      (nuevoCombo as any).proveedor = 'Nombre del Proveedor'; // Asegúrate de que tu modelo Combo incluya 'proveedor'
+    }
   
-      // Usamos requestAnimationFrame para asegurarnos de que el DOM se ha actualizado
+    this.ngZone.run(() => {
+      const comboAgregado = this.comboService.addCombo(nuevoCombo, esComboConProveedor);
+      listaObjetivo.push({ ...comboAgregado, state: 'active' as const });
+  
+      this.updateMaxCombosReached();
+    
+  
       requestAnimationFrame(() => {
         this.cdr.detectChanges();
   
-        if (this.comboItems && this.comboItems.last) {
-          const nuevoElemento = this.comboItems.last.nativeElement;
+        const comboItems = esComboConProveedor ? this.comboItemsProveedores : this.comboItems;
+        if (comboItems && comboItems.last) {
+          const nuevoElemento = comboItems.last.nativeElement;
   
-          // Ocultamos el elemento inicialmente
           this.renderer.setStyle(nuevoElemento, 'opacity', '0');
           this.renderer.setStyle(nuevoElemento, 'transform', 'scale(0.8) translateY(50px)');
   
@@ -62,7 +91,7 @@ constructor(
             opacity: 1,
             scale: 1,
             y: 0,
-            duration: 0.5,
+            duration: 0.6,
             ease: "back.out(1.7)",
             onComplete: () => {
               this.ngZone.run(() => {
@@ -74,11 +103,16 @@ constructor(
       });
     });
   }
-
-  eliminarCombo(combo: ComboWithState) {
-    const index = this.combos.findIndex(c => c.id === combo.id);
+  
+  
+  
+  
+  eliminarCombo(combo: ComboWithState, esComboConProveedor: boolean = false) {
+    const listaObjetivo = esComboConProveedor ? this.combosConProveedores : this.combosRegulares;
+    const index = listaObjetivo.findIndex(c => c.id === combo.id);
     if (index !== -1) {
-      const comboElements = this.comboItems.toArray();
+      const comboItems = esComboConProveedor ? this.comboItemsProveedores : this.comboItems;
+      const comboElements = comboItems.toArray();
       const comboElement = comboElements[index].nativeElement;
   
       // Capturamos las posiciones iniciales de todos los elementos
@@ -94,17 +128,22 @@ constructor(
         duration: 0.2,
         onComplete: () => {
           // Eliminamos el combo usando el servicio
-          this.comboService.deleteCombo(combo.id);
-          
-          // Actualizamos la lista de combos desde el servicio
-          this.combos = this.comboService.getCombos().map(combo => ({ ...combo, state: 'active' as const }));
-          this.isMaxCombosReached = this.combos.length >= 6;
+          this.comboService.deleteCombo(combo.id, esComboConProveedor);
+  
+          // Actualizamos la lista de combos
+          if (esComboConProveedor) {
+            this.combosConProveedores = this.comboService.getCombos(true).map(combo => ({ ...combo, state: 'active' as const }));
+            this.isMaxCombosProveedoresReached = this.combosConProveedores.length >= 10;
+          } else {
+            this.combosRegulares = this.comboService.getCombos().map(combo => ({ ...combo, state: 'active' as const }));
+            this.isMaxCombosRegularesReached = this.combosRegulares.length >= 10;
+          }
   
           // Forzamos la detección de cambios para actualizar el DOM
           this.cdr.detectChanges();
   
           // Capturamos las nuevas posiciones después de la eliminación
-          const finalPositions = this.comboItems.toArray().map(el => {
+          const finalPositions = comboItems.toArray().map(el => {
             const rect = el.nativeElement.getBoundingClientRect();
             return { left: rect.left, top: rect.top };
           });
@@ -135,28 +174,48 @@ constructor(
       });
     }
   }
-
-
-
-
-  modificarCombo(combo: any) {
+  
+  
+  modificarCombo(combo: ComboWithState, esComboConProveedor: boolean = false) {
     const modalRef = this.modalService.open(EditComboModalComponent, { windowClass: 'modal-custom-bg' });
     modalRef.componentInstance.comboEditado = { ...combo };
-
+    modalRef.componentInstance.esComboConProveedor = esComboConProveedor;
+  
     modalRef.result.then((result) => {
       if (result) {
-        this.comboService.updateCombo(result);
-        this.combos = this.comboService.getCombos().map(combo => ({ ...combo, state: 'active' }));
+        this.comboService.updateCombo(result, esComboConProveedor);
+        
+        if (esComboConProveedor) {
+          this.combosConProveedores = this.comboService.getCombos(true).map(combo => ({ ...combo, state: 'active' as const }));
+        } else {
+          this.combosRegulares = this.comboService.getCombos().map(combo => ({ ...combo, state: 'active' as const }));
+        }
+  
+        // Actualizar el combo específico en la lista local
+        const listaObjetivo = esComboConProveedor ? this.combosConProveedores : this.combosRegulares;
+        const index = listaObjetivo.findIndex(c => c.id === result.id);
+        if (index !== -1) {
+          listaObjetivo[index] = { ...result, state: 'active' as const };
+        }
+  
+        // Forzar la detección de cambios
+        this.cdr.detectChanges();
       }
     }).catch((reason) => {
       // Modal cerrado sin guardar
+      console.log('Modal cerrado sin guardar', reason);
     });
   }
-
-  trackByCombo(index: number, combo: any): number {
-    return combo.id;
+  
+  updateShowNoCombos() {
+    this.cdr.detectChanges();
   }
-
+  
+  
+    trackByCombo(index: number, combo: any): number {
+      return combo.id;
+    }
+  
 
 }
 

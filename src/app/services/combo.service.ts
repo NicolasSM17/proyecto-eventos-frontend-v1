@@ -11,9 +11,9 @@ export class ComboService {
   ];
 
   private combosConProveedores: Combo[] = [
-    { id: 1, name: 'Combo Especial 1', descripcion: 'Combo referencial(Puede ser eliminado)', imagen: 'https://png.pngtree.com/png-vector/20230318/ourmid/pngtree-black-combo-offer-vector-png-image_255090.png', precio: 12.99, proveedor: 'Proveedor A' },
-    { id: 2, name: 'Combo Especial 2', descripcion: 'Combo referencial(Puede ser eliminado)', imagen: 'https://png.pngtree.com/png-vector/20230318/ourmid/pngtree-black-combo-offer-vector-png-image_255090.png', precio: 12.99, proveedor: 'Proveedor B' },
-    { id: 3, name: 'Combo Especial 3', descripcion: 'Combo referencial(Puede ser eliminado)', imagen: 'https://png.pngtree.com/png-vector/20230318/ourmid/pngtree-black-combo-offer-vector-png-image_255090.png', precio: 12.99, proveedor: 'Proveedor C' }
+    { id: 1, name: 'Combo Especial 1', descripcion: 'Combo referencial(Puede ser eliminado)', imagen: 'https://png.pngtree.com/png-vector/20230318/ourmid/pngtree-black-combo-offer-vector-png-image_255090.png', precio: 12.99 },
+    { id: 2, name: 'Combo Especial 2', descripcion: 'Combo referencial(Puede ser eliminado)', imagen: 'https://png.pngtree.com/png-vector/20230318/ourmid/pngtree-black-combo-offer-vector-png-image_255090.png', precio: 12.99 }
+    
   ];
 
   getCombos(conProveedor: boolean = false): Combo[] {
