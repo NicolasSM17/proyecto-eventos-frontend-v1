@@ -29,6 +29,7 @@ export class EventoResolveService implements Resolve<Evento>{
   getEventoDetails(){
     return {
       id: null,
+      codigoAutogenerado: "",
       titulo: "",
       descripcion: "",
       fecha: "",

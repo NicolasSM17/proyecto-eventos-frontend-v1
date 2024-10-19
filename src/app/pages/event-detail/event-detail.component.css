@@ -128,6 +128,27 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.codigo-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.codigo-container p {
+    margin: 0;
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.codigo-container p:hover{
+    color: #bb5d22;
+}
+
+.codigoEvento-container i {
+    color: #007bff;
+}
+
 .evento-adicionales {
     background-color: #221f1f;
     flex: 1 1 40%; /* Ocupa el 50% del espacio disponible */
@@ -323,7 +344,7 @@
 }
 
 .barra-fija .btn-comprar {
-    background-color: #e50914;
+    background-color: #f77d31;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -333,5 +354,10 @@
 }
 
 .barra-fija .btn-comprar:hover {
-    background-color: #b20710;
+    background-color: #8b451a;
+}
+
+.btn-comprar:disabled {
+    background-color: gray;
+    cursor: not-allowed;
 }
