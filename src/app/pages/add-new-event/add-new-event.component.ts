@@ -14,8 +14,12 @@ import { Router } from '@angular/router';
 import { UserAuthService } from 'src/app/services/user-auth.service';
 
 import { ComboService } from 'src/app/services/combo.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Combo } from '../../model/combo.model';
+import { ProviderService } from 'src/app/services/provider.service';
+import { Provider } from '../../model/provider.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ProviderUtils } from 'src/app/utils/provider-utils';
+
 
 import { gsap } from 'gsap';
 import { EditComboModalComponent } from './edit-combo-modal/edit-combo-modal.component';
@@ -79,7 +83,7 @@ export class AddNewEventComponent implements OnInit {
 
   aceptarTerminos: boolean = false;
 
-
+  providers: Provider[] = [];
   combos: [];
   combosRegulares: ComboWithState[] = [];
   combosConProveedores: ComboWithState[] = [];
@@ -109,13 +113,14 @@ export class AddNewEventComponent implements OnInit {
   constructor(private eventService: EventService, private categoryService: CategoryService,
     private institutionService: InstitutionService, private sanitizer: DomSanitizer,
     private userAuthService: UserAuthService, private router: Router, private comboService: ComboService,
-    private modalService: NgbModal, private cdr: ChangeDetectorRef, private ngZone: NgZone, private renderer: Renderer2) { }
+    private modalService: NgbModal, private cdr: ChangeDetectorRef, private ngZone: NgZone, private renderer: Renderer2, 
+    private providerService: ProviderService) { }
 
   ngOnInit(): void {
     this.getCategory();
     this.getInstituciones();
 
-    
+    this.providers = this.providerService.getProviders();
 
     this.combosRegulares = this.comboService.getCombos().map(combo => ({ ...combo, state: 'active' as const }));
     this.combosConProveedores = this.comboService.getCombos(true).map(combo => ({ ...combo, state: 'active' as const }));
@@ -503,4 +508,17 @@ updateShowNoCombos() {
     this.cdr.detectChanges(); // Forzar la detección de cambios si es necesario
   }
   
+
+  getWhatsAppLink(provider: Provider): string {
+    return ProviderUtils.generateWhatsAppLink(provider.whatsapp);
+  }
+
+  verCatalogo(catalogId: string): void {
+    const catalogUrl = ProviderUtils.generateCatalogUrl(catalogId);
+    window.open(catalogUrl, '_blank');
+  }
+
+  getFormattedPhone(whatsapp: string): string {
+    return ProviderUtils.formatPhoneNumberForDisplay(whatsapp);
+  }
 }
