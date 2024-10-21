@@ -10,7 +10,7 @@ export class ProviderService {
       {
           id: 1,
           name: 'OPEN',
-          logo: 'assets/images/provider1-logo.jpg',
+          logo: 'assets/LogoProvider1-2.png',
           whatsapp: '+51999999999',
           catalogId: 'cat1',
           socialMedia: {
