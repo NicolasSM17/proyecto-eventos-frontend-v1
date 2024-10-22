@@ -613,99 +613,95 @@ mat-grid-tile {
 /* ESTILOS DE LA LISTA DE PROVEEDORES */
 
 .providers-container {
-    height: 600px; 
-    overflow-y: auto; 
-    padding-right: 10px; 
+  height: 300px;
+  overflow-y: auto;
+  padding-right: 10px;
+  display: flex;
+  flex-direction: column;
+  
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+
+    &:hover {
+      background: #555;
+    }
+  }
+
+  .provider-card {
+    background: rgb(95, 94, 94);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    margin-left: 50px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 1000px; /* Aumentar el ancho del contenedor */
     display: flex;
     flex-direction: column;
-    align-items: center;
-    
-    
-    &::-webkit-scrollbar {
-      width: 8px;
-    }
-    
-    &::-webkit-scrollbar-track {
-      background: #f1f1f1;
-      border-radius: 4px;
-    }
-    
-    &::-webkit-scrollbar-thumb {
-      background: #888;
-      border-radius: 4px;
-      
-      &:hover {
-        background: #555;
-      }
-    }
-  
-    .provider-card {
-      background: rgb(95, 94, 94);
-      border-radius: 8px;
-      padding: 1rem; 
+    justify-content: space-between; /* Distribuir filas de forma equitativa */
+    position: relative;
+
+    .provider-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 0.75rem;
-      margin-right: 50px; 
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      max-width: 300px; 
-      position: relative;
-      
-  
-      .provider-header {
-        display: flex;
-        align-items: center;
-        margin-bottom: 0.75rem; 
-  
-        .provider-logo {
-          width: 80px; 
-          height: 80px; 
-          margin-right: 2rem; 
-          flex-shrink: 0; 
-          
-          img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            border-radius: 50%;
-          }
-        }
-  
-        .provider-name {
-          margin: 0;
-          font-size: 1rem; 
-          font-weight: 600;
-         
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
+
+      .provider-logo {
+        width: 100px;
+        height: 100px;
+        margin-right: 2rem;
+        flex-shrink: 0;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          border-radius: 50%;
         }
       }
-  
-      .provider-actions {
+
+      .provider-socialMedia {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        align-items: center; /* Alinea los íconos dentro del contenedor */
+      
+        /* Redes sociales */
         .social-links {
           display: flex;
           gap: 0.5rem;
-          justify-content: flex-end;
-          margin-bottom: 0.75rem; 
-  
+      
           .social-btn {
-            padding: 0.4rem; 
+            padding: 0.4rem;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
-  
+      
             svg {
-              width: 20px; 
-              height: 20px; 
+              width: 20px;
+              height: 20px;
               transition: transform 0.3s ease;
             }
-  
+      
             &.facebook {
               background: #1877f2;
               color: white;
               position: relative;
               overflow: hidden;
+      
               &::before {
                 content: '';
                 position: absolute;
@@ -717,155 +713,139 @@ mat-grid-tile {
                 opacity: 0;
                 transition: opacity 0.3s ease;
               }
-
+      
               &:hover {
-              transform: translateY(-2px); 
-              
-              &::before {
-                opacity: 1;
-              }
-
-              svg {
-                transform: scale(1.1); 
-              }
-            }
-            }
-  
-            &.instagram {
-                background: #e4405f;
-                color: white;
-                position: relative;
-                overflow: hidden;
-    
+                transform: translateY(-2px);
+      
                 &::before {
-                  content: '';
-                  position: absolute;
-                  top: 0;
-                  left: 0;
-                  right: 0;
-                  bottom: 0;
-                  background: #000;
-                  opacity: 0;
-                  transition: opacity 0.3s ease;
+                  opacity: 1;
                 }
-    
-                &:hover {
-                  transform: translateY(-2px);
-                  
-                  &::before {
-                    opacity: 1;
-                  }
-    
-                  svg {
-                    transform: scale(1.1);
-                  }
+      
+                svg {
+                  transform: scale(1.1);
                 }
               }
+            }
+      
+            &.instagram {
+              background: #e4405f;
+              color: white;
+              position: relative;
+              overflow: hidden;
+      
+              &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: #000;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+              }
+      
+              &:hover {
+                transform: translateY(-2px);
+      
+                &::before {
+                  opacity: 1;
+                }
+      
+                svg {
+                  transform: scale(1.1);
+                }
+              }
+            }
+      
+            &:active {
+              transform: translateY(0);
+            }
+          }
+        }
+      }
+    }
 
-              &:active {
-                transform: translateY(0);
-              }
-          }
-        }
-  
-        .contact-actions {
+    .provider-actions {
+      display: flex;
+        justify-content: flex-end; /* Alinea los botones a la derecha */
+        gap: 0.5rem; 
+        flex-wrap: wrap;
+
+      
+
+      /* Botones de WhatsApp y Ver Catálogo */
+      .contact-actions {
+        display: flex;
+        gap: 0.4rem;
+
+        .contact-btn,
+        .catalog-btn {
           display: flex;
-          gap: 0.4rem; 
-          flex-wrap: wrap;
-  
-          .contact-btn, .catalog-btn {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.4rem; 
-            padding: 0.2rem 0.4rem; 
-            border-radius: 4px; 
-            border: none;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.8rem; 
-  
-            svg {
-              width: 15px; 
-              height: 15px;
-            }
-          }
-  
-          .whatsapp {
-            background: #25d366;
-            color: white;
-            min-width: 90px;
-            
-            span {
-             
-              @media (max-width: 350px) {
-                display: none;
-              }
-            }
-  
-            &:hover {
-              background: #128c7e;
-            }
-          }
-  
-          .catalog-btn {
-            background: #90a9c2;
-            color: #212529;
-            
-            min-width: 90px;
-            &:hover {
-              background: #457eb8;
-            }
+          align-items: center;
+          justify-content: center;
+          gap: 0.4rem;
+          padding: 0.2rem 0.8rem; /* Aumentar el relleno de los botones */
+          border-radius: 4px;
+          border: none;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          text-decoration: none;
+          font-weight: 500;
+          font-size: 0.9rem; /* Aumentar un poco el tamaño de la fuente */
+
+          svg {
+            width: 18px;
+            height: 18px;
           }
         }
-      }
-    }
-  
-    .no-providers {
-      text-align: center;
-      padding: 1.5rem; 
-      background: #f8f9fa;
-      border-radius: 8px;
-      
-      p {
-        margin: 0;
-        font-size: 0.875rem;
-      }
-    }
-  }
-  
-  
-  .col-lg-4 {
-    @media (min-width: 992px) {
-      width: 100%;
-      max-width: 400px; 
-    }
-  }
-  
- 
-  @media (max-width: 576px) {
-    .providers-container {
-      height: 500px; 
-      
-      .provider-card {
-        padding: 0.75rem;
-        
-        .provider-header {
-          .provider-logo {
-            width: 32px;
-            height: 32px;
+
+        .whatsapp {
+          background: #25d366;
+          color: white;
+
+          &:hover {
+            background: #128c7e;
           }
-          
-          .provider-name {
-            font-size: 0.875rem;
+        }
+
+        .catalog-btn {
+          background: #90a9c2;
+          color: #212529;
+
+          &:hover {
+            background: #457eb8;
           }
         }
       }
     }
   }
+}
+
+
+
+/* Estilos responsivos */
+@media (max-width: 576px) {
+  .providers-container {
+    height: 500px;
+
+    .provider-card {
+      padding: 0.75rem;
+      max-width: 100%; /* Aumentar ancho en pantallas pequeñas */
+
+      .provider-header {
+        .provider-logo {
+          width: 32px;
+          height: 32px;
+        }
+
+        .provider-name {
+          font-size: 0.875rem;
+        }
+      }
+    }
+  }
+}
 
 
 

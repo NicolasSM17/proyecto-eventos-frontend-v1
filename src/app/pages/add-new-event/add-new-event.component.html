@@ -53,7 +53,7 @@
 <form #eventoForm="ngForm" (ngSubmit)="addEvento(eventoForm)">
     <div class="container mt-5">
 
-        <!--PASO 2 y 3 unidos-->
+        <!--PASO 2-->
         <div class="container" *ngIf="step == 2">
             <div class="row">
                 <div class="col-md-6">
@@ -80,23 +80,36 @@
                         <div class="mb-3 mt-5 w-100">
                             <label for="titulo" class="form-label">Título</label>
                             <input type="text" class="form-control" id="titulo"
-                                placeholder="Introduce el título del evento" name="titulo" [(ngModel)]="evento.titulo">
+                                placeholder="Introduce el título del evento" name="titulo" [(ngModel)]="evento.titulo"
+                                #titulo="ngModel" required minlength="2" maxlength="100" pattern=".{2,100}">
+                            <div *ngIf="titulo.invalid && titulo.touched" class="text-danger">
+                                El título debe tener entre 2 y 100 caracteres.
+                            </div>
                         </div>
 
                         <div class="mb-3 mt-5 w-100">
                             <label for="descripcion" class="form-label text-bold">Descripción</label>
                             <textarea class="form-control" id="descripcion" rows="4" name="descripcion"
-                                [(ngModel)]="evento.descripcion"
+                                [(ngModel)]="evento.descripcion" #descripcion="ngModel" required maxlength="500"
+                                (input)="updateCharCount($event)"
                                 placeholder="Introduce una descripción detallada del evento"></textarea>
+                            <div *ngIf="descripcion.invalid && descripcion.touched" class="text-danger">
+                                La descripción es obligatoria y debe tener menos de 500 caracteres.
+                            </div>
+                            <small>{{ descripcionCharCount }}/500</small>
                         </div>
 
                         <div class="mb-5 mt-5 w-40">
                             <label for="categoria" class="form-label">Categoría</label><br>
                             <select class="form-select" id="categoria" name="categorias"
-                                [(ngModel)]="selectedCategoriaIds" multiple>
-                                <option *ngFor="let categoria of categorias" [value]="categoria.id">{{ categoria.nombre
-                                    }}</option>
+                                [(ngModel)]="selectedCategoriaIds" #categoria="ngModel" required multiple>
+                                <option *ngFor="let categoria of categorias" [value]="categoria.id">
+                                    {{ categoria.nombre }}
+                                </option>
                             </select>
+                            <div *ngIf="categoria.invalid && categoria.touched" class="text-danger">
+                                Debes seleccionar al menos una categoría.
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -104,12 +117,12 @@
             <div class="row">
                 <div class="col d-flex justify-content-between">
                     <button class="btn btn-outline-secondary" (click)="previus()">Atrás</button>
-                    <button class="btn btn-2" (click)="next()">Siguiente</button>
+                    <button class="btn btn-2" (click)="next()" [disabled]="eventoForm.invalid">Siguiente</button>
                 </div>
             </div>
         </div>
 
-        <!--PASO 3 y 4 unidos-->
+        <!--PASO 3-->
 
         <div *ngIf="step == 3">
             <div class="row">
@@ -163,7 +176,7 @@
         </div>
 
 
-        <!--PASO 4 y 5 unidos-->
+        <!--PASO 4-->
 
         <div *ngIf="step == 4">
             <div class="row">
@@ -216,7 +229,7 @@
             </div>
         </div>
 
-        <!--PASO 5 y 6 unidos-->
+        <!--PASO 5-->
 
         <div *ngIf="step == 5">
             <div class="row">
@@ -266,7 +279,7 @@
 
 
 
-        <!--PASO 6 y 7 unidos-->
+        <!--PASO 6-->
 
         <div *ngIf="step == 6">
             <div class="row">
@@ -301,6 +314,7 @@
         </div>
 
 
+        <!--PASO 7-->
         <div *ngIf="step == 7">
             <div class="row">
                 <div class="col-md-6 d-flex flex-column align-items-center justify-content-center vh-90 mt-5">
@@ -316,7 +330,7 @@
                 </div>
                 <div class="col-md-6 mt-5 mb-5">
                     <h2 class="display-4" style="margin-bottom: 100px;">¿Como deseas agregar tus combos?</h2>
-    
+
                     <div class="d-flex flex-column align-items-center">
                         <button class="btn btn-2 btn-lg mb-5" (click)="agregarProveedores()">Con Proveedores
                             Recomendados</button>
@@ -328,7 +342,7 @@
 
         </div>
 
-         <!--PASO 8-->
+        <!--PASO 8-->
         <div *ngIf="step == 8">
             <div class="row proveedores-combos-container">
                 <div class="col-lg-8 d-flex flex-column align-items-center justify-content-center vh-90 mt-5">
@@ -341,81 +355,100 @@
                     </p>
                     <div class="combos-proveedor-container">
                         <div class="combos-proveedor-content">
-                            <ng-container *ngIf="combosConProveedores.length > 0; else noCombos" >
+                            <ng-container *ngIf="combosConProveedores.length > 0; else noCombos">
                                 <div class="combos-proveedor-grid">
 
-                                    <ng-container *ngFor="let combo of combosConProveedores; let i = index; trackBy: trackByCombo">
+                                    <ng-container
+                                        *ngFor="let combo of combosConProveedores; let i = index; trackBy: trackByCombo">
                                         <div class="combo-proveedor-item" #comboItemProveedor>
-                                          <div class="combo-proveedor-card">
-                                            <div class="combo-config float-right">
-                                                <button class="btn btn-primary btn-editCombo"
-                                                    (click)="modificarCombo(combo, true)">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24">
-                                                        <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                                            <path stroke-dasharray="20" stroke-dashoffset="20" d="M3 21h18">
-                                                            <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.2s" values="20;0"/>
-                                                        </path><path stroke-dasharray="48" stroke-dashoffset="48" d="M7 17v-4l10 -10l4 4l-10 10h-4">
-                                                            <animate fill="freeze" attributeName="stroke-dashoffset" begin="0.2s" dur="0.6s" values="48;0"/>
-                                                        </path>
-                                                        <path stroke-dasharray="8" stroke-dashoffset="8" d="M14 6l4 4">
-                                                            <animate fill="freeze" attributeName="stroke-dashoffset" begin="0.8s" dur="0.2s" values="8;0"/>
-                                                        </path>
-                                                        </g>
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                            <div class="combo-proveedor-body">
-                                                <h5 class="combo-proveedor-title">{{ combo.name }}</h5>
-                                                <p class="combo-proveedor-descripcion">{{ combo.descripcion }}</p>
-                                                <img [src]="combo.imagen" alt="Imagen del combo" class="combo-proveedor-imagen">
-                                                <p class="combo-proveedor-precio">Precio: S/{{ combo.precio }}</p>
-                                                
-                                            </div>
-                                            <div class="combo-proveedor-delete">
-                                                <button class="btn btn-danger btn-deleteCombo" (click)="eliminarCombo(combo, true)">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em"
+                                            <div class="combo-proveedor-card">
+                                                <div class="combo-config float-right">
+                                                    <button class="btn btn-primary btn-editCombo"
+                                                        (click)="modificarCombo(combo, true)">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em"
+                                                            viewBox="0 0 24 24">
+                                                            <g fill="none" stroke="currentColor" stroke-linecap="round"
+                                                                stroke-linejoin="round" stroke-width="2">
+                                                                <path stroke-dasharray="20" stroke-dashoffset="20"
+                                                                    d="M3 21h18">
+                                                                    <animate fill="freeze"
+                                                                        attributeName="stroke-dashoffset" dur="0.2s"
+                                                                        values="20;0" />
+                                                                </path>
+                                                                <path stroke-dasharray="48" stroke-dashoffset="48"
+                                                                    d="M7 17v-4l10 -10l4 4l-10 10h-4">
+                                                                    <animate fill="freeze"
+                                                                        attributeName="stroke-dashoffset" begin="0.2s"
+                                                                        dur="0.6s" values="48;0" />
+                                                                </path>
+                                                                <path stroke-dasharray="8" stroke-dashoffset="8"
+                                                                    d="M14 6l4 4">
+                                                                    <animate fill="freeze"
+                                                                        attributeName="stroke-dashoffset" begin="0.8s"
+                                                                        dur="0.2s" values="8;0" />
+                                                                </path>
+                                                            </g>
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                                <div class="combo-proveedor-body">
+                                                    <h5 class="combo-proveedor-title">{{ combo.name }}</h5>
+                                                    <p class="combo-proveedor-descripcion">{{ combo.descripcion }}</p>
+                                                    <img [src]="combo.imagen" alt="Imagen del combo"
+                                                        class="combo-proveedor-imagen">
+                                                    <p class="combo-proveedor-precio">Precio: S/{{ combo.precio }}</p>
+
+                                                </div>
+                                                <div class="combo-proveedor-delete">
+                                                    <button class="btn btn-danger btn-deleteCombo"
+                                                        (click)="eliminarCombo(combo, true)">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em"
                                                             viewBox="0 0 256 256">
                                                             <path fill="currentColor"
                                                                 d="M216 48h-36V36a28 28 0 0 0-28-28h-48a28 28 0 0 0-28 28v12H40a12 12 0 0 0 0 24h4v136a20 20 0 0 0 20 20h128a20 20 0 0 0 20-20V72h4a12 12 0 0 0 0-24M100 36a4 4 0 0 1 4-4h48a4 4 0 0 1 4 4v12h-56Zm88 168H68V72h120Zm-72-100v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0m48 0v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0" />
                                                         </svg>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Insertar el botón después de cada combo si no es el último o si no se ha alcanzado el límite -->
+                                        <ng-container
+                                            *ngIf="i === combosConProveedores.length - 1 && !isMaxCombosProveedoresReached">
+                                            <div class="combo-proveedor-item add-button-item" #addButtonProveedor>
+                                                <button class="btn-add-combo" (click)="agregarCombo(true)"
+                                                    [disabled]="isMaxCombosProveedoresReached">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="3em" height="3em"
+                                                        viewBox="0 0 24 24">
+                                                        <g fill="none" fill-rule="evenodd">
+                                                            <path
+                                                                d="m12.594 23.258l-.012.002l-.071.035l-.02.004l-.014-.004l-.071-.036q-.016-.004-.024.006l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.016-.018m.264-.113l-.014.002l-.184.093l-.01.01l-.003.011l.018.43l.005.012l.008.008l.201.092q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.003-.011l.018-.43l-.003-.012l-.01-.01z" />
+                                                            <path fill="currentColor"
+                                                                d="M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v4h4a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-4v4a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2v-4H5a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h4zm4 0h-2v5a1 1 0 0 1-1 1H5v2h5a1 1 0 0 1 1 1v5h2v-5a1 1 0 0 1 1-1h5v-2h-5a1 1 0 0 1-1-1z" />
+                                                        </g>
+                                                    </svg>
                                                 </button>
                                             </div>
-                                          </div>
-                                        </div>
-                                        
-                                        <!-- Insertar el botón después de cada combo si no es el último o si no se ha alcanzado el límite -->
-                                        <ng-container *ngIf="i === combosConProveedores.length - 1 && !isMaxCombosProveedoresReached">
-                                          <div class="combo-proveedor-item add-button-item" #addButtonProveedor >
-                                            <button class="btn-add-combo" (click)="agregarCombo(true)" [disabled]="isMaxCombosProveedoresReached">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="3em" height="3em"
-                                                    viewBox="0 0 24 24">
-                                                    <g fill="none" fill-rule="evenodd">
-                                                        <path
-                                                            d="m12.594 23.258l-.012.002l-.071.035l-.02.004l-.014-.004l-.071-.036q-.016-.004-.024.006l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.016-.018m.264-.113l-.014.002l-.184.093l-.01.01l-.003.011l.018.43l.005.012l.008.008l.201.092q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.003-.011l.018-.43l-.003-.012l-.01-.01z" />
-                                                        <path fill="currentColor"
-                                                            d="M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v4h4a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-4v4a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2v-4H5a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h4zm4 0h-2v5a1 1 0 0 1-1 1H5v2h5a1 1 0 0 1 1 1v5h2v-5a1 1 0 0 1 1-1h5v-2h-5a1 1 0 0 1-1-1z" />
-                                                    </g>
-                                                </svg>
-                                            </button>
-                                          </div>
                                         </ng-container>
-                                      </ng-container>
+                                    </ng-container>
 
 
 
 
                                 </div>
-                                
+
                             </ng-container>
 
 
-                            
+
                             <ng-template #noCombos>
                                 <div class="row justify-content-center no-combos-container" [@noCombosAnimation]>
                                     <div class="col-md-8 col-lg-6">
-                                        <div class="add-combo-container d-flex justify-content-center align-items-center">
+                                        <div
+                                            class="add-combo-container d-flex justify-content-center align-items-center">
                                             <h2 class="add-combo-text mb-0 me-4">Agregue un Combo</h2>
-                                            <button class="btn-add-combo" (click)="agregarCombo(true)" [disabled]="isMaxCombosProveedoresReached">
+                                            <button class="btn-add-combo" (click)="agregarCombo(true)"
+                                                [disabled]="isMaxCombosProveedoresReached">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="3em" height="3em"
                                                     viewBox="0 0 24 24">
                                                     <g fill="none" fill-rule="evenodd">
@@ -430,80 +463,125 @@
                                     </div>
                                 </div>
                             </ng-template>
-                           
+
                         </div>
-                        
+
                     </div>
                 </div>
                 <div class="col-lg-4 mt-5 mb-5">
                     <h2 class="display-4 mb-5">Proveedores</h2>
                     <div class="providers-container">
-                      <ng-container *ngIf="providers.length > 0; else noProviders">
-                        <div class="provider-card" *ngFor="let provider of providers">
-                          <div class="provider-header">
-                            <div class="provider-logo">
-                              <img [src]="provider.logo" [alt]="'Logo'">
+                        <ng-container *ngIf="providers.length > 0; else noProviders">
+                            <div class="provider-card" *ngFor="let provider of providers">
+                                <div class="provider-header">
+                                    <div class="provider-logo">
+                                        <img [src]="provider.logo" [alt]="'Logo'">
+                                    </div>
+                                    <div class="provider-socialMedia">
+                                        <!-- Social Media Links -->
+                                        <div class="social-links">
+                                            <a *ngIf="provider.socialMedia?.facebook"
+                                                [href]="provider.socialMedia.facebook" target="_blank"
+                                                class="social-btn facebook" aria-label="Facebook">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em"
+                                                    viewBox="0 0 24 24">
+                                                    <g fill="none" stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="4">
+                                                        <path stroke-dasharray="24" stroke-dashoffset="24"
+                                                            d="M17 4l-2 0c-2.5 0 -4 1.5 -4 4v12">
+                                                            <animate fill="freeze" attributeName="stroke-dashoffset"
+                                                                dur="0.4s" values="24;0" />
+                                                        </path>
+                                                        <path stroke-dasharray="8" stroke-dashoffset="8" d="M8 12h7">
+                                                            <animate fill="freeze" attributeName="stroke-dashoffset"
+                                                                begin="0.5s" dur="0.2s" values="8;0" />
+                                                        </path>
+                                                    </g>
+                                                </svg>
+                                            </a>
+                                            <a *ngIf="provider.socialMedia?.instagram"
+                                                [href]="provider.socialMedia.instagram" target="_blank"
+                                                class="social-btn instagram" aria-label="Instagram">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em"
+                                                    viewBox="0 0 24 24">
+                                                    <circle cx="17" cy="7" r="1.5" fill="currentColor" fill-opacity="0">
+                                                        <animate fill="freeze" attributeName="fill-opacity" begin="1.3s"
+                                                            dur="0.15s" values="0;1" />
+                                                    </circle>
+                                                    <g fill="none" stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2">
+                                                        <path stroke-dasharray="72" stroke-dashoffset="72"
+                                                            d="M16 3c2.76 0 5 2.24 5 5v8c0 2.76 -2.24 5 -5 5h-8c-2.76 0 -5 -2.24 -5 -5v-8c0 -2.76 2.24 -5 5 -5h4Z">
+                                                            <animate fill="freeze" attributeName="stroke-dashoffset"
+                                                                dur="0.6s" values="72;0" />
+                                                        </path>
+                                                        <path stroke-dasharray="28" stroke-dashoffset="28"
+                                                            d="M12 8c2.21 0 4 1.79 4 4c0 2.21 -1.79 4 -4 4c-2.21 0 -4 -1.79 -4 -4c0 -2.21 1.79 -4 4 -4">
+                                                            <animate fill="freeze" attributeName="stroke-dashoffset"
+                                                                begin="0.7s" dur="0.6s" values="28;0" />
+                                                        </path>
+                                                    </g>
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="provider-actions">
+
+
+                                    <!-- Contact Actions -->
+                                    <div class="contact-actions">
+                                        <a [href]="getWhatsAppLink(provider)" target="_blank"
+                                            class="contact-btn whatsapp" aria-label="Contactar por WhatsApp">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                                viewBox="0 0 256 258">
+                                                <defs>
+                                                    <linearGradient id="logosWhatsappIcon0" x1="50%" x2="50%" y1="100%"
+                                                        y2="0%">
+                                                        <stop offset="0%" stop-color="#1faf38" />
+                                                        <stop offset="100%" stop-color="#60d669" />
+                                                    </linearGradient>
+                                                    <linearGradient id="logosWhatsappIcon1" x1="50%" x2="50%" y1="100%"
+                                                        y2="0%">
+                                                        <stop offset="0%" stop-color="#f9f9f9" />
+                                                        <stop offset="100%" stop-color="#fff" />
+                                                    </linearGradient>
+                                                </defs>
+                                                <path fill="url(#logosWhatsappIcon0)"
+                                                    d="M5.463 127.456c-.006 21.677 5.658 42.843 16.428 61.499L4.433 252.697l65.232-17.104a123 123 0 0 0 58.8 14.97h.054c67.815 0 123.018-55.183 123.047-123.01c.013-32.867-12.775-63.773-36.009-87.025c-23.23-23.25-54.125-36.061-87.043-36.076c-67.823 0-123.022 55.18-123.05 123.004" />
+                                                <path fill="url(#logosWhatsappIcon1)"
+                                                    d="M1.07 127.416c-.007 22.457 5.86 44.38 17.014 63.704L0 257.147l67.571-17.717c18.618 10.151 39.58 15.503 60.91 15.511h.055c70.248 0 127.434-57.168 127.464-127.423c.012-34.048-13.236-66.065-37.3-90.15C194.633 13.286 162.633.014 128.536 0C58.276 0 1.099 57.16 1.071 127.416m40.24 60.376l-2.523-4.005c-10.606-16.864-16.204-36.352-16.196-56.363C22.614 69.029 70.138 21.52 128.576 21.52c28.3.012 54.896 11.044 74.9 31.06c20.003 20.018 31.01 46.628 31.003 74.93c-.026 58.395-47.551 105.91-105.943 105.91h-.042c-19.013-.01-37.66-5.116-53.922-14.765l-3.87-2.295l-40.098 10.513z" />
+                                                <path fill="#fff"
+                                                    d="M96.678 74.148c-2.386-5.303-4.897-5.41-7.166-5.503c-1.858-.08-3.982-.074-6.104-.074c-2.124 0-5.575.799-8.492 3.984c-2.92 3.188-11.148 10.892-11.148 26.561s11.413 30.813 13.004 32.94c1.593 2.123 22.033 35.307 54.405 48.073c26.904 10.609 32.379 8.499 38.218 7.967c5.84-.53 18.844-7.702 21.497-15.139c2.655-7.436 2.655-13.81 1.859-15.142c-.796-1.327-2.92-2.124-6.105-3.716s-18.844-9.298-21.763-10.361c-2.92-1.062-5.043-1.592-7.167 1.597c-2.124 3.184-8.223 10.356-10.082 12.48c-1.857 2.129-3.716 2.394-6.9.801c-3.187-1.598-13.444-4.957-25.613-15.806c-9.468-8.442-15.86-18.867-17.718-22.056c-1.858-3.184-.199-4.91 1.398-6.497c1.431-1.427 3.186-3.719 4.78-5.578c1.588-1.86 2.118-3.187 3.18-5.311c1.063-2.126.531-3.986-.264-5.579c-.798-1.593-6.987-17.343-9.819-23.64" />
+                                            </svg>
+                                            <span>Contactar</span>
+                                        </a>
+
+                                        <button class="catalog-btn" (click)="verCatalogo(provider.catalogId)"
+                                            aria-label="Ver catálogo">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                                                <path
+                                                    d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z">
+                                                </path>
+                                            </svg>
+                                            Ver Catálogo
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                            <h3 class="provider-name">{{ provider.name }}</h3>
-                          </div>
-                          
-                          <div class="provider-actions">
-                            <!-- Social Media Links -->
-                            <div class="social-links">
-                              <a *ngIf="provider.socialMedia?.facebook" 
-                                 [href]="provider.socialMedia.facebook" 
-                                 target="_blank" 
-                                 class="social-btn facebook"
-                                 aria-label="Facebook">
-                                 <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"><path stroke-dasharray="24" stroke-dashoffset="24" d="M17 4l-2 0c-2.5 0 -4 1.5 -4 4v12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s" values="24;0"/></path><path stroke-dasharray="8" stroke-dashoffset="8" d="M8 12h7"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.5s" dur="0.2s" values="8;0"/></path></g></svg>
-                              </a>
-                              <a *ngIf="provider.socialMedia?.instagram" 
-                                 [href]="provider.socialMedia.instagram" 
-                                 target="_blank" 
-                                 class="social-btn instagram"
-                                 aria-label="Instagram">
-                                 <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><circle cx="17" cy="7" r="1.5" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="1.3s" dur="0.15s" values="0;1"/></circle><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="72" stroke-dashoffset="72" d="M16 3c2.76 0 5 2.24 5 5v8c0 2.76 -2.24 5 -5 5h-8c-2.76 0 -5 -2.24 -5 -5v-8c0 -2.76 2.24 -5 5 -5h4Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.6s" values="72;0"/></path><path stroke-dasharray="28" stroke-dashoffset="28" d="M12 8c2.21 0 4 1.79 4 4c0 2.21 -1.79 4 -4 4c-2.21 0 -4 -1.79 -4 -4c0 -2.21 1.79 -4 4 -4"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.7s" dur="0.6s" values="28;0"/></path></g></svg>
-                              </a>
+                        </ng-container>
+
+                        <ng-template #noProviders>
+                            <div class="no-providers">
+                                <p>No hay proveedores disponibles en este momento.</p>
                             </div>
-                  
-                            <!-- Contact Actions -->
-                            <div class="contact-actions">
-                              <a [href]="getWhatsAppLink(provider)" 
-                                 target="_blank" 
-                                 class="contact-btn whatsapp"
-                                 aria-label="Contactar por WhatsApp">
-                               <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 258">
-                                <defs>
-                                    <linearGradient id="logosWhatsappIcon0" x1="50%" x2="50%" y1="100%" y2="0%">
-                                        <stop offset="0%" stop-color="#1faf38"/><stop offset="100%" stop-color="#60d669"/>
-                                    </linearGradient><linearGradient id="logosWhatsappIcon1" x1="50%" x2="50%" y1="100%" y2="0%">
-                                        <stop offset="0%" stop-color="#f9f9f9"/><stop offset="100%" stop-color="#fff"/>
-                                    </linearGradient></defs><path fill="url(#logosWhatsappIcon0)" d="M5.463 127.456c-.006 21.677 5.658 42.843 16.428 61.499L4.433 252.697l65.232-17.104a123 123 0 0 0 58.8 14.97h.054c67.815 0 123.018-55.183 123.047-123.01c.013-32.867-12.775-63.773-36.009-87.025c-23.23-23.25-54.125-36.061-87.043-36.076c-67.823 0-123.022 55.18-123.05 123.004"/><path fill="url(#logosWhatsappIcon1)" d="M1.07 127.416c-.007 22.457 5.86 44.38 17.014 63.704L0 257.147l67.571-17.717c18.618 10.151 39.58 15.503 60.91 15.511h.055c70.248 0 127.434-57.168 127.464-127.423c.012-34.048-13.236-66.065-37.3-90.15C194.633 13.286 162.633.014 128.536 0C58.276 0 1.099 57.16 1.071 127.416m40.24 60.376l-2.523-4.005c-10.606-16.864-16.204-36.352-16.196-56.363C22.614 69.029 70.138 21.52 128.576 21.52c28.3.012 54.896 11.044 74.9 31.06c20.003 20.018 31.01 46.628 31.003 74.93c-.026 58.395-47.551 105.91-105.943 105.91h-.042c-19.013-.01-37.66-5.116-53.922-14.765l-3.87-2.295l-40.098 10.513z"/><path fill="#fff" d="M96.678 74.148c-2.386-5.303-4.897-5.41-7.166-5.503c-1.858-.08-3.982-.074-6.104-.074c-2.124 0-5.575.799-8.492 3.984c-2.92 3.188-11.148 10.892-11.148 26.561s11.413 30.813 13.004 32.94c1.593 2.123 22.033 35.307 54.405 48.073c26.904 10.609 32.379 8.499 38.218 7.967c5.84-.53 18.844-7.702 21.497-15.139c2.655-7.436 2.655-13.81 1.859-15.142c-.796-1.327-2.92-2.124-6.105-3.716s-18.844-9.298-21.763-10.361c-2.92-1.062-5.043-1.592-7.167 1.597c-2.124 3.184-8.223 10.356-10.082 12.48c-1.857 2.129-3.716 2.394-6.9.801c-3.187-1.598-13.444-4.957-25.613-15.806c-9.468-8.442-15.86-18.867-17.718-22.056c-1.858-3.184-.199-4.91 1.398-6.497c1.431-1.427 3.186-3.719 4.78-5.578c1.588-1.86 2.118-3.187 3.18-5.311c1.063-2.126.531-3.986-.264-5.579c-.798-1.593-6.987-17.343-9.819-23.64"/>
-                            </svg>
-                                <span>Contactar</span>
-                              </a>
-                              
-                              <button class="catalog-btn" 
-                                      (click)="verCatalogo(provider.catalogId)"
-                                      aria-label="Ver catálogo">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                                </svg>
-                                Ver Catálogo
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </ng-container>
-                  
-                      <ng-template #noProviders>
-                        <div class="no-providers">
-                          <p>No hay proveedores disponibles en este momento.</p>
-                        </div>
-                      </ng-template>
+                        </ng-template>
                     </div>
-                  </div>
+                </div>
             </div>
 
 
@@ -528,7 +606,8 @@
                 <div class="row">
                     <div class="col-md-12" style="margin-bottom: 30px;">
                         <h2></h2>
-                        <button class="btn btn-primary btn-addCombo" [disabled]="isMaxCombosRegularesReached" (click)="agregarCombo()">
+                        <button class="btn btn-primary btn-addCombo" [disabled]="isMaxCombosRegularesReached"
+                            (click)="agregarCombo()">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 48 48"
                                 style="margin-right: 5px;">
                                 <path fill="#2f88ff" stroke="#000" stroke-linejoin="round" stroke-width="4"
@@ -547,45 +626,49 @@
                         <ng-container *ngIf="combosRegulares.length > 0; else noCombos">
                             <div class="combo-container">
                                 <div *ngFor="let combo of combosRegulares; let i = index; trackBy: trackByCombo"
-                                    class="combo-item col-md-4" 
-                                    
-                                    #comboItem>
+                                    class="combo-item col-md-4" #comboItem>
                                     <div class="card combo-card">
                                         <div class="combo-config float-right">
-                                            <button class="btn btn-primary btn-edit"
-                                                (click)="modificarCombo(combo)">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24">
-                                                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                                            <button class="btn btn-primary btn-edit" (click)="modificarCombo(combo)">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em"
+                                                    viewBox="0 0 24 24">
+                                                    <g fill="none" stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2">
                                                         <path stroke-dasharray="20" stroke-dashoffset="20" d="M3 21h18">
-                                                        <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.2s" values="20;0"/>
-                                                    </path><path stroke-dasharray="48" stroke-dashoffset="48" d="M7 17v-4l10 -10l4 4l-10 10h-4">
-                                                        <animate fill="freeze" attributeName="stroke-dashoffset" begin="0.2s" dur="0.6s" values="48;0"/>
-                                                    </path>
-                                                    <path stroke-dasharray="8" stroke-dashoffset="8" d="M14 6l4 4">
-                                                        <animate fill="freeze" attributeName="stroke-dashoffset" begin="0.8s" dur="0.2s" values="8;0"/>
-                                                    </path>
+                                                            <animate fill="freeze" attributeName="stroke-dashoffset"
+                                                                dur="0.2s" values="20;0" />
+                                                        </path>
+                                                        <path stroke-dasharray="48" stroke-dashoffset="48"
+                                                            d="M7 17v-4l10 -10l4 4l-10 10h-4">
+                                                            <animate fill="freeze" attributeName="stroke-dashoffset"
+                                                                begin="0.2s" dur="0.6s" values="48;0" />
+                                                        </path>
+                                                        <path stroke-dasharray="8" stroke-dashoffset="8" d="M14 6l4 4">
+                                                            <animate fill="freeze" attributeName="stroke-dashoffset"
+                                                                begin="0.8s" dur="0.2s" values="8;0" />
+                                                        </path>
                                                     </g>
                                                 </svg>
                                             </button>
                                         </div>
                                         <div class="card-body combo-body">
-                                            
+
                                             <h5 class="card-title">{{ combo.name }}</h5>
                                             <p class="card-text descripcion">{{ combo.descripcion }}</p>
                                             <img [src]="combo.imagen" alt="Imagen del combo" class="imagen-combo">
                                             <p class="card-text">Precio: S/{{ combo.precio }}</p>
-                                            
+
                                         </div>
 
                                         <div class="combo-delete float-right">
-                                                <button class="btn btn-danger" (click)="eliminarCombo(combo)">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em"
-                                                        viewBox="0 0 256 256">
-                                                        <path fill="currentColor"
-                                                            d="M216 48h-36V36a28 28 0 0 0-28-28h-48a28 28 0 0 0-28 28v12H40a12 12 0 0 0 0 24h4v136a20 20 0 0 0 20 20h128a20 20 0 0 0 20-20V72h4a12 12 0 0 0 0-24M100 36a4 4 0 0 1 4-4h48a4 4 0 0 1 4 4v12h-56Zm88 168H68V72h120Zm-72-100v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0m48 0v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0" />
-                                                    </svg>
-                                                </button>
-                                            </div>
+                                            <button class="btn btn-danger" (click)="eliminarCombo(combo)">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em"
+                                                    viewBox="0 0 256 256">
+                                                    <path fill="currentColor"
+                                                        d="M216 48h-36V36a28 28 0 0 0-28-28h-48a28 28 0 0 0-28 28v12H40a12 12 0 0 0 0 24h4v136a20 20 0 0 0 20 20h128a20 20 0 0 0 20-20V72h4a12 12 0 0 0 0-24M100 36a4 4 0 0 1 4-4h48a4 4 0 0 1 4 4v12h-56Zm88 168H68V72h120Zm-72-100v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0m48 0v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0" />
+                                                </svg>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -612,7 +695,7 @@
                             </div>
                         </ng-template>
 
-                      
+
 
 
                     </div>
@@ -621,7 +704,7 @@
             </div>
         </div>
 
-
+        <!--PASO 10-->
         <div *ngIf="step == 10">
             <div class="row">
                 <div class="col-md-6 d-flex flex-column align-items-center justify-content-center vh-90 mt-5">
@@ -640,8 +723,9 @@
                 </div>
                 <div class="mt-5 mb-5">
                     <div class="form-check mt-3">
-                        <input class="form-check-input" type="checkbox" id="terminos-y-condiciones" name="terminosAceptados"
-                            [(ngModel)]="aceptarTerminos" (change)="onCheckboxChange()" style="width: 22px; height: 22px;">
+                        <input class="form-check-input" type="checkbox" id="terminos-y-condiciones"
+                            name="terminosAceptados" [(ngModel)]="aceptarTerminos" (change)="onCheckboxChange()"
+                            style="width: 22px; height: 22px;">
                         <label class="form-check-label" for="terminos-y-condiciones" style="font-size: 18px;">He leído
                             los Terminos y Condiciones de la página</label>
                     </div>
@@ -663,16 +747,17 @@
                     (click)="next()">Siguiente</button>
 
                 <button class="btn btn-link" type="button" *ngIf="step == 7" (click)="omitir()">Omitir</button>
-                
+
                 <!-- BOTONES ESPECIALES -->
-                 <button class="btn btn-outline-secondary" type="button" *ngIf="step >= 8 &&  step <= 10"
+                <button class="btn btn-outline-secondary" type="button" *ngIf="step >= 8 &&  step <= 10"
                     (click)="specialPrevius()">Atrás</button>
 
                 <button class="btn btn-2" type="button" *ngIf="step >= 8  && step < 10"
                     (click)="specialNext()">Siguiente</button>
 
                 <!--  -->
-                 <button class="btn btn-2" type="submit" [disabled]="!aceptarTerminos" *ngIf="step == 10">PUBLICAR EVENTO</button>
+                <button class="btn btn-2" type="submit" [disabled]="!aceptarTerminos" *ngIf="step == 10">PUBLICAR
+                    EVENTO</button>
             </div>
         </div>
     </div>

@@ -94,6 +94,12 @@ export class AddNewEventComponent implements OnInit {
   isMaxCombosProveedoresReached = false;
   readonly MAX_COMBOS = 10;
 
+
+
+  /* Expresiones Regulares*/
+
+  descripcionCharCount: number = 500;
+
   get showNoCombos(): boolean {
     return this.combosConProveedores.length === 0 && this.combosRegulares.length === 0;
   }
@@ -520,5 +526,10 @@ updateShowNoCombos() {
 
   getFormattedPhone(whatsapp: string): string {
     return ProviderUtils.formatPhoneNumberForDisplay(whatsapp);
+  }
+
+
+  updateCharCount(event: any) {
+    this.descripcionCharCount = 500 - event.target.value.length;
   }
 }
