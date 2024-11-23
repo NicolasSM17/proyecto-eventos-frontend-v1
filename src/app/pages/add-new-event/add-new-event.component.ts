@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, TemplateRef, ViewChild, ElementRef, ViewChildren, QueryList, ChangeDetectorRef, NgZone, Renderer2 } from '@angular/core';
-
+import { trigger, transition, style, animate, state } from '@angular/animations';
 import { NgForm } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Category } from 'src/app/model/category.model';
@@ -14,8 +14,12 @@ import { Router } from '@angular/router';
 import { UserAuthService } from 'src/app/services/user-auth.service';
 
 import { ComboService } from 'src/app/services/combo.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Combo } from '../../model/combo.model';
+import { ProviderService } from 'src/app/services/provider.service';
+import { Provider } from '../../model/provider.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ProviderUtils } from 'src/app/utils/provider-utils';
+
 
 import { gsap } from 'gsap';
 import { EditComboModalComponent } from './edit-combo-modal/edit-combo-modal.component';
@@ -27,7 +31,18 @@ interface ComboWithState extends Combo {
 @Component({
   selector: 'app-add-new-event',
   templateUrl: './add-new-event.component.html',
-  styleUrls: ['./add-new-event.component.css']
+  styleUrls: ['./add-new-event.component.css'],
+  animations: [
+    trigger('noCombosAnimation', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'scale(0.8) translateY(50px)' }),
+        animate('0.5s ease-out', style({ opacity: 1, transform: 'scale(1) translateY(0)' }))
+      ]),
+      transition(':leave', [
+        animate('0.1s ease-in', style({ opacity: 0, transform: 'scale(0.8) translateY(50px)' }))
+      ])
+    ])
+  ]
 
 })
 export class AddNewEventComponent implements OnInit {
@@ -68,7 +83,7 @@ export class AddNewEventComponent implements OnInit {
 
   aceptarTerminos: boolean = false;
 
-
+  providers: Provider[] = [];
   combos: [];
   combosRegulares: ComboWithState[] = [];
   combosConProveedores: ComboWithState[] = [];
@@ -77,11 +92,23 @@ export class AddNewEventComponent implements OnInit {
 
   isMaxCombosRegularesReached = false;
   isMaxCombosProveedoresReached = false;
-  readonly MAX_COMBOS = 6;
+  readonly MAX_COMBOS = 10;
 
 
-  @ViewChildren('comboItem') comboItems!: QueryList<ElementRef>;
-  @ViewChildren('comboItemProveedor') comboItemsProveedores: QueryList<ElementRef>;
+
+  /* Expresiones Regulares*/
+
+  descripcionCharCount: number = 500;
+
+  get showNoCombos(): boolean {
+    return this.combosConProveedores.length === 0 && this.combosRegulares.length === 0;
+  }
+
+
+    @ViewChildren('comboItem') comboItems!: QueryList<ElementRef>;
+    @ViewChildren('comboItemProveedor') comboItemsProveedores: QueryList<ElementRef>;
+    @ViewChildren('addButtonProveedor') addButtonProveedores!: QueryList<ElementRef>;
+ 
 
 
 
@@ -92,17 +119,19 @@ export class AddNewEventComponent implements OnInit {
   constructor(private eventService: EventService, private categoryService: CategoryService,
     private institutionService: InstitutionService, private sanitizer: DomSanitizer,
     private userAuthService: UserAuthService, private router: Router, private comboService: ComboService,
-    private modalService: NgbModal, private cdr: ChangeDetectorRef, private ngZone: NgZone, private renderer: Renderer2) { }
+    private modalService: NgbModal, private cdr: ChangeDetectorRef, private ngZone: NgZone, private renderer: Renderer2, 
+    private providerService: ProviderService) { }
 
   ngOnInit(): void {
     this.getCategory();
     this.getInstituciones();
 
-    
+    this.providers = this.providerService.getProviders();
 
     this.combosRegulares = this.comboService.getCombos().map(combo => ({ ...combo, state: 'active' as const }));
     this.combosConProveedores = this.comboService.getCombos(true).map(combo => ({ ...combo, state: 'active' as const }));
     this.updateMaxCombosReached();
+    this.updateShowNoCombos();
     /*
     this.evento = this.activatedRoute.snapshot.data['evento'];
 
@@ -272,133 +301,172 @@ export class AddNewEventComponent implements OnInit {
   }
 
   agregarCombo(esComboConProveedor: boolean = false) {
-  const listaObjetivo = esComboConProveedor ? this.combosConProveedores : this.combosRegulares;
-  const isMaxReached = esComboConProveedor ? this.isMaxCombosProveedoresReached : this.isMaxCombosRegularesReached;
-
-  if (isMaxReached) {
-    console.warn(`No se pueden agregar más combos ${esComboConProveedor ? 'con proveedores' : 'regulares'}. Límite alcanzado.`);
-    return;
-  }
-
-  const nuevoCombo: Omit<ComboWithState, 'id'> = {
-    name: `Combo ${listaObjetivo.length + 1}${esComboConProveedor ? ' (Proveedor)' : ''}`,
-    descripcion: 'Descripción básica',
-    imagen: 'https://png.pngtree.com/png-clipart/20231013/original/pngtree-classic-burger-and-crispy-fries-delicious-combo-png-image_13295935.png',
-    precio: 0,
-    state: 'active'
-  };
-
-  if (esComboConProveedor) {
-    (nuevoCombo as any).proveedor = 'Nombre del Proveedor'; // Asegúrate de que tu modelo Combo incluya 'proveedor'
-  }
-
-  this.ngZone.run(() => {
-    const comboAgregado = this.comboService.addCombo(nuevoCombo, esComboConProveedor);
-    listaObjetivo.push({ ...comboAgregado, state: 'active' as const });
-
-    this.updateMaxCombosReached();
-
-    requestAnimationFrame(() => {
-      this.cdr.detectChanges();
-
-      const comboItems = esComboConProveedor ? this.comboItemsProveedores : this.comboItems;
-      if (comboItems && comboItems.last) {
-        const nuevoElemento = comboItems.last.nativeElement;
-
-        this.renderer.setStyle(nuevoElemento, 'opacity', '0');
-        this.renderer.setStyle(nuevoElemento, 'transform', 'scale(0.8) translateY(50px)');
-
-        gsap.to(nuevoElemento, {
-          opacity: 1,
-          scale: 1,
-          y: 0,
-          duration: 0.5,
-          ease: "back.out(1.7)",
-          onComplete: () => {
-            this.ngZone.run(() => {
-              this.cdr.detectChanges();
-            });
-          }
-        });
-      }
-    });
-  });
-}
-
-onCheckboxChange() {
-  this.aceptarTerminos = !this.aceptarTerminos;
-  this.cdr.detectChanges(); // Forzar la detección de cambios si es necesario
-}
-
-
-
-eliminarCombo(combo: ComboWithState, esComboConProveedor: boolean = false) {
-  const listaObjetivo = esComboConProveedor ? this.combosConProveedores : this.combosRegulares;
-  const index = listaObjetivo.findIndex(c => c.id === combo.id);
-  if (index !== -1) {
-    const comboItems = esComboConProveedor ? this.comboItemsProveedores : this.comboItems;
-    const comboElements = comboItems.toArray();
-    const comboElement = comboElements[index].nativeElement;
-
-    // Capturamos las posiciones iniciales de todos los elementos
-    const initialPositions = comboElements.map(el => {
-      const rect = el.nativeElement.getBoundingClientRect();
-      return { left: rect.left, top: rect.top };
-    });
-
-    // Animación de salida del combo a eliminar
-    gsap.to(comboElement, {
-      opacity: 0,
-      scale: 0.8,
-      duration: 0.2,
-      onComplete: () => {
-        // Eliminamos el combo usando el servicio
-        this.comboService.deleteCombo(combo.id, esComboConProveedor);
-
-        // Actualizamos la lista de combos
-        if (esComboConProveedor) {
-          this.combosConProveedores = this.comboService.getCombos(true).map(combo => ({ ...combo, state: 'active' as const }));
-          this.isMaxCombosProveedoresReached = this.combosConProveedores.length >= 6;
-        } else {
-          this.combosRegulares = this.comboService.getCombos().map(combo => ({ ...combo, state: 'active' as const }));
-          this.isMaxCombosRegularesReached = this.combosRegulares.length >= 6;
-        }
-
-        // Forzamos la detección de cambios para actualizar el DOM
+    const listaObjetivo = esComboConProveedor ? this.combosConProveedores : this.combosRegulares;
+    const isMaxReached = esComboConProveedor ? this.isMaxCombosProveedoresReached : this.isMaxCombosRegularesReached;
+  
+    if (isMaxReached) {
+      console.warn(`No se pueden agregar más combos ${esComboConProveedor ? 'con proveedores' : 'regulares'}. Límite alcanzado.`);
+      return;
+    }
+  
+    const nuevoCombo: Omit<ComboWithState, 'id'> = {
+      name: `Combo ${listaObjetivo.length + 1}${esComboConProveedor ? ' (Proveedor)' : ''}`,
+      descripcion: 'Descripción básica',
+      imagen: 'https://png.pngtree.com/png-vector/20230318/ourmid/pngtree-black-combo-offer-vector-png-image_255090.png',
+      precio: 0,
+      state: 'active'
+    };
+  
+    if (esComboConProveedor) {
+      (nuevoCombo as any).proveedor = 'Nombre del Proveedor';
+    }
+  
+    this.ngZone.run(() => {
+      // Capturar la posición actual del botón antes de añadir el nuevo combo
+      const addButtonItems = esComboConProveedor ? this.addButtonProveedores : null;
+      const addButton = addButtonItems?.first?.nativeElement;
+      const buttonRect = addButton?.getBoundingClientRect();
+  
+      const comboAgregado = this.comboService.addCombo(nuevoCombo, esComboConProveedor);
+      listaObjetivo.push({ ...comboAgregado, state: 'active' as const });
+  
+      this.updateMaxCombosReached();
+  
+      requestAnimationFrame(() => {
         this.cdr.detectChanges();
-
-        // Capturamos las nuevas posiciones después de la eliminación
-        const finalPositions = comboItems.toArray().map(el => {
-          const rect = el.nativeElement.getBoundingClientRect();
-          return { left: rect.left, top: rect.top };
-        });
-
-        // Calculamos y aplicamos los desplazamientos
-        this.ngZone.runOutsideAngular(() => {
-          gsap.fromTo(
-            comboElements.filter((_, i) => i !== index).map(item => item.nativeElement),
-            {
-              x: (i) => initialPositions[i < index ? i : i + 1].left - finalPositions[i].left,
-              y: (i) => initialPositions[i < index ? i : i + 1].top - finalPositions[i].top
-            },
-            {
-              x: 0,
-              y: 0,
-              duration: 0.3,
-              ease: "power2.out",
-              stagger: 0.05,
-              onComplete: () => {
-                this.ngZone.run(() => {
-                  this.cdr.detectChanges();
-                });
+  
+        const comboItems = esComboConProveedor ? this.comboItemsProveedores : this.comboItems;
+        if (comboItems && comboItems.last) {
+          const nuevoElemento = comboItems.last.nativeElement;
+  
+          // Animar entrada del nuevo combo
+          this.renderer.setStyle(nuevoElemento, 'opacity', '0');
+          this.renderer.setStyle(nuevoElemento, 'transform', 'scale(0.8) translateY(50px)');
+  
+          gsap.to(nuevoElemento, {
+            opacity: 1,
+            scale: 1,
+            y: 0,
+            duration: 0.6,
+            ease: "back.out(1.7)"
+          });
+  
+          // Animar el reposicionamiento del botón
+          const newButtonRect = addButton?.getBoundingClientRect();
+          if (addButton && buttonRect && newButtonRect) {
+            const deltaX = buttonRect.left - newButtonRect.left;
+            const deltaY = buttonRect.top - newButtonRect.top;
+  
+            gsap.fromTo(addButton,
+              {
+                x: deltaX,
+                y: deltaY
+              },
+              {
+                x: 0,
+                y: 0,
+                duration: 0.6,
+                ease: "back.out(1.7)"
               }
-            }
-          );
-        });
-      }
+            );
+          }
+  
+          this.ngZone.run(() => {
+            this.cdr.detectChanges();
+          });
+        }
+      });
     });
   }
-}
+
+
+
+
+  eliminarCombo(combo: ComboWithState, esComboConProveedor: boolean = false) {
+    const listaObjetivo = esComboConProveedor ? this.combosConProveedores : this.combosRegulares;
+    const index = listaObjetivo.findIndex(c => c.id === combo.id);
+    
+    if (index !== -1) {
+      const comboItems = esComboConProveedor ? this.comboItemsProveedores : this.comboItems;
+      const comboElements = comboItems.toArray();
+      const comboElement = comboElements[index].nativeElement;
+  
+      // Capturar posiciones iniciales de todos los elementos, incluyendo el botón
+      const addButtonItems = esComboConProveedor ? this.addButtonProveedores : null;
+      const addButton = addButtonItems?.first?.nativeElement;
+      const initialPositions = comboElements.map(el => {
+        const rect = el.nativeElement.getBoundingClientRect();
+        return { left: rect.left, top: rect.top };
+      });
+      const buttonInitialRect = addButton?.getBoundingClientRect();
+  
+      // Animación de salida del combo a eliminar
+      gsap.to(comboElement, {
+        opacity: 0,
+        scale: 0.8,
+        duration: 0.2,
+        onComplete: () => {
+          this.comboService.deleteCombo(combo.id, esComboConProveedor);
+  
+          if (esComboConProveedor) {
+            this.combosConProveedores = this.comboService.getCombos(true).map(combo => ({ ...combo, state: 'active' as const }));
+            this.isMaxCombosProveedoresReached = this.combosConProveedores.length >= 10;
+          } else {
+            this.combosRegulares = this.comboService.getCombos().map(combo => ({ ...combo, state: 'active' as const }));
+            this.isMaxCombosRegularesReached = this.combosRegulares.length >= 10;
+          }
+  
+          this.cdr.detectChanges();
+  
+          // Capturar nuevas posiciones
+          const finalPositions = comboItems.toArray().map(el => {
+            const rect = el.nativeElement.getBoundingClientRect();
+            return { left: rect.left, top: rect.top };
+          });
+          const buttonFinalRect = addButton?.getBoundingClientRect();
+  
+          this.ngZone.runOutsideAngular(() => {
+            // Animar reposicionamiento de combos
+            gsap.fromTo(
+              comboElements.filter((_, i) => i !== index).map(item => item.nativeElement),
+              {
+                x: (i) => initialPositions[i < index ? i : i + 1].left - finalPositions[i].left,
+                y: (i) => initialPositions[i < index ? i : i + 1].top - finalPositions[i].top
+              },
+              {
+                x: 0,
+                y: 0,
+                duration: 0.3,
+                ease: "power2.out",
+                stagger: 0.05
+              }
+            );
+  
+            // Animar reposicionamiento del botón
+            if (addButton && buttonInitialRect && buttonFinalRect) {
+              gsap.fromTo(addButton,
+                {
+                  x: buttonInitialRect.left - buttonFinalRect.left,
+                  y: buttonInitialRect.top - buttonFinalRect.top
+                },
+                {
+                  x: 0,
+                  y: 0,
+                  duration: 0.3,
+                  ease: "power2.out",
+                  delay: 0.1 // Pequeño delay para que siga el flujo de los combos
+                }
+              );
+            }
+          });
+  
+          this.ngZone.run(() => {
+            this.cdr.detectChanges();
+          });
+        }
+      });
+    }
+  }
 
 
 modificarCombo(combo: ComboWithState, esComboConProveedor: boolean = false) {
@@ -432,10 +500,36 @@ modificarCombo(combo: ComboWithState, esComboConProveedor: boolean = false) {
   });
 }
 
+updateShowNoCombos() {
+  this.cdr.detectChanges();
+}
+
 
   trackByCombo(index: number, combo: any): number {
     return combo.id;
   }
 
+  onCheckboxChange() {
+    this.aceptarTerminos = !this.aceptarTerminos;
+    this.cdr.detectChanges(); // Forzar la detección de cambios si es necesario
+  }
+  
 
+  getWhatsAppLink(provider: Provider): string {
+    return ProviderUtils.generateWhatsAppLink(provider.whatsapp);
+  }
+
+  verCatalogo(catalogId: string): void {
+    const catalogUrl = ProviderUtils.generateCatalogUrl(catalogId);
+    window.open(catalogUrl, '_blank');
+  }
+
+  getFormattedPhone(whatsapp: string): string {
+    return ProviderUtils.formatPhoneNumberForDisplay(whatsapp);
+  }
+
+
+  updateCharCount(event: any) {
+    this.descripcionCharCount = 500 - event.target.value.length;
+  }
 }

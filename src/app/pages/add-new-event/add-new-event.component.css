@@ -325,10 +325,10 @@ mat-grid-tile {
 }
 
 .combo-config {
-    margin-top: 10px;
+    margin-top: 5px;
     display: flex;
     justify-content: flex-end; /* Alinea el botón a la derecha */
-    margin-right: 10px;
+    margin-right: 5px;
     margin-bottom: 0px;
     position: relative; /* O puedes usar 'absolute' si lo prefieres */
     z-index: 10; /* Asegúrate de que este valor sea mayor que el de otros elementos superpuestos */
@@ -425,7 +425,8 @@ mat-grid-tile {
     height: 60px;
 }
 
-.btn-edit {
+.btn-edit,
+.btn-editCombo {
     width: 3em; /* Ajusta el tamaño general del botón */
     height: 3em;
     display: inline-flex;
@@ -435,7 +436,8 @@ mat-grid-tile {
     border-radius: 50%; /* Si deseas que sea circular */
 }
 
-.btn-edit:focus {
+.btn-edit:focus,
+.btn-editCombo:focus {
     outline: none; /* Elimina el borde azul */
     box-shadow: none; /* Elimina cualquier sombra que pueda aparecer */
 }
@@ -478,13 +480,20 @@ mat-grid-tile {
     background-color: white;
     border: 2px solid #b46363;
     border-radius: 15px;
-
+    height: 350px; /* Ajusta este valor según tus necesidades */
     width: 100%;
     max-height: 70vh;
     overflow-y: auto;
     padding-right: 15px;
     padding-bottom: 20px;
     margin-top: 40px;
+  }
+
+  .combos-proveedor-content {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   
   .combos-proveedor-grid {
@@ -523,6 +532,7 @@ mat-grid-tile {
   }
   
   .combo-proveedor-body {
+    margin-top: -8px;
     flex-grow: 1;
     padding: 10px;
     display: flex;
@@ -575,6 +585,267 @@ mat-grid-tile {
     padding: 3px 6px;
     font-size: 12px;
   }
+
+  .btn-editCombo{
+    padding: 3px 6px;
+    font-size: 10px;
+  }
+
+  .add-button-item {
+    height: 305px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px; /* Ajusta según el tamaño de tus tarjetas de combo */
+  }
+  
+  .btn-add-combo {
+   
+    gap: 8px;
+  }
+
+/* ------------------------------------------------------------------------------------------------------------------------------- */
+
+
+
+
+/* ------------------------------------------------------------------------------------------------------------------------------- */
+/* ESTILOS DE LA LISTA DE PROVEEDORES */
+
+.providers-container {
+  height: 300px;
+  overflow-y: auto;
+  padding-right: 10px;
+  display: flex;
+  flex-direction: column;
+  
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+
+    &:hover {
+      background: #555;
+    }
+  }
+
+  .provider-card {
+    background: rgb(95, 94, 94);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    margin-left: 50px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 1000px; /* Aumentar el ancho del contenedor */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribuir filas de forma equitativa */
+    position: relative;
+
+    .provider-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+
+      .provider-logo {
+        width: 100px;
+        height: 100px;
+        margin-right: 2rem;
+        flex-shrink: 0;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          border-radius: 50%;
+        }
+      }
+
+      .provider-socialMedia {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        align-items: center; /* Alinea los íconos dentro del contenedor */
+      
+        /* Redes sociales */
+        .social-links {
+          display: flex;
+          gap: 0.5rem;
+      
+          .social-btn {
+            padding: 0.4rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+      
+            svg {
+              width: 20px;
+              height: 20px;
+              transition: transform 0.3s ease;
+            }
+      
+            &.facebook {
+              background: #1877f2;
+              color: white;
+              position: relative;
+              overflow: hidden;
+      
+              &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: #000;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+              }
+      
+              &:hover {
+                transform: translateY(-2px);
+      
+                &::before {
+                  opacity: 1;
+                }
+      
+                svg {
+                  transform: scale(1.1);
+                }
+              }
+            }
+      
+            &.instagram {
+              background: #e4405f;
+              color: white;
+              position: relative;
+              overflow: hidden;
+      
+              &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: #000;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+              }
+      
+              &:hover {
+                transform: translateY(-2px);
+      
+                &::before {
+                  opacity: 1;
+                }
+      
+                svg {
+                  transform: scale(1.1);
+                }
+              }
+            }
+      
+            &:active {
+              transform: translateY(0);
+            }
+          }
+        }
+      }
+    }
+
+    .provider-actions {
+      display: flex;
+        justify-content: flex-end; /* Alinea los botones a la derecha */
+        gap: 0.5rem; 
+        flex-wrap: wrap;
+
+      
+
+      /* Botones de WhatsApp y Ver Catálogo */
+      .contact-actions {
+        display: flex;
+        gap: 0.4rem;
+
+        .contact-btn,
+        .catalog-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.4rem;
+          padding: 0.2rem 0.8rem; /* Aumentar el relleno de los botones */
+          border-radius: 4px;
+          border: none;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          text-decoration: none;
+          font-weight: 500;
+          font-size: 0.9rem; /* Aumentar un poco el tamaño de la fuente */
+
+          svg {
+            width: 18px;
+            height: 18px;
+          }
+        }
+
+        .whatsapp {
+          background: #25d366;
+          color: white;
+
+          &:hover {
+            background: #128c7e;
+          }
+        }
+
+        .catalog-btn {
+          background: #90a9c2;
+          color: #212529;
+
+          &:hover {
+            background: #457eb8;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+/* Estilos responsivos */
+@media (max-width: 576px) {
+  .providers-container {
+    height: 500px;
+
+    .provider-card {
+      padding: 0.75rem;
+      max-width: 100%; /* Aumentar ancho en pantallas pequeñas */
+
+      .provider-header {
+        .provider-logo {
+          width: 32px;
+          height: 32px;
+        }
+
+        .provider-name {
+          font-size: 0.875rem;
+        }
+      }
+    }
+  }
+}
 
 
 
