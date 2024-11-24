@@ -655,7 +655,7 @@ mat-grid-tile {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 0.75rem;
+      margin-bottom: 5px;
 
       .provider-logo {
         width: 100px;
@@ -779,20 +779,28 @@ mat-grid-tile {
         display: flex;
         gap: 0.4rem;
 
-        .contact-btn,
-        .catalog-btn {
+       
+
+        .catalog-btn,
+        .contact-btn {
+         
+          font-family: inherit;
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 0.4rem;
-          padding: 0.2rem 0.8rem; /* Aumentar el relleno de los botones */
-          border-radius: 4px;
-          border: none;
+          line-height: 3.0em;
+          margin: 20px;
+          position: relative;
           cursor: pointer;
-          transition: all 0.2s ease;
-          text-decoration: none;
-          font-weight: 500;
-          font-size: 0.9rem; /* Aumentar un poco el tamaño de la fuente */
+          overflow: hidden;
+          border: 1px solid var(--color);
+          transition: color 0.5s;
+          z-index: 1;
+        
+          border-radius: 4px;
+          
+          color: var(--color);
+          gap: 0.4rem;
 
           svg {
             width: 18px;
@@ -800,23 +808,59 @@ mat-grid-tile {
           }
         }
 
-        .whatsapp {
+        .catalog-btn:before,
+        .contact-btn:before {
+          content: "";
+          position: absolute;
+          z-index: -1;
+          background: var(--color);
+          height: 150px;
+          width: 200px;
+          border-radius: 60%;
+        }
+        
+        .catalog-btn:hover,
+        .contact-btn:hover {
+          color: #fff;
+        }
+        
+        .catalog-btn:before,
+        .contact-btn:before {
+          top: 100%;
+          left: 100%;
+          transition: all 0.7s;
+        }
+        
+        .catalog-btn:hover:before,
+        .contact-btn:hover:before {
+          top: -30px;
+          left: -30px;
+        }
+        
+        .catalog-btn:active:before {
+          background: #3a0ca3;
+          transition: background 0s;
+        }
+
+        .contact-btn:active::before {
           background: #25d366;
-          color: white;
-
-          &:hover {
-            background: #128c7e;
-          }
+          transition: background 0s;
         }
+        
 
+        
+
+        .contact-btn {
+          --color: #1ddb63;
+          padding: 13px 7px 13px 7px ;
+          background-color: white;
+          text-decoration: none;
+        }
         .catalog-btn {
-          background: #90a9c2;
-          color: #212529;
-
-          &:hover {
-            background: #457eb8;
-          }
+          --color: #560bad;
         }
+
+        
       }
     }
   }
@@ -847,5 +891,97 @@ mat-grid-tile {
   }
 }
 
+/* Estilos PARA EL MODAL DEL CATALOGO */
+.pdf-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.pdf-modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 90%;
+  height: 90%;
+  position: relative;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+  padding: 5px;
+  line-height: 1;
+  transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+  color: #000;
+}
+
+iframe {
+  width: 100%;
+  height: calc(100% - 40px);
+  margin-top: 20px;
+  border: none;
+}
 
 
+/* ------------------------------------------------------------------------------------------------------------------------------- */
+
+
+
+
+/* ------------------------------------------------------------------------------------------------------------------------------- */
+/* PASO 6: ESTILOS PARA EL PREFIJO "S/" EN EL INPUT DE PRECIO */
+
+
+.precio-input-container {
+  position: relative;
+}
+
+.precio-input {
+  padding-left: 45px !important; /* Espacio para el prefijo S/ */
+}
+
+.precio-input-container::before {
+  content: "S/";
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  color: #dde2e7;
+  z-index: 1;
+}
+
+/* Eliminar las flechas del input number */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* Cambio de color del prefijo cuando el input está en focus */
+.precio-input:focus + .precio-input-container::before,
+.precio-input-container:focus-within::before {
+    color: #121213; /* Color azul que coincide con el borde focus de Bootstrap */
+}

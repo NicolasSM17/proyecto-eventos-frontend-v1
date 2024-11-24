@@ -1,4 +1,4 @@
-import { LOCALE_ID, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA,LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -52,6 +52,17 @@ import { ViewSportsComponent } from './admin/view-sports/view-sports.component';
 import { BoostRequestsComponent } from './admin/boost-requests/boost-requests.component';
 import { TicketRequestsComponent } from './admin/ticket-requests/ticket-requests.component';
 import { ShowPaymentImagesDialogComponent } from './components/show-payment-images-dialog/show-payment-images-dialog.component';
+import { S3Service } from './services/s3.service';
+import { Amplify } from '@aws-amplify/core';
+import awsConfig from '../aws-exports';
+import { Buffer } from 'buffer';
+import { CarouselModule } from 'primeng/carousel';
+
+
+global.Buffer = Buffer;
+
+Amplify.configure(awsConfig);
+
 
 registerLocaleData(localeEs, 'es');
 
@@ -106,9 +117,13 @@ registerLocaleData(localeEs, 'es');
     NgbModule,
     NgbPopoverModule,
     SweetAlert2Module,
-    MatDialogModule
+    MatDialogModule,
+    CarouselModule
+   
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
+    S3Service,
     ComboService,
     {provide: LOCALE_ID, useValue: 'es'},
     AuthGuard,

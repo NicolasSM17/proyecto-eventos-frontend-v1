@@ -9,6 +9,35 @@
         </div>
     </div>
 
+    <!-- SECCIÓN DE NOVEDADES -->
+<div class="novedades-section">
+    <div class="scroll-container">
+        <div class="scroll-content">
+            <!-- Primera copia -->
+            <div *ngFor="let novedad of novedades" class="novedad-item">
+                <a [href]="novedad.url" class="novedad-link">
+                    <img [src]="novedad.imagen" [alt]="novedad.titulo" class="novedad-imagen">
+                    
+                </a>
+            </div>
+            <!-- Segunda copia -->
+            <div *ngFor="let novedad of novedades" class="novedad-item">
+                <a [href]="novedad.url" class="novedad-link">
+                    <img [src]="novedad.imagen" [alt]="novedad.titulo" class="novedad-imagen">
+                    
+                </a>
+            </div>
+            <!-- Tercera copia -->
+            <div *ngFor="let novedad of novedades" class="novedad-item">
+                <a [href]="novedad.url" class="novedad-link">
+                    <img [src]="novedad.imagen" [alt]="novedad.titulo" class="novedad-imagen">
+                   
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
     <section class="events my-5">
         <div class="container container-wide">
             <div class="row">
@@ -17,24 +46,34 @@
                     <i class="fa fa-star-half-alt text-yellow"></i>
                 </div>
                 <div class="row events-container">
+                    <!-- CARRUSEL DE EVENTOS -->
                     <div class="col-10 col-md-6 col-lg-3 mb-4" *ngFor="let evento of eventos">
-                        <a [routerLink]="['/eventDetail', evento.id]" [queryParams]="{institucionId: institucionId}" class="card-link">
+                        <a [routerLink]="['/eventDetail', evento.id]" [queryParams]="{institucionId: institucionId}"
+                            class="card-link">
                             <div class="card">
-                                <img class="img-fluid" [src]="evento.eventoImagenes[0].url" class="card-img-top" alt="Evento">
+                                <img class="img-fluid" [src]="evento.eventoImagenes[0].url" class="card-img-top"
+                                    alt="Evento">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ evento.titulo }}</h5>
                                     <p class="card-text">
-                                        <i class="fas fa-calendar-alt"></i> 
-                                        {{ evento.fecha | date:'EEEE dd \'de\' MMMM' }} - {{ evento.horaDate | date:'h:mm a' }}
+                                        <i class="fas fa-calendar-alt"></i>
+                                        {{ evento.fecha | date:'EEEE dd \'de\' MMMM' }} - {{ evento.horaDate |
+                                        date:'h:mm a' }}
                                     </p>
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <button class="btn btn-comprar">{{ evento.precioEntrada > 0 ? 'Comprar' : 'Inscribirme' }}</button>
-                                        <p class="card-text">{{ evento.precioEntrada > 0 ? ('Desde S/' + evento.precioEntrada) : 'Gratis' }}</p>
+                                        <button class="btn btn-comprar">{{ evento.precioEntrada > 0 ? 'Comprar' :
+                                            'Inscribirme' }}</button>
+                                        <p class="card-text">{{ evento.precioEntrada > 0 ? ('Desde S/' +
+                                            evento.precioEntrada) : 'Gratis' }}</p>
                                     </div>
                                 </div>
                             </div>
                         </a>
                     </div>
+
+
+
+
 
                     <!-- Notificacion for no Eventos -->
                     <div *ngIf="eventos.length == 0" class="col-lg-12 col-md-12 col-xl-12">
@@ -44,15 +83,17 @@
                         </div>
                     </div>
 
+                    <!-- LISTA DE EVENTOS -->
                     <div class="col-10 col-md-6 col-lg-3 mb-4" v-for="event in events">
                         <a routerLink="/publicationsOrganization" class="card-link">
                             <div class="card">
-                                <img class="img-fluid" src="https://th.bing.com/th/id/OIP.AoF8N1UuPhBcIqf1m_nQVgHaE8?rs=1&pid=ImgDetMain"
+                                <img class="img-fluid"
+                                    src="https://th.bing.com/th/id/OIP.AoF8N1UuPhBcIqf1m_nQVgHaE8?rs=1&pid=ImgDetMain"
                                     class="card-img-top" alt="Evento">
                                 <div class="card-body">
                                     <h5 class="card-title">Crea y vende tu evento</h5>
                                     <p class="card-text">
-                                        Nuestra plataforma te brinda las herramientas necesarias 
+                                        Nuestra plataforma te brinda las herramientas necesarias
                                         para crear, gestionar y vender entradas para tu evento.
                                     </p>
                                     <div class="d-flex justify-content-between align-items-center">

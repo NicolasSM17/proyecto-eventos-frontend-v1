@@ -7,6 +7,13 @@ import { EventService } from 'src/app/services/event.service';
 import { ImageProcessingService } from 'src/app/services/image-processing.service';
 declare var $: any; // Importa jQuery si estás usando Bootstrap 4
 
+interface Novedad {
+  id: number;
+  titulo: string;
+  imagen: string;
+  url: string;
+}
+
 @Component({
   selector: 'app-event-list',
   templateUrl: './event-list.component.html',
@@ -14,8 +21,11 @@ declare var $: any; // Importa jQuery si estás usando Bootstrap 4
 })
 export class EventListComponent implements OnInit, AfterViewInit {
   @ViewChild('carousel') carousel!: ElementRef;
+  @ViewChild('swiper') swiper!: ElementRef;
+
   eventos: Evento[] = [];
   institucionId: number;
+  novedades: Novedad[] = [];
 
   slides = [
     { image: 'https://cdn.joinnus.com/files/2024/06/LfBSShMvDGCvLLd.png' },
@@ -23,6 +33,7 @@ export class EventListComponent implements OnInit, AfterViewInit {
     { image: 'https://cdn.joinnus.com/files/2024/05/5ez52ZUqddX2U5s.png' }
   ];
 
+  
   constructor(private activatedRoute: ActivatedRoute, private eventoService: EventService,
               private imageProcessingService: ImageProcessingService){}
 
@@ -36,10 +47,52 @@ export class EventListComponent implements OnInit, AfterViewInit {
         this.getEventos();
       }
     );
+
+    this.novedades = [
+      {
+        id: 1,
+        titulo: 'Nuevo evento cultural',
+       imagen: 'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/dark-blue-dj-music-festival-banner-design-template-e42efaf29a52b8300ec375e7be631292_screen.jpg?ts=1599558497',
+        url: '/novedad1'
+      },
+      {
+        id: 2,
+        titulo: 'Festival de música',
+        imagen: 'https://img.freepik.com/psd-gratis/plantilla-banner-festival-musica-rock_23-2148971252.jpg',
+        url: '/novedad1'
+      },
+      {
+        id: 3,
+        titulo: 'Nuevo evento cultural',
+       imagen:'https://st4.depositphotos.com/7555982/20984/v/1600/depositphotos_209842000-stock-illustration-vector-illustration-banner-design-template.jpg',
+        url: '/novedad1'
+      },
+      {
+        id: 4,
+        titulo: 'Nuevo evento cultural',
+       imagen:  'https://c8.alamy.com/comp/2RF5886/3d-music-event-banner-vector-2RF5886.jpg',
+        url: '/novedad1'
+      },
+      {
+        id: 5,
+        titulo: 'Nuevo evento cultural',
+       imagen: 'https://i.pinimg.com/736x/4b/92/43/4b924325613089a96886f1f64ce6d657.jpg',
+        url: '/novedad1'
+      },
+      {
+        id: 6,
+        titulo: 'Nuevo evento cultural',
+       imagen: 'https://previews.123rf.com/images/singpentinkhappy/singpentinkhappy2009/singpentinkhappy200906864/155230088-plantilla-de-dise%C3%B1o-de-dise%C3%B1o-de-banner-de-festival-de-m%C3%BAsica-electr%C3%B3nica-de-verano-de-vector-para.jpg',
+        url: '/novedad1'
+      },
+      // ... más novedades
+    ];
   }
 
   ngAfterViewInit() {
       this.initializeSlickCarousel();
+
+      
   }
 
   initializeSlickCarousel() {

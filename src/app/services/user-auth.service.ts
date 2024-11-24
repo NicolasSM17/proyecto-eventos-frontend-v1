@@ -9,17 +9,17 @@ import { AuthenticationResponse } from '../model/auth-response.model';
 export class UserAuthService {
 
   PATH_OF_API = "http://localhost:8080/api/v1/";
-  PATH_OF_API_PROD = "";
+  PATH_OF_API_PROD = "http://proyecto-eventos-backend-v1-production-ceba.up.railway.app/api/v1";
   requestHeader = new HttpHeaders( {"No-Auth":"True"} );
 
   constructor(private httpClient: HttpClient) { }
 
   public register(registerData){
-    return this.httpClient.post(this.PATH_OF_API + 'auth/register', registerData);
+    return this.httpClient.post(this.PATH_OF_API_PROD + 'auth/register', registerData);
   }
 
   public login(loginData){
-    return this.httpClient.post(this.PATH_OF_API+ "auth/authenticate", loginData, {headers: this.requestHeader}).pipe(
+    return this.httpClient.post(this.PATH_OF_API_PROD+ "auth/authenticate", loginData, {headers: this.requestHeader}).pipe(
       tap((response: AuthenticationResponse) => {
           localStorage.setItem('user', JSON.stringify(response.usuario));
         }
