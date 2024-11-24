@@ -14,14 +14,14 @@ export class CardService {
   constructor(private httpClient: HttpClient) { }
 
   save(card: Card): Observable<Card>{
-    return this.httpClient.post<Card>(this.PATH_OF_API_PROD, card);
+    return this.httpClient.post<Card>(this.PATH_OF_API, card);
   }
   
   getTarjetaByIdUsuario(usuarioId: number): Observable<Card[]>{
-    return this.httpClient.get<Card[]>(`${this.PATH_OF_API_PROD}/tarjetasPorUsuarioId/${usuarioId}`);
+    return this.httpClient.get<Card[]>(`${this.PATH_OF_API}/tarjetasPorUsuarioId/${usuarioId}`);
   }
 
   delete(id: number): Observable<void>{
-    return this.httpClient.delete<void>(`${this.PATH_OF_API_PROD}/${id}`);
+    return this.httpClient.delete<void>(`${this.PATH_OF_API}/${id}`);
   }
 }

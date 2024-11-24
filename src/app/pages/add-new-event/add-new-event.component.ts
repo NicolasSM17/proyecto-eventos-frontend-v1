@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, TemplateRef, ViewChild, ElementRef, ViewChildren, QueryList, ChangeDetectorRef, NgZone, Renderer2 } from '@angular/core';
 import { trigger, transition, style, animate, state } from '@angular/animations';
 import { NgForm } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl  } from '@angular/platform-browser';
 import { Category } from 'src/app/model/category.model';
 import { Evento } from 'src/app/model/event.model';
 import { FileHandle } from 'src/app/model/file-handle.model';
@@ -19,7 +19,7 @@ import { ProviderService } from 'src/app/services/provider.service';
 import { Provider } from '../../model/provider.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProviderUtils } from 'src/app/utils/provider-utils';
-
+import { S3Service } from '../../services/s3.service';
 
 import { gsap } from 'gsap';
 import { EditComboModalComponent } from './edit-combo-modal/edit-combo-modal.component';
@@ -61,7 +61,7 @@ export class AddNewEventComponent implements OnInit {
     hora: "", // Formato HH:mm
     direccion: "",
     direccionUrl: "",
-    precioEntrada: 0,
+    precioEntrada: null,
     
     categorias: [],
     organizador: null,
@@ -95,6 +95,8 @@ export class AddNewEventComponent implements OnInit {
   readonly MAX_COMBOS = 10;
 
 
+  isPdfVisible = false;
+  pdfUrl: SafeResourceUrl = '';
 
   /* Expresiones Regulares*/
 
@@ -117,7 +119,7 @@ export class AddNewEventComponent implements OnInit {
   @ViewChild('content') modalContent: TemplateRef<any>;
 
   constructor(private eventService: EventService, private categoryService: CategoryService,
-    private institutionService: InstitutionService, private sanitizer: DomSanitizer,
+    private s3Service: S3Service, private institutionService: InstitutionService, private sanitizer: DomSanitizer,
     private userAuthService: UserAuthService, private router: Router, private comboService: ComboService,
     private modalService: NgbModal, private cdr: ChangeDetectorRef, private ngZone: NgZone, private renderer: Renderer2, 
     private providerService: ProviderService) { }
@@ -199,8 +201,15 @@ export class AddNewEventComponent implements OnInit {
       }
     );
   }
+  
+  isValidPrice(): boolean {
+    return this.evento.precioEntrada && this.evento.precioEntrada >= 1;
+  }
 
   next() {
+    if (this.step === 6 && !this.isValidPrice()) {
+      return; // No permite avanzar si el precio no es válido
+    }
     this.step = this.step + 1;
   }
 
@@ -519,10 +528,30 @@ updateShowNoCombos() {
     return ProviderUtils.generateWhatsAppLink(provider.whatsapp);
   }
 
-  verCatalogo(catalogId: string): void {
-    const catalogUrl = ProviderUtils.generateCatalogUrl(catalogId);
-    window.open(catalogUrl, '_blank');
+  verCatalogo(): void {
+    // Ya no necesitamos pasar un catalogId porque tenemos un archivo específico
+    const pdfUrl = this.s3Service.getPDFUrl();
+    this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(pdfUrl);
+    this.isPdfVisible = true;
+
+    // Opcional: verificar si el archivo existe antes de mostrarlo
+    this.s3Service.checkIfFileExists().subscribe(
+      exists => {
+        if (exists) {
+          console.log('El catálogo existe y está accesible');
+        } else {
+          console.error('No se pudo acceder al catálogo');
+          // Aquí podrías mostrar un mensaje de error al usuario
+        }
+      }
+    );
   }
+
+  closePdfViewer(): void {
+    this.isPdfVisible = false;
+  }
+
+
 
   getFormattedPhone(whatsapp: string): string {
     return ProviderUtils.formatPhoneNumberForDisplay(whatsapp);

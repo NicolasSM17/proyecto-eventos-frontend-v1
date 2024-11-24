@@ -14,18 +14,18 @@ export class SportService {
   constructor(private httpClient: HttpClient) { }
 
   getDeporte(): Observable<Deporte[]>{
-    return this.httpClient.get<Deporte[]>(`${this.PATH_OF_API_PROD}/listar`);
+    return this.httpClient.get<Deporte[]>(`${this.PATH_OF_API}/listar`);
   }
 
   save(deporte: Deporte): Observable<Deporte>{
-    return this.httpClient.post<Deporte>(this.PATH_OF_API_PROD, deporte);
+    return this.httpClient.post<Deporte>(this.PATH_OF_API, deporte);
   }
 
   update(id: number, deporte: Deporte): Observable<Deporte>{
-    return this.httpClient.put<Deporte>(`${this.PATH_OF_API_PROD}/${id}`, deporte);
+    return this.httpClient.put<Deporte>(`${this.PATH_OF_API}/${id}`, deporte);
   }
 
   delete(id: number): Observable<void>{
-    return this.httpClient.delete<void>(`${this.PATH_OF_API_PROD}/${id}`);
+    return this.httpClient.delete<void>(`${this.PATH_OF_API}/${id}`);
   }
 }

@@ -14,10 +14,10 @@ export class AssistantService {
   constructor(private httpClient: HttpClient) { }
 
   getAssistant(): Observable<Asistente[]>{
-    return this.httpClient.get<Asistente[]>(this.PATH_OF_API_PROD + "/listar");
+    return this.httpClient.get<Asistente[]>(this.PATH_OF_API + "/listar");
   }
 
   getAsistenteByIdEvento(eventoId: number): Observable<Asistente[]>{
-    return this.httpClient.get<Asistente[]>(`${this.PATH_OF_API_PROD}/asistentesPorEventoId/${eventoId}`);
+    return this.httpClient.get<Asistente[]>(`${this.PATH_OF_API}/asistentesPorEventoId/${eventoId}`);
   }
 }

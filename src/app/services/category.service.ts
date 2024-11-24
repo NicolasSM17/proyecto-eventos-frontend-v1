@@ -14,22 +14,22 @@ export class CategoryService {
   constructor(private httpClient: HttpClient) { }
 
   getCategory(): Observable<Category[]>{
-    return this.httpClient.get<Category[]>(this.PATH_OF_API_PROD + "/listar");
+    return this.httpClient.get<Category[]>(this.PATH_OF_API + "/listar");
   }
 
   getByIdCategory(id: number): Observable<Category>{
-    return this.httpClient.get<Category>(this.PATH_OF_API_PROD + "/" + id);
+    return this.httpClient.get<Category>(this.PATH_OF_API + "/" + id);
   }
 
   save(category: Category): Observable<Category>{
-    return this.httpClient.post<Category>(this.PATH_OF_API_PROD, category);
+    return this.httpClient.post<Category>(this.PATH_OF_API, category);
   }
 
   update(id:number, category: Category): Observable<Category>{
-    return this.httpClient.put<Category>(this.PATH_OF_API_PROD + "/" + id, category);
+    return this.httpClient.put<Category>(this.PATH_OF_API + "/" + id, category);
   }
 
   delete(id: number): Observable<void>{
-    return this.httpClient.delete<void>(`${this.PATH_OF_API_PROD}/${id}`);
+    return this.httpClient.delete<void>(`${this.PATH_OF_API}/${id}`);
   }
 }
