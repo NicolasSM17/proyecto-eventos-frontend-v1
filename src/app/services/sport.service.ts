@@ -9,7 +9,7 @@ import { Deporte } from '../model/sport.model';
 export class SportService {
 
   PATH_OF_API = "http://localhost:8080/api/v1/deporte";
-  PATH_OF_API_PROD = "http://proyecto-eventos-backend-v1-production-ceba.up.railway.app/api/v1/deporte";
+  PATH_OF_API_PROD = "https://proyecto-eventos-backend-v1-production-ceba.up.railway.app/api/v1/deporte";
 
   constructor(private httpClient: HttpClient) { }
 

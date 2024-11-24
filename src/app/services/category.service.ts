@@ -9,7 +9,7 @@ import { Category } from '../model/category.model';
 export class CategoryService {
 
   PATH_OF_API = "http://localhost:8080/api/v1/categoria";
-  PATH_OF_API_PROD = "http://proyecto-eventos-backend-v1-production-ceba.up.railway.app/api/v1/categoria";
+  PATH_OF_API_PROD = "https://proyecto-eventos-backend-v1-production-ceba.up.railway.app/api/v1/categoria";
 
   constructor(private httpClient: HttpClient) { }
 

@@ -9,7 +9,7 @@ import { Card } from '../model/card.model';
 export class CardService {
 
   PATH_OF_API = "http://localhost:8080/api/v1/tarjeta";
-  PATH_OF_API_PROD = "http://proyecto-eventos-backend-v1-production-ceba.up.railway.app/api/v1/tarjeta";
+  PATH_OF_API_PROD = "https://proyecto-eventos-backend-v1-production-ceba.up.railway.app/api/v1/tarjeta";
 
   constructor(private httpClient: HttpClient) { }
 

@@ -11,7 +11,7 @@ import { TicketRequest } from '../model/ticket-request.model';
 export class TicketService {
 
   PATH_OF_API = "http://localhost:8080/api/v1/ticket";
-  PATH_OF_API_PROD = "http://proyecto-eventos-backend-v1-production-ceba.up.railway.app/api/v1/ticket";
+  PATH_OF_API_PROD = "https://proyecto-eventos-backend-v1-production-ceba.up.railway.app/api/v1/ticket";
 
   constructor(private httpClient: HttpClient) { }
 
