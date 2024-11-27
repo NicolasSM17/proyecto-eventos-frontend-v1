@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as AWS from 'aws-sdk';
 import { Observable, from } from 'rxjs';
+import { Provider } from '../model/provider.model';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -24,9 +25,9 @@ export class S3Service {
   }
 
   
-  // Método para obtener la URL del PDF
-  getPDFUrl(fileName: string = 'Catálogo U-manyas.pdf'): string {
-    // Codificar el nombre del archivo para la URL
+  getPDFUrl(provider: Provider): string {
+    // Use the provider's catalogId to construct the PDF filename
+    const fileName = `Catálogo ${provider.name}.pdf`;
     const encodedFileName = encodeURIComponent(fileName);
     return `https://${this.bucketName}.s3.amazonaws.com/${encodedFileName}`;
   }

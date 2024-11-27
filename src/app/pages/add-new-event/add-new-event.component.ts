@@ -528,9 +528,9 @@ updateShowNoCombos() {
     return ProviderUtils.generateWhatsAppLink(provider.whatsapp);
   }
 
-  verCatalogo(): void {
+  verCatalogo(provider: Provider): void {
     // Ya no necesitamos pasar un catalogId porque tenemos un archivo específico
-    const pdfUrl = this.s3Service.getPDFUrl();
+    const pdfUrl = this.s3Service.getPDFUrl(provider);
     this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(pdfUrl);
     this.isPdfVisible = true;
 
