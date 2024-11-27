@@ -11,6 +11,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatGridListModule } from "@angular/material/grid-list";
+import { MatDialogModule } from "@angular/material/dialog";
 import { ForbiddenComponent } from './pages/forbidden/forbidden.component';
 import { ViewInstitutionsComponent } from './admin/view-institutions/view-institutions.component';
 import { ViewCategoriesComponent } from './admin/view-categories/view-categories.component';
@@ -50,6 +51,7 @@ import { EditComboModalComponent } from './pages/add-new-event/edit-combo-modal/
 import { ViewSportsComponent } from './admin/view-sports/view-sports.component';
 import { BoostRequestsComponent } from './admin/boost-requests/boost-requests.component';
 import { TicketRequestsComponent } from './admin/ticket-requests/ticket-requests.component';
+import { ShowPaymentImagesDialogComponent } from './components/show-payment-images-dialog/show-payment-images-dialog.component';
 import { S3Service } from './services/s3.service';
 import { Amplify } from '@aws-amplify/core';
 import awsConfig from '../aws-exports';
@@ -99,7 +101,8 @@ registerLocaleData(localeEs, 'es');
     EditComboModalComponent,
     ViewSportsComponent,
     BoostRequestsComponent,
-    TicketRequestsComponent
+    TicketRequestsComponent,
+    ShowPaymentImagesDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -114,6 +117,7 @@ registerLocaleData(localeEs, 'es');
     NgbModule,
     NgbPopoverModule,
     SweetAlert2Module,
+    MatDialogModule,
     CarouselModule
    
   ],

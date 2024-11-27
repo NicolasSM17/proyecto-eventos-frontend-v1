@@ -15,48 +15,14 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Evento 1</td>
-                <td>Nicolas Segovia</td>
-                <td>08/10/2024</td>
-                <td>Pendiente</td>
-                <td>S/50</td>
+            <tr *ngFor="let boostRequest of boostRequest"> 
+                <td>{{ boostRequest.evento.titulo }}</td>
+                <td>{{ boostRequest.evento.organizador.nombre }}</td>
+                <td>{{ boostRequest.fechaSolicitud }}</td>
+                <td>{{ boostRequest.estado }}</td>
+                <td>{{ boostRequest.monto }}</td>
                 <td>
-                    <a class="btn btn-success">
-                        <i class="fa-solid fa-image fa-2x"></i>
-                    </a>
-                </td>
-                <td>
-                    <a class="btn btn-warning mx-3">Confirmar</a>
-                    <a class="btn btn-danger">Declinar</a>
-                </td>
-            </tr>
-
-            <tr>
-                <td>Evento 1</td>
-                <td>Nicolas Segovia</td>
-                <td>08/10/2024</td>
-                <td>Pendiente</td>
-                <td>S/50</td>
-                <td>
-                    <a class="btn btn-success">
-                        <i class="fa-solid fa-image fa-2x"></i>
-                    </a>
-                </td>
-                <td>
-                    <a class="btn btn-warning mx-3">Confirmar</a>
-                    <a class="btn btn-danger">Declinar</a>
-                </td>
-            </tr>
-
-            <tr>
-                <td>Evento 1</td>
-                <td>Nicolas Segovia</td>
-                <td>08/10/2024</td>
-                <td>Pendiente</td>
-                <td>S/50</td>
-                <td>
-                    <a class="btn btn-success">
+                    <a class="btn btn-success" (click)="showImages(boostRequest)">
                         <i class="fa-solid fa-image fa-2x"></i>
                     </a>
                 </td>
