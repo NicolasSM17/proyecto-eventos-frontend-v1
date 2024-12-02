@@ -17,17 +17,6 @@ export class ProviderService {
                 facebook: 'https://facebook.com/proveedor1',
                 instagram: 'https://instagram.com/proveedor1'
             }
-        },
-        {
-            id: 2,
-            name: 'Proveedor 2',
-            logo: 'assets/images/provider2-logo.jpg',
-            whatsapp: '+51999999998',
-            catalogId: 'cat2',
-            socialMedia: {
-                facebook: 'https://facebook.com/proveedor2',
-                instagram: 'https://instagram.com/proveedor2'
-            }
         }
     ];
 

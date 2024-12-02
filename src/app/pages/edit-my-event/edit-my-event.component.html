@@ -118,7 +118,7 @@
             </div>
             <button type="submit" *ngIf="seccionSeleccionada !== 'asistentes' && seccionSeleccionada !== 'eliminarEvento'">Guardar</button>
             <button *ngIf="seccionSeleccionada === 'asistentes'" class="btn-export" (click)="exportarAExcel()">Exportar a Excel</button>
-            <button *ngIf="seccionSeleccionada === 'eliminarEvento'" class="btn-delete" data-bs-toggle="modal" data-bs-target="#ModalEliminarEvento">Eliminar Evento</button>
+            <a *ngIf="seccionSeleccionada === 'eliminarEvento'" class="btn btn-danger btn-delete" data-bs-toggle="modal" data-bs-target="#ModalEliminarEvento">Eliminar Evento</a>
         </form>
     </div>
 
