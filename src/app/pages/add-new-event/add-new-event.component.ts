@@ -78,28 +78,18 @@ export class AddNewEventComponent implements OnInit {
   };
 
   modalRef: any;
-
-
-
   aceptarTerminos: boolean = false;
-
   providers: Provider[] = [];
   combos: [];
   combosRegulares: ComboWithState[] = [];
   combosConProveedores: ComboWithState[] = [];
-
- 
-
   isMaxCombosRegularesReached = false;
   isMaxCombosProveedoresReached = false;
   readonly MAX_COMBOS = 10;
-
-
   isPdfVisible = false;
   pdfUrl: SafeResourceUrl = '';
 
   /* Expresiones Regulares*/
-
   descripcionCharCount: number = 500;
 
   get showNoCombos(): boolean {
@@ -107,15 +97,9 @@ export class AddNewEventComponent implements OnInit {
   }
 
 
-    @ViewChildren('comboItem') comboItems!: QueryList<ElementRef>;
-    @ViewChildren('comboItemProveedor') comboItemsProveedores: QueryList<ElementRef>;
-    @ViewChildren('addButtonProveedor') addButtonProveedores!: QueryList<ElementRef>;
- 
-
-
-
-
-
+  @ViewChildren('comboItem') comboItems!: QueryList<ElementRef>;
+  @ViewChildren('comboItemProveedor') comboItemsProveedores: QueryList<ElementRef>;
+  @ViewChildren('addButtonProveedor') addButtonProveedores!: QueryList<ElementRef>;
   @ViewChild('content') modalContent: TemplateRef<any>;
 
   constructor(private eventService: EventService, private categoryService: CategoryService,

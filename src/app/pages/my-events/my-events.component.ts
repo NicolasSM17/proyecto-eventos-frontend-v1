@@ -41,8 +41,8 @@ export class MyEventsComponent implements OnInit{
       map(
         (x: Evento[], i) => x.map(
           (evento: Evento) => {
-            const [hours, minutes] = evento.hora.split(':');
-            evento.horaDate = new Date(0, 0, 0, +hours, +minutes);
+            /*const [hours, minutes] = evento.hora.split(':');
+            evento.horaDate = new Date(0, 0, 0, +hours, +minutes);*/
 
             return this.imageProcessingService.createImages(evento);
           }

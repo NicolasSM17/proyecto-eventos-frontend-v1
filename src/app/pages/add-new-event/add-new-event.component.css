@@ -654,12 +654,12 @@ mat-grid-tile {
     .provider-header {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      margin-bottom: 5px;
+      align-items: flex-start;
+      position: relative;
 
       .provider-logo {
-        width: 100px;
-        height: 100px;
+        width: 200px;
+        height: 200px;
         margin-right: 2rem;
         flex-shrink: 0;
 
@@ -672,10 +672,12 @@ mat-grid-tile {
       }
 
       .provider-socialMedia {
+        position: absolute;
+        top: 0;
+        right: 0;
         display: flex;
+        flex-direction: column; /* Coloca los botones uno debajo del otro */
         gap: 0.5rem;
-        flex-wrap: wrap;
-        align-items: center; /* Alinea los íconos dentro del contenedor */
       
         /* Redes sociales */
         .social-links {
@@ -768,9 +770,8 @@ mat-grid-tile {
 
     .provider-actions {
       display: flex;
-        justify-content: center; /* Alinea los botones a la derecha */
-        gap: 0.5rem; 
-        flex-wrap: wrap;
+      align-items: center; /* Alinea los botones verticalmente al centro del logo */
+      gap: 0.5rem;
 
       
 
@@ -779,26 +780,21 @@ mat-grid-tile {
         display: flex;
         gap: 0.4rem;
 
-       
 
-        .catalog-btn,
-        .contact-btn {
-         
+        .catalog-btn, .contact-btn {
           font-family: inherit;
           display: flex;
           align-items: center;
           justify-content: center;
           line-height: 3.0em;
-          margin: 20px;
+          margin: 10px;
           position: relative;
           cursor: pointer;
           overflow: hidden;
           border: 1px solid var(--color);
           transition: color 0.5s;
           z-index: 1;
-        
           border-radius: 4px;
-          
           color: var(--color);
           gap: 0.4rem;
 
@@ -814,7 +810,7 @@ mat-grid-tile {
           position: absolute;
           z-index: -1;
           background: var(--color);
-          height: 150px;
+          height: 100px;
           width: 200px;
           border-radius: 60%;
         }
@@ -846,8 +842,6 @@ mat-grid-tile {
           background: #25d366;
           transition: background 0s;
         }
-        
-
         
 
         .contact-btn {
