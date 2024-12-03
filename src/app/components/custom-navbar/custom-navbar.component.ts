@@ -244,6 +244,10 @@ export class CustomNavbarComponent {
     return this.userAuthService.isOrganizador();
   }
 
+  public isDistribuidor(){
+    return this.userAuthService.isDistribuidor();
+  }
+
   public logout() {
     this.userAuthService.clear();
     this.router.navigate(['/selectInstitution']);
@@ -266,10 +270,12 @@ export class CustomNavbarComponent {
 
         const role = response.usuario.roles[0].nombre;
 
-        if(role === 'ADMIN'){
-          this.router.navigate(['/adminPanel'])
-        } else{
-          this.router.navigate(['/selectInstitution'])
+        if (role === 'ADMIN') {
+          this.router.navigate(['/adminPanel']);
+        } else if (role === 'DISTRIBUIDOR') {
+          this.router.navigate(['/codeVerification']);
+        } else {
+          this.router.navigate(['/selectInstitution']);
         }
       },
       (error) => {

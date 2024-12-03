@@ -140,10 +140,12 @@ export class LoginComponent implements AfterViewInit {
 
         const role = response.usuario.roles[0].nombre;
 
-        if(role === 'ADMIN'){
-          this.router.navigate(['/adminPanel'])
-        } else{
-          this.router.navigate(['/selectInstitution'])
+        if (role === 'ADMIN') {
+          this.router.navigate(['/adminPanel']);
+        } else if (role === 'DISTRIBUIDOR') {
+          this.router.navigate(['/codeVerification']);
+        } else {
+          this.router.navigate(['/selectInstitution']);
         }
       },
       (error) => {
