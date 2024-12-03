@@ -70,6 +70,11 @@ export class UserAuthService {
     return roles[0].nombre == 'ORGANIZADOR'
   }
 
+  public isDistribuidor(){
+    const roles: any[] = this.getRoles();
+    return roles[0].nombre == 'DISTRIBUIDOR'
+  }
+
   public roleMatch(allowedRoles): boolean {
     let isMatch = false;
     const userRoles: any = this.getRoles();

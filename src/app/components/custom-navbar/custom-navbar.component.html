@@ -38,6 +38,7 @@
                     <i class="fa-solid fa-user fa-lg" *ngIf="isUser()"></i>
                     <i class="fa-solid fa-user-tie fa-xl" *ngIf="isOrganizador()"></i>
                     <i class="fa-solid fa-user-secret fa-lg" *ngIf="isAdmin()"></i>
+                    <img src="assets/image.png" alt="imagen de distribuidor" width="30px" height="50px" *ngIf="isDistribuidor()">
                 </button>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" *ngIf="isUser()" routerLink="/manageAccount">Administrar cuenta</a></li>
