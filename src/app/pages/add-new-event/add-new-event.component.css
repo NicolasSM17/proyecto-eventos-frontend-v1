@@ -456,13 +456,13 @@ mat-grid-tile {
     }
 
     .proveedores-combos-container .col-lg-8 {
-        flex: 0 0 60%;
-        max-width: 60%;
+        flex: 0 0 58%;
+        max-width: 58%;
     }
 
     .proveedores-combos-container .col-lg-4 {
-        flex: 0 0 40%;
-        max-width: 40%;
+        flex: 0 0 42%;
+        max-width: 42%;
     }
 }
 
@@ -532,16 +532,39 @@ mat-grid-tile {
   }
   
   .combo-proveedor-body {
-    margin-top: -8px;
+    position: relative; /* Mantenemos posicionamiento relativo */
+    margin-top: -4px;
     flex-grow: 1;
     padding: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-  
-  .combo-proveedor-title {
     
+
+    
+}
+
+.combo-proveedor-imagen {
+    position: absolute; /* Mantenemos posicionamiento absoluto */
+    top: 50%; /* Centramos la imagen */
+    left: 50%; /* Centramos la imagen */
+    transform: translate(-50%, -50%); /* Centramos la imagen */
+    width: 90%; /* Hacemos la imagen un poco más grande para cubrir todo */
+    height: 90%; /* Hacemos la imagen un poco más grande para cubrir todo */
+    object-fit: cover; /* Cubrimos todo el espacio manteniendo la proporción */
+    opacity: 0.3; /* Reducimos la opacidad */
+    filter: grayscale(50%); /* Opcional: añade un efecto de escala de grises */
+}
+
+/* El resto de los estilos permanecen igual, con z-index para asegurar visibilidad */
+.combo-proveedor-title,
+.combo-proveedor-descripcion,
+.combo-proveedor-precio {
+    position: relative;
+    z-index: 1; /* Aseguramos que estos elementos estén sobre la imagen */
+}
+
+.combo-proveedor-title {
     font-weight: bold;
     margin-bottom: 5px;
     text-align: center;
@@ -550,35 +573,39 @@ mat-grid-tile {
                  0px 0px 20px rgb(55, 0, 255),
                  0px 0px 40px rgb(55, 0, 255),
                  0px 0px 80px rgb(55, 0, 255);
-   font-size: 16px;
-  }
-  
-  .combo-proveedor-body .combo-proveedor-descripcion {
-    font-size: 12px;
+   font-size: 25px;
+}
+
+.combo-proveedor-body .combo-proveedor-descripcion {
+    font-weight: bold;
+    font-size: 16px;
     text-align: center;
-    margin-bottom: 5px;
-    color: #181717;
-  }
-  
-  .combo-proveedor-imagen {
-    width: 100%;
-    height: 100px;
-    object-fit: contain;
     margin-bottom: 10px;
-  }
-  
-  .combo-proveedor-body .combo-proveedor-precio,
-  .combo-proveedor-body .combo-proveedor-proveedor {
-    font-size: 12px;
-    margin: 2px 0;
-    color: #050505;
-  }
-  
-  .combo-proveedor-delete {
+    color: #ffffff;
+    text-shadow: 0px 0px 10px rgb(236, 8, 8),
+                 0px 0px 20px rgb(233, 13, 13),
+                 0px 0px 40px rgb(235, 10, 10),
+                 0px 0px 80px rgb(248, 10, 10);
+}
+
+.combo-proveedor-body .combo-proveedor-precio {
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    margin: 10px 0;
+    color: #eaf3ea;
+    text-shadow: 0px 0px 10px rgb(8, 236, 46),
+    0px 0px 20px rgb(8, 236, 46),
+    0px 0px 40px rgb(8, 236, 46),
+    0px 0px 80px rgb(8, 236, 46);
+}
+
+.combo-proveedor-delete {
     display: flex;
     justify-content: flex-end;
     padding: 5px;
-  }
+    margin: 0 5px 5px 0;
+}
   
   .btn-edit,
   .btn-deleteCombo {
@@ -643,23 +670,25 @@ mat-grid-tile {
     border-radius: 8px;
     padding: 1rem;
     margin-bottom: 0.75rem;
-    margin-left: 50px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-width: 1000px; /* Aumentar el ancho del contenedor */
+    
+    /* Nuevas propiedades para expandirse */
+    width: calc(100%); /* Ajusta el valor según necesites */
+    margin-left: 0px; /* Valor negativo equivalente */
+    
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Distribuir filas de forma equitativa */
-    position: relative;
+    justify-content: space-between;
 
     .provider-header {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: center;
       position: relative;
 
       .provider-logo {
-        width: 200px;
-        height: 200px;
+        width: 160px;
+        height: 160px;
         margin-right: 2rem;
         flex-shrink: 0;
 
@@ -678,6 +707,7 @@ mat-grid-tile {
         display: flex;
         flex-direction: column; /* Coloca los botones uno debajo del otro */
         gap: 0.5rem;
+        
       
         /* Redes sociales */
         .social-links {
@@ -766,98 +796,105 @@ mat-grid-tile {
           }
         }
       }
-    }
 
-    .provider-actions {
-      display: flex;
-      align-items: center; /* Alinea los botones verticalmente al centro del logo */
-      gap: 0.5rem;
-
-      
-
-      /* Botones de WhatsApp y Ver Catálogo */
-      .contact-actions {
+      .provider-actions {
         display: flex;
-        gap: 0.4rem;
-
-
-        .catalog-btn, .contact-btn {
-          font-family: inherit;
+        align-items: right; /* Alinea los botones verticalmente al centro del logo */
+        gap: 0.5rem;
+        position: absolute; /* Posiciona las acciones de forma absoluta */
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%); /* Centra verticalmente las acciones */
+        
+  
+        /* Botones de WhatsApp y Ver Catálogo */
+        .contact-actions {
           display: flex;
-          align-items: center;
-          justify-content: center;
-          line-height: 3.0em;
-          margin: 10px;
-          position: relative;
-          cursor: pointer;
-          overflow: hidden;
-          border: 1px solid var(--color);
-          transition: color 0.5s;
-          z-index: 1;
-          border-radius: 4px;
-          color: var(--color);
           gap: 0.4rem;
-
-          svg {
-            width: 18px;
-            height: 18px;
+  
+  
+          .catalog-btn, .contact-btn {
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 3.0em;
+            margin: 10px;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            border: 1px solid var(--color);
+            transition: color 0.5s;
+            z-index: 1;
+            border-radius: 4px;
+            color: var(--color);
+            gap: 0.4rem;
+  
+            svg {
+              width: 18px;
+              height: 18px;
+            }
           }
+  
+          .catalog-btn:before,
+          .contact-btn:before {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            background: var(--color);
+            height: 120px;
+            width: 200px;
+            border-radius: 60%;
+          }
+          
+          .catalog-btn:hover,
+          .contact-btn:hover {
+            color: #fff;
+          }
+          
+          .catalog-btn:before,
+          .contact-btn:before {
+            top: 100%;
+            left: 100%;
+            transition: all 0.7s;
+          }
+          
+          .catalog-btn:hover:before,
+          .contact-btn:hover:before {
+            top: -30px;
+            left: -30px;
+          }
+          
+          .catalog-btn:active:before {
+            background: #3a0ca3;
+            transition: background 0s;
+          }
+  
+          .contact-btn:active::before {
+            background: #25d366;
+            transition: background 0s;
+          }
+          
+  
+          .contact-btn {
+            --color: #1ddb63;
+            padding: 13px 7px 13px 7px ;
+            background-color: rgb(88, 79, 79);
+            text-decoration: none;
+          }
+          .catalog-btn {
+            --color: #560bad;
+            padding: 13px 7px 13px 7px ;
+            background-color: rgb(88, 79, 79);
+            text-decoration: none;
+          }
+  
+          
         }
-
-        .catalog-btn:before,
-        .contact-btn:before {
-          content: "";
-          position: absolute;
-          z-index: -1;
-          background: var(--color);
-          height: 100px;
-          width: 200px;
-          border-radius: 60%;
-        }
-        
-        .catalog-btn:hover,
-        .contact-btn:hover {
-          color: #fff;
-        }
-        
-        .catalog-btn:before,
-        .contact-btn:before {
-          top: 100%;
-          left: 100%;
-          transition: all 0.7s;
-        }
-        
-        .catalog-btn:hover:before,
-        .contact-btn:hover:before {
-          top: -30px;
-          left: -30px;
-        }
-        
-        .catalog-btn:active:before {
-          background: #3a0ca3;
-          transition: background 0s;
-        }
-
-        .contact-btn:active::before {
-          background: #25d366;
-          transition: background 0s;
-        }
-        
-
-        .contact-btn {
-          --color: #1ddb63;
-          padding: 13px 7px 13px 7px ;
-          background-color: rgb(88, 79, 79);
-          text-decoration: none;
-        }
-        .catalog-btn {
-          --color: #560bad;
-          background-color: rgb(88, 79, 79);
-        }
-
-        
       }
     }
+
+    
   }
 }
 
